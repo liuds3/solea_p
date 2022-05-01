@@ -1,0 +1,51 @@
+﻿@model Org.Ktu.Isk.P175B602.Autonuoma.ViewModels.Answers
+@{
+	ViewData["title"] = "Question";
+}
+
+
+<div class="container-fluid d-flex justify-content-center">
+@using (Html.BeginForm()) 
+{
+	<a href="@Url.Action("Index")">Back to list</a>
+	@Html.AntiForgeryToken()
+	<p> @Html.DisplayFor(Question => Model.question.fk_User)'s question</p>
+	<table class="entitylist table table-striped table-hover">
+			<tr>
+			</tr>
+			<tr>
+				<td>
+					<b>@Html.DisplayFor(Question => Model.question.Questions)
+				</td>
+			</tr>
+			<tr>
+				<td>
+					@Html.DisplayFor(Question => Model.question.Content)
+				</td>
+			</tr>
+	</table>
+}
+</div>
+<a href="@Url.Action("Create", "Answer", new { q = Model.question.Questions, id = Model.question.Id })">Create new answer</a>
+@if(Model.answers.Count>0){
+<div>
+	<table >
+		@foreach (var item in Model.answers) {
+			<tr>
+				<td>
+					Answer by: @Html.DisplayFor(Question => item.fk_User)
+				</td>
+			</tr>
+			<tr>
+				<td>
+					@Html.DisplayFor(Question => item.Answers)
+				</td>
+			</tr>
+		}
+	</table>
+</div>
+}
+else
+{
+	<b>No answers yet</b>
+}

@@ -1,0 +1,128 @@
+﻿@{
+	/// <summary>
+	/// Helper for marking active links in main menu.
+	/// </summary>
+	/// <param name="ctrl">Controller to look for.</param>
+	/// <param name="act">Action to look for. Pass null if action does not matter.</param>
+	/// <returns>If controller and (optionally) action match given ones returns "active". Returns empty string otherwise.</returns>
+	string MarkActive(string ctrl, string act = null)
+	{
+		//get current controller and action
+		var curCtrl = (string)ViewContext.RouteData.Values["Controller"];
+		var curAct = (string)ViewContext.RouteData.Values["Action"];
+
+		//compare to given ones
+		if( curCtrl == ctrl && (act == null || curAct == act) )
+			return "active";
+		return "";
+	}
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Solea - @ViewData["title"]</title>
+</head>
+<body>
+	@* main menu *@
+	<nav>
+		<div>
+			<a href="@Url.Action("Index", "Question")" class="@MarkActive("Question") nav-link">Home</a>
+			<div>
+				<div>
+					<ul>
+						 
+						@*<li>
+							<a href="@Url.Action("Index", "User")" class="@MarkActive("User") nav-link">Users</a>
+						</li>
+						<li>
+							<a href="@Url.Action("Index", "Question")" class="@MarkActive("Question") nav-link">Questions</a>
+						</li>
+						<li>
+							<a href="@Url.Action("Index", "Answer")" class="@MarkActive("Answer") nav-link">Answers</a>
+						</li>*@
+					</ul>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	@* main content gets rendered here *@
+	<div class="main-content container-fluid">
+		@RenderBody()
+	</div>
+
+	@* page footer *@
+	@*<div class="container-fluid bg-dark text-muted">
+		<div class="footer-wrapper container-fluid d-flex justify-content-center pt-2">
+			<footer >
+				<p>&copy; SOLEA</p>
+			</footer>
+		</div>
+	</div>*@
+	
+	@* any javascript comming from script sections in views gets redered here *@
+	@RenderSection("scripts", required: false)
+
+	@* initialization routines go here *@
+	<script type="text/javascript">
+		//this function is run when page is fully loaded
+		$(document).ready(function () {
+			//apply datatables plugin on tables having css class 'entitylist'
+			$(".entitylist").DataTable({
+				"autoWidth": true,
+				language : {
+					"decimal":        "",
+					"emptyTable":     "Emty list",
+					"info":           "List from _START_ until _END_ iš _TOTAL_",
+					"infoEmpty":      "0",
+					"infoFiltered":   "(iš _MAX_ įrašų)",
+					"infoPostFix":    "",
+					"thousands":      ",",
+					"lengthMenu":     "Page: _MENU_",
+					"loadingRecords": "Vyksta duomenų įkėlimas...",
+					"processing":     "Vyksta apdorojimas...",
+					"search":         "Search:",
+					"zeroRecords":    "List not found",
+					"paginate": {
+						"first":      "First",
+						"last":       "Last",
+						"next":       "Next",
+						"previous":   "Before"
+					},
+					"aria": {
+						"sortAscending":  ": rikiuoti didėjimo tvarka",
+						"sortDescending": ": rikiuoti mažėjimo tvarka"
+					}
+				}
+			});
+
+			//apply datetimepicker plugin on date and datetime input fields
+			$(".date-picker").datetimepicker({ timepicker:false, format: 'Y-m-d' });
+			$(".datetime-picker").datetimepicker({ format: 'Y-m-d h:i' });
+
+			//Kadangi naudojamas vienas pasirinkimo objektas(SelectListItems) nustatyti pasirinkimo reikšmei reikia ja nustatyti panaudojant javascript funkcija ir html elementą
+			@* $(".sel_element").each(function () {
+				$(this).closest("td").find("select").val($(this).text());
+			}); *@
+
+			//Inicijuojami datos ir laiko pasirinkimo įvedimo elementai
+			@* $(".date-picker").datepicker({ dateFormat: 'yy-mm-dd' });
+			$(".datetime-picker").datetimepicker({ format: 'Y-m-d h:i' }); *@
+
+			@* $('input[type=text],input[type=radio],input[type=checkbox],textarea,select,input[type=email],input[type=number],input[type=datetime]').each(function () {
+				var req = $(this).attr('data-val-required');
+				var exclude = $(this).attr('data-exclude');
+				if (undefined != req && undefined == exclude) {
+					var label = $('label[for="' + $(this).attr('id') + '"]');
+					var text = label.text();
+					if (text.length > 0) {
+						label.append('<span style="color:red"> *</span>');
+					}
+				}
+			}); *@
+		});
+	</script>
+</body>
+</html>
