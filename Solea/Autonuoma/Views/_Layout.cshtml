@@ -24,12 +24,28 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Solea - @ViewData["title"]</title>
 	<link rel="icon" type="image/x-icon" href="css/favicon.ico">
+	<link rel="stylesheet" href="css/site.css"
 </head>
 <body>
+	
+		<div class="container">
+			<div class = "navbar">
+				<img src="images/logo.png" class="logo">
+				<nav>
+					<ul>
+						<li><a href="http://localhost:5000/Question">Pradinis</a></li>
+						<li><a href="http://localhost:5000/Question/Create">Sukurti naują klausimą</a></li>
+					</ul>
+				</nav>	
+				<img src="images/menu.png" class="menu-icon">
+			
+		</div>
+	</div>
+
 	@* main menu *@
 	<nav>
 		<div>
-			<a href="@Url.Action("Index", "Question")" class="@MarkActive("Question") nav-link">Home</a>
+			
 			<div>
 				<div>
 					<ul>
@@ -54,14 +70,14 @@
 		@RenderBody()
 	</div>
 
-	@* page footer *@
-	@*<div class="container-fluid bg-dark text-muted">
+	 page footer 
+	<div class="container-fluid bg-dark text-muted">
 		<div class="footer-wrapper container-fluid d-flex justify-content-center pt-2">
 			<footer >
 				<p>&copy; SOLEA</p>
 			</footer>
 		</div>
-	</div>*@
+	</div>
 	
 	@* any javascript comming from script sections in views gets redered here *@
 	@RenderSection("scripts", required: false)
