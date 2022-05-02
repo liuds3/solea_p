@@ -9,10 +9,55 @@ body {
 	min-height: 100vh;
 }
 
+.container{
+	width: 100%;
+	min-height: 100vh;
+	padding-left: 8%;
+	padding-right: 8%;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.navbar{
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.logo{
+	width: 50px;
+	cursor: pointer;
+	margin: 30px;
+}
+.menu-icon{
+	width: 25px;
+	cursor: pointer;
+}
+nav{
+	flex: 1;
+	text-align: right;
+}
+nav ul li{
+	list-style: none;
+	display: inline-block;
+	margin-right: 30px;
+}
+nav ul li a{
+	text-decoration: none;
+	color: #7857;
+	font-size: 14px;
+}
+
 
 /* force main content container to take all the free space vertically */
 .main-content {
 	flex: 1;
+	width: 100%;
+	min-height: 100vh;
+	padding-left: 8%;
+	padding-right: 8%;
+	box-sizing: border-box;
+	overflow: hidden;
 }
 
 /* style header section of main content */
