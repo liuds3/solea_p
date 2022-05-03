@@ -6,9 +6,10 @@
 
 
 <div class="container-fluid d-flex justify-content-center">
+	<link rel="stylesheet" href="../css/site.css"
 @using (Html.BeginForm()) 
 {
-	<a href="@Url.Action("Index")">Back to list</a>
+	
 	@Html.AntiForgeryToken()
 	<p> @Html.DisplayFor(Question => Model.question.fk_User)'s question</p>
 	<table class="entitylist table table-striped table-hover">
@@ -45,6 +46,7 @@
 		}
 	</table>
 </div>
+<a href="@Url.Action("Index")">Back to list</a>
 }
 else
 {
