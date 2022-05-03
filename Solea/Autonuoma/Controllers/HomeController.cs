@@ -1,4 +1,4 @@
-﻿/*using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 {
@@ -18,4 +18,4 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			return View();
 		}
 	}
-}*/
+}
