@@ -8,7 +8,7 @@ body {
 	flex-direction: column;
 	min-height: 100vh;
 }
-
+/*
 .container{
 	width: 100%;
 	min-height: 100vh;
@@ -46,7 +46,7 @@ nav ul li a{
 	text-decoration: none;
 	color: #7857;
 	font-size: 14px;
-}
+}*/
 
 
 /* force main content container to take all the free space vertically */
