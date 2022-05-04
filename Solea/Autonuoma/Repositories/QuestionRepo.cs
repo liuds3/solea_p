@@ -108,7 +108,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 				$@"UPDATE `{Config.TblPrefix}questions`
 				SET
 					user=?user,
-					question=?question
+					question=?question,
 					content=?content
 				WHERE
 					id=?id";
