@@ -5,7 +5,7 @@
 	/// <param name="ctrl">Controller to look for.</param>
 	/// <param name="act">Action to look for. Pass null if action does not matter.</param>
 	/// <returns>If controller and (optionally) action match given ones returns "active". Returns empty string otherwise.</returns>
-	string MarkActive(string ctrl, string act = null)
+	@*string MarkActive(string ctrl, string act = null)
 	{
 		//get current controller and action
 		var curCtrl = (string)ViewContext.RouteData.Values["Controller"];
@@ -15,7 +15,7 @@
 		if( curCtrl == ctrl && (act == null || curAct == act) )
 			return "active";
 		return "";
-	}
+	}*@
 }
 <!DOCTYPE html>
 <html>
@@ -42,7 +42,7 @@
             <span class="visually-hidden">(current)</span>
           </a>
         </li>
-        <li class="nav-item">
+        @*<li class="nav-item">
           <a class="nav-link" href="http://localhost:5000/Question/Create">Create a question</a>
         </li>
         <li class="nav-item">
@@ -50,7 +50,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="http://localhost:5000/User">Users</a>
-        </li>
+        </li>*@
       </ul>
     </div>
   </div>
