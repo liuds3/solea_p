@@ -29,20 +29,25 @@
 }
 </div>
 <a href="@Url.Action("Create", "Answer", new { q = Model.question.Questions, id = Model.question.Id })">Create new answer</a>
+
 @if(Model.answers.Count>0){
 <div>
-	<table >
+	<table class="entitylist table table-striped table-hover">
 		@foreach (var item in Model.answers) {
+			<thead>
 			<tr>
-				<td>
-					Answer by: @Html.DisplayFor(Question => item.fk_User)
-				</td>
-			</tr>
-			<tr>
-				<td>
+				<th>
+					@Html.DisplayFor(Question => item.fk_User)
+				</th>
+				<th>
 					@Html.DisplayFor(Question => item.Answers)
-				</td>
+				</th>
+				@*<th>
+					@Html.DisplayNameFor(Question => Question.Content)
+				</th>*@
+				<th></th>
 			</tr>
+		</thead>
 		}
 	</table>
 </div>
