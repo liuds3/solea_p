@@ -7,6 +7,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
+	background-color: aqua;
 }
 
 .container{
@@ -16,6 +17,7 @@ body {
 	padding-right: 8%;
 	box-sizing: border-box;
 	overflow: hidden;
+	margin: 0 !important;
 }
 
 .navbar{
@@ -59,6 +61,7 @@ nav ul li a{
 	padding-right: 8%;
 	box-sizing: border-box;
 	overflow: hidden;
+	margin: 0 !important;
 }
 
 /* style header section of main content */
@@ -72,7 +75,7 @@ nav ul li a{
 
 /* style footer section of main content */
 .main-content-footer {
-	margin-top: 1em;
+	margin-top: 0;
 }
 
 
@@ -106,10 +109,10 @@ form {
 
 /* add vertical space between field sets */
 form fieldset {
-	margin-bottom: 1em;
+	margin-bottom: 0;
 }
 
 /* add vertical space between form groups */
 .form-group {
-	margin-bottom: 1em;
+	margin-bottom: 0;
 }
