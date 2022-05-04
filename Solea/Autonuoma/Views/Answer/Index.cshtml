@@ -3,6 +3,8 @@
 	ViewData["title"] = "Answers";
 }
 
+
+<link rel="stylesheet" href="~/css/bootswatchTheme.css" />
 <div class="main-content-header container-fluid d-flex d-row justify-content-between align-items-center p-2">
 	<span class="title">@ViewData["title"]</span>
 	<span class="actions">
@@ -40,8 +42,10 @@
 					@Html.DisplayFor(Question => item.Answers)
 				</td>
 				<td>
-					@*<a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-					<a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Remove</a>*@
+
+					<a href="@Url.Action("Edit", new { id = item.Id })" style="float: right;" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+					<a href="@Url.Action("Delete", new { id = item.Id })" style="float: right;" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Remove</a>
+
 				</td>
 			</tr>
 			}

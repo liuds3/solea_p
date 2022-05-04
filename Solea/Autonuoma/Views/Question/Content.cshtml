@@ -4,10 +4,12 @@
 }
 
 
+<link rel="stylesheet" href="~/css/bootswatchTheme.css" />
 <div class="container-fluid d-flex justify-content-center">
+	
 @using (Html.BeginForm()) 
 {
-	<a href="@Url.Action("Index")">Back to list</a>
+	
 	@Html.AntiForgeryToken()
 	<p> @Html.DisplayFor(Question => Model.question.fk_User)'s question</p>
 	<table class="entitylist table table-striped table-hover">
@@ -27,22 +29,33 @@
 }
 </div>
 <a href="@Url.Action("Create", "Answer", new { q = Model.question.Questions, id = Model.question.Id })">Create new answer</a>
+
 @if(Model.answers.Count>0){
 <div>
-	<table >
+	<table class="entitylist table table-striped table-hover">
 		@foreach (var item in Model.answers) {
+			<thead>
 			<tr>
-				<td>
-					Answer by: @Html.DisplayFor(Question => item.fk_User)
-				</td>
-			</tr>
-			<tr>
-				<td>
+				<th>
+					@Html.DisplayFor(Question => item.fk_User)
+				</th>
+				<th>
 					@Html.DisplayFor(Question => item.Answers)
-				</td>
+				</th>
+				@*<th>
+					@Html.DisplayNameFor(Question => Question.Content)
+				</th>*@
+				<th></th>
 			</tr>
+		</thead>
 		}
 	</table>
+</div>
+<div class="main-content-footer container-fluid d-flex d-row justify-content-between align-items-center">
+	<span class="title"></span>
+	<span class="actions">
+		<a href="@Url.Action("Index")" class="btn btn-success"><i class="fa-solid fa-angles-left"></i> Back to list</a>
+	</span>
 </div>
 }
 else

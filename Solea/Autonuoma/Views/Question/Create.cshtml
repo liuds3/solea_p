@@ -2,7 +2,7 @@
 @{
 	ViewData["title"] = "Create question";
 }
-
+<link rel="stylesheet" href="~/css/bootswatchTheme.css" />
 <div class="main-content-header container-fluid d-flex d-row justify-content-between align-items-center">
 	<span class="title">@ViewData["title"]</span>
 </div>
@@ -34,12 +34,12 @@
 			@Html.EditorFor(m => m.Question.Content, new { htmlAttributes = new { @class = "form-control" } })
 			@Html.ValidationMessageFor(m => m.Question.Content, "", new { @class = "text-danger" })
 		</div>
-
+	@*
 		<div class="form-group">
 			<div class="col-md-offset-2 col-md-10">
 				<input type="submit" value="Išsaugoti" class="btn btn-success" />
 			</div>
-		</div>
+		</div>*@
 	</fieldset>
 
 	<div class="container-fluid d-flex d-row justify-content-end">
@@ -51,6 +51,6 @@
 <div class="main-content-footer container-fluid d-flex d-row justify-content-between align-items-center">
 	<span class="title"></span>
 	<span class="actions">
-		<a href="@Url.Action("Index")" class="link-primary"><i class="fa-solid fa-angles-left"></i> Back to list</a>
+		<a href="@Url.Action("Index")" class="btn btn-success"><i class="fa-solid fa-angles-left"></i> Back to list</a>
 	</span>
 </div>
