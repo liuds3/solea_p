@@ -41,7 +41,7 @@
 					@Html.DisplayFor(Question => item.Content)
 				</td>*@
 				<td>
-					<a href="@Url.Action("Content", new { id = item.Id })">Show content</a>
+					<a href="@Url.Action("Content", new { id = item.Id })" style="float: right;" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i>Show content</a>
 					@*<a href="@Url.Action("Deletee", new { id = item.Id })" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Remove</a>*@
 				</td>
 			</tr>
