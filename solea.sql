@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 03, 2022 at 02:59 PM
+-- Generation Time: May 05, 2022 at 06:55 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `answers` (
-  `user` varchar(8) NOT NULL,
+  `user` varchar(15) NOT NULL,
   `question` varchar(50) NOT NULL,
   `answer` text NOT NULL,
   `id` int(5) NOT NULL
@@ -39,8 +39,10 @@ CREATE TABLE `answers` (
 --
 
 INSERT INTO `answers` (`user`, `question`, `answer`, `id`) VALUES
-('karpol2', 'Ukraine vs Russia', 'I hope Ukraine wins this war. #SlavaUkraini', 1),
-('Useris2', 'Pizza or tacos?', 'Pizzas ofc.', 24);
+('karpol2', 'Ukraine vs Russia', 'I hope Ukraine wins this war. #SlavaUkraine', 1),
+('Useris2', 'Pizza or tacos?', 'Pizzas ofc.', 24),
+('mykolas', 'Luka Doncic in a game 1 loss to the Suns: 45/12/8 ', 'Luka deserves MVPs', 26),
+('kazka', 'Amber vs Depp, who wins?', 'Justice for Johnny Depp', 27);
 
 -- --------------------------------------------------------
 
@@ -49,7 +51,7 @@ INSERT INTO `answers` (`user`, `question`, `answer`, `id`) VALUES
 --
 
 CREATE TABLE `questions` (
-  `user` varchar(8) NOT NULL,
+  `user` varchar(15) NOT NULL,
   `question` varchar(50) NOT NULL,
   `id` int(5) NOT NULL,
   `content` text NOT NULL
@@ -76,7 +78,8 @@ INSERT INTO `questions` (`user`, `question`, `id`, `content`) VALUES
 ('kazka', 'Luka Doncic in a game 1 loss to the Suns: 45/12/8 ', 14, 'Not a bad game from Luka, but the suns still pull through and go up 1-0 in the series\r\n\r\n'),
 ('Useris2', 'What\'s the best piece of advice you ever received?', 15, 'Never give up. Thats the best advice for me, for you, for everyone.'),
 ('karpol2', 'Who inspires you to be better?', 16, 'Noone. I focus on my own, i don\'t have anyone to inspire, not really much looking forward to inspire from someone.'),
-('Useris2', 'About Lithuania', 17, 'Hello guys, is it worth living in Lithuania? What are situation there?');
+('Useris2', 'About Lithuania', 17, 'Hello guys, is it worth living in Lithuania? What are situation there?'),
+('karpol2', 'This is question title.', 18, 'This is a question title\'s description/content. (For test purposes.)');
 
 -- --------------------------------------------------------
 
@@ -86,23 +89,26 @@ INSERT INTO `questions` (`user`, `question`, `id`, `content`) VALUES
 
 CREATE TABLE `users` (
   `id` int(5) NOT NULL,
-  `name` varchar(8) NOT NULL
+  `name` varchar(15) NOT NULL,
+  `currency` int(6) NOT NULL,
+  `email` varchar(40) NOT NULL,
+  `password` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`) VALUES
-(141, 'karpol2'),
-(162, 'karpol5'),
-(153, 'kazka'),
-(121, 'mykolas'),
-(156, 'test55'),
-(154, 'testasAI'),
-(111, 'useris1'),
-(24, 'Useris2'),
-(28, 'Useris4');
+INSERT INTO `users` (`id`, `name`, `currency`, `email`, `password`) VALUES
+(24, 'Useris2', 14, 'useris2@gmail.com', 'randomizas'),
+(28, 'Useris4', 20, 'useris4@gmail.c', 'passwordz'),
+(111, 'useris1', 300, 'useris1@gmail.c', 'kebabas123'),
+(121, 'mykolas', 200, 'mykolas@gmail.c', 'cesnakinis'),
+(141, 'karpol2', 120, 'karpol2@gmail.c', 'kentauras'),
+(153, 'kazka', 400, 'kazka@gmail.com', 'kentauras'),
+(154, 'testasAI', 254, 'testasAi@gmail.', 'alio'),
+(156, 'test55', 60, 'test55@gmail.co', 'Neatpazyst'),
+(163, 'Testaskarpol2', 300, 'karpolisc@gmail.com', 'ilgasis');
 
 --
 -- Indexes for dumped tables
@@ -144,19 +150,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=164;
 
 --
 -- Constraints for dumped tables
