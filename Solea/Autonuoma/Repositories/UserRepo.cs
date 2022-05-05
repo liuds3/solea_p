@@ -84,16 +84,25 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 				$@"INSERT INTO `{Config.TblPrefix}users`
 				(
 					id,
-                    name
+                    name,
+					currency,
+					email,
+					password
 				)
 				VALUES(
 					?id,
-					?name
+					?name,
+					?currency,
+					?email,
+					?password
 				)";
 
 			Sql.Insert(query, args => {
 				args.Add("?id", MySqlDbType.VarChar).Value = User.Id;
 				args.Add("?name", MySqlDbType.VarChar).Value = User.Name;
+				args.Add("?currency", MySqlDbType.VarChar).Value = User.Currency;
+				args.Add("?email", MySqlDbType.VarChar).Value = User.Email;
+				args.Add("?password", MySqlDbType.VarChar).Value = User.Password;
 			});
 		}
 
