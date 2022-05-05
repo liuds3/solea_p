@@ -26,6 +26,9 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 				{
 					Id = Convert.ToInt32(item["id"]),
 					Name = Convert.ToString(item["name"]),
+					Currency = Convert.ToInt32(item["currency"]),
+					Email = Convert.ToString(item["email"]),
+					Password = Convert.ToString(item["password"]),
 				});
 			}
 
