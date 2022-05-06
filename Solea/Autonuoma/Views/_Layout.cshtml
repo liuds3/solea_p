@@ -27,11 +27,11 @@
 	<link rel="stylesheet" href="~/css/bootswatchTheme.css" />
 
 
-	<script src="@Url.Content("~/lib/jquery/dist/jquery.js")"></script>
+	@*<script src="@Url.Content("~/lib/jquery/dist/jquery.js")"></script> 
 
 	<script src="@Url.Content("~/lib/datatables/datatables.js")"></script>
 
-	<script src="@Url.Content("~/js/site.js")" asp-append-version="true"></script>
+	<script src="@Url.Content("~/js/site.js")" asp-append-version="true"></script>*@
 	
 </head>
 <body>
@@ -112,7 +112,7 @@
 		$(document).ready(function () {
 			//apply datatables plugin on tables having css class 'entitylist'
 			$(".entitylist").DataTable({
-				"autoWidth": true,
+				"autoWidth": false,
 				language : {
 					"decimal":        "",
 					"emptyTable":     "",
