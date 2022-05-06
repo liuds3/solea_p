@@ -25,6 +25,13 @@
 	<title>Solea - @ViewData["title"]</title>
 	<link rel="icon" type="image/x-icon" href="css/favicon.ico">
 	<link rel="stylesheet" href="~/css/bootswatchTheme.css" />
+
+
+	<script src="@Url.Content("~/lib/jquery/dist/jquery.js")"></script>
+
+	<script src="@Url.Content("~/lib/datatables/datatables.js")"></script>
+
+	<script src="@Url.Content("~/js/site.js")" asp-append-version="true"></script>
 	
 </head>
 <body>
@@ -108,22 +115,22 @@
 				"autoWidth": true,
 				language : {
 					"decimal":        "",
-					"emptyTable":     "Emty list",
-					"info":           "List from _START_ until _END_ iš _TOTAL_",
-					"infoEmpty":      "0",
-					"infoFiltered":   "(iš _MAX_ įrašų)",
+					"emptyTable":     "",
+					"info":           "",
+					"infoEmpty":      "",
+					"infoFiltered":   "",
 					"infoPostFix":    "",
-					"thousands":      ",",
-					"lengthMenu":     "Page: _MENU_",
-					"loadingRecords": "Vyksta duomenų įkėlimas...",
-					"processing":     "Vyksta apdorojimas...",
+					"thousands":      "",
+					"lengthMenu":     "",
+					"loadingRecords": "",
+					"processing":     "",
 					"search":         "Search:",
-					"zeroRecords":    "List not found",
+					"zeroRecords":    "",
 					"paginate": {
-						"first":      "First",
-						"last":       "Last",
-						"next":       "Next",
-						"previous":   "Before"
+						"first":      "",
+						"last":       "",
+						"next":       "",
+						"previous":   ""
 					},
 					"aria": {
 						"sortAscending":  ": rikiuoti didėjimo tvarka",
