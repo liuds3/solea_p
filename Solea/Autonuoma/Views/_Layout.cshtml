@@ -25,6 +25,13 @@
 	<title>Solea - @ViewData["title"]</title>
 	<link rel="icon" type="image/x-icon" href="css/favicon.ico">
 	<link rel="stylesheet" href="~/css/bootswatchTheme.css" />
+
+
+	@*<script src="@Url.Content("~/lib/jquery/dist/jquery.js")"></script> 
+
+	<script src="@Url.Content("~/lib/datatables/datatables.js")"></script>
+
+	<script src="@Url.Content("~/js/site.js")" asp-append-version="true"></script>*@
 	
 </head>
 <body>
@@ -48,9 +55,10 @@
         <li class="nav-item">
           <a class="nav-link" href="http://localhost:5000/Answer">Answers</a>
         </li>
+		*@
         <li class="nav-item">
           <a class="nav-link" href="http://localhost:5000/User">Users</a>
-        </li>*@
+        </li>
       </ul>
     </div>
   </div>
@@ -64,8 +72,8 @@
 			<div>
 				<div>
 					<ul>
-						 
-						@*<li>
+						 @*
+						<li>
 							<a href="@Url.Action("Index", "User")" class="@MarkActive("User") nav-link">Users</a>
 						</li>
 						<li>
@@ -104,25 +112,25 @@
 		$(document).ready(function () {
 			//apply datatables plugin on tables having css class 'entitylist'
 			$(".entitylist").DataTable({
-				"autoWidth": true,
+				"autoWidth": false,
 				language : {
 					"decimal":        "",
-					"emptyTable":     "Emty list",
-					"info":           "List from _START_ until _END_ iš _TOTAL_",
-					"infoEmpty":      "0",
-					"infoFiltered":   "(iš _MAX_ įrašų)",
+					"emptyTable":     "",
+					"info":           "",
+					"infoEmpty":      "",
+					"infoFiltered":   "",
 					"infoPostFix":    "",
-					"thousands":      ",",
-					"lengthMenu":     "Page: _MENU_",
-					"loadingRecords": "Vyksta duomenų įkėlimas...",
-					"processing":     "Vyksta apdorojimas...",
+					"thousands":      "",
+					"lengthMenu":     "",
+					"loadingRecords": "",
+					"processing":     "",
 					"search":         "Search:",
-					"zeroRecords":    "List not found",
+					"zeroRecords":    "",
 					"paginate": {
-						"first":      "First",
-						"last":       "Last",
-						"next":       "Next",
-						"previous":   "Before"
+						"first":      "",
+						"last":       "",
+						"next":       "",
+						"previous":   ""
 					},
 					"aria": {
 						"sortAscending":  ": rikiuoti didėjimo tvarka",

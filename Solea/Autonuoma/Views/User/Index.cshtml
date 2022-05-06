@@ -16,6 +16,19 @@
 			<tr>
 				<th>
 					@Html.DisplayNameFor(model => model.Name)
+
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Currency)
+
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Email)
+
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Password)
+
 				</th>
 				<th></th>
 			</tr>
@@ -25,6 +38,15 @@
 			<tr>
 				<td>
 					@Html.DisplayFor(model => item.Name)
+				</td>
+				<td>
+					@Html.DisplayFor(model => item.Currency)
+				</td>
+				<td>
+					@Html.DisplayFor(model => item.Email)
+				</td>
+				<td>
+					@Html.DisplayFor(model => item.Password)
 				</td>
 				<td>
 					<a href="@Url.Action("Edit", new { id = item.Id })" style="float: right;" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>

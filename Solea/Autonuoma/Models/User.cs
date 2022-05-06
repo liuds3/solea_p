@@ -16,5 +16,18 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Models
 		[DisplayName("Name")]
 		[Required]
 		public string Name { get; set; }
+
+		[DisplayName("Currency")]
+		public int Currency { get; set; }
+
+		[DisplayName("Email")]
+		[Required]
+		public string Email { get; set; }
+
+		[DisplayName("Password")]
+		[Required]
+		public string Password { get; set; }
+
+
 	}
 }

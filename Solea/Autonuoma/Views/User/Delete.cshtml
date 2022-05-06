@@ -20,7 +20,16 @@
 			<dd>@Html.DisplayFor(m => m.Id)</dd>
 
 			<dt>@Html.DisplayNameFor(m => m.Name)</dt>
-			<dd>@Html.DisplayFor(m => m.Name)</dd>			
+			<dd>@Html.DisplayFor(m => m.Name)</dd>
+
+			<dt>@Html.DisplayNameFor(m => m.Currency)</dt>
+			<dd>@Html.DisplayFor(m => m.Currency)</dd>
+
+			<dt>@Html.DisplayNameFor(m => m.Email)</dt>
+			<dd>@Html.DisplayFor(m => m.Email)</dd>	
+
+			<dt>@Html.DisplayNameFor(m => m.Password)</dt>
+			<dd>@Html.DisplayFor(m => m.Password)</dd>	
 		</dl>
 
 		@if( ViewData["deletionNotPermitted"] != null )
