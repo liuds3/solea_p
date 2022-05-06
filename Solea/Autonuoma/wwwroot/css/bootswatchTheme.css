@@ -4185,7 +4185,7 @@
  .nav-link {
    display: block;
    padding: 0.5rem 1rem;
-   color: #2a9fd6;
+   color: #fc0c08;
    text-decoration: none;
    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
  }
@@ -4197,7 +4197,7 @@
  }
  
  .nav-link:hover, .nav-link:focus {
-   color: #227fab;
+   color: #f42804;
  }
  
  .nav-link.disabled {
@@ -4316,6 +4316,7 @@
    font-size: 1.25rem;
    text-decoration: none;
    white-space: nowrap;
+   color: red;
  }
  
  .navbar-nav {
@@ -4823,7 +4824,7 @@
  }
  
  .navbar-dark .navbar-brand {
-   color: #fff;
+   color: rgb(255, 255, 255);
  }
  
  .navbar-dark .navbar-brand:hover, .navbar-dark .navbar-brand:focus {
