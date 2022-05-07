@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Org.Ktu.Isk.P175B602.Autonuoma.Models;
 
 
 namespace Org.Ktu.Isk.P175B602.Autonuoma.ViewModels
@@ -47,6 +48,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.ViewModels
 		/// </summary>
 		public AnswerM Answer { get; set; } = new AnswerM();
 
+		public User user {get; set;}
 		/// <summary>
 		/// Lists for drop down controls.
 		/// </summary>

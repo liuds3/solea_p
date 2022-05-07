@@ -2,4 +2,15 @@
 	ViewData["title"] = "Pagrindinis puslapis";
 }
 <link rel="stylesheet" href="~/HelloWorldMvc6.styles.css" />
-<h1>This is heading 1</h1>
+	<ul>
+		<li>
+		<span class="actions">
+			<a href="@Url.Action("Create", "User")" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Register</a>
+		</span>
+		</li>
+		<li>
+		<span class="actions">
+			<a href="@Url.Action("Login", "User")" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Login</a>
+		</span>
+		</li>
+		</ul>

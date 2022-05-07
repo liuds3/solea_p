@@ -6,12 +6,12 @@ using Org.Ktu.Isk.P175B602.Autonuoma.Models;
 namespace Org.Ktu.Isk.P175B602.Autonuoma.ViewModels
 {
 	/// <summary>
-	/// Model of 'Modelis' entity used in lists.
+	/// Model of 'Modelis' entity used in creation and editing forms.
 	/// </summary>
-	public class Answers
-    {
-        public QuestionListVM question { get; set; }
-        public List<AnswerListVM> answers { get; set; }
-        public User user {get; set;}
-    }
+	public class QuestionsLog
+	{
+		public List<QuestionListVM> question { get; set; }
+        public User user {get;set;}
+
+	}
 }

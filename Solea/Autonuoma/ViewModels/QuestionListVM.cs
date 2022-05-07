@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Org.Ktu.Isk.P175B602.Autonuoma.Models;
 
 
 namespace Org.Ktu.Isk.P175B602.Autonuoma.ViewModels
@@ -20,7 +21,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.ViewModels
 		    public int Id { get; set; }
 
 			[DisplayName("Content")]
-		     public string Content { get; set; }
+		    public string Content { get; set; }	
 
 	}
 }

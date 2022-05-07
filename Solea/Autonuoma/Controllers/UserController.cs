@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-
 using Org.Ktu.Isk.P175B602.Autonuoma.Repositories;
 using Org.Ktu.Isk.P175B602.Autonuoma.Models;
 using Org.Ktu.Isk.P175B602.Autonuoma.ViewModels;
+using System.Diagnostics;
 
 
 namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
@@ -20,6 +20,30 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		{
 			var users = UserRepo.List();
 			return View(users);
+		}
+
+		/*public ActionResult Login(string name, string password)
+		{
+			var match = UserRepo.Find(darb.ID);
+			return View(users);
+		}*/
+		public ActionResult Login()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public ActionResult Login(User user)
+		{
+			var match = UserRepo.Find(user);
+			if( match.Name != user.Name || match.Password != user.Password )
+				ModelState.AddModelError("password", "Incorrect name or password");
+			if(match.Name == user.Name && match.Password == user.Password){
+				
+				//Loggedin.Login();
+				return RedirectToAction("Index", "Question", new { id = match.Id});
+			}
+			return View(user);
 		}
 
 		/// <summary>
@@ -58,7 +82,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// </summary>
 		/// <param name="id">ID of the entity to edit.</param>
 		/// <returns>Editing form view.</returns>
-		public ActionResult Edit(int id)
+		/*public ActionResult Edit(int id)
 		{
 			var user = UserRepo.Find(id);
 			return View(user);
@@ -120,6 +144,6 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 				var user = UserRepo.Find(id);
 				return View("Delete", user);
 			}
-		}
+		}*/
 	}
 }

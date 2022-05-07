@@ -1,4 +1,4 @@
-@model IEnumerable<Org.Ktu.Isk.P175B602.Autonuoma.ViewModels.QuestionListVM>
+@model Org.Ktu.Isk.P175B602.Autonuoma.ViewModels.QuestionsLog
 @{
 	ViewData["title"] = "Questions";
 }
@@ -6,9 +6,11 @@
 
 <div class="main-content-header container-fluid d-flex d-row justify-content-between align-items-center p-2">
 	<span class="title">@ViewData["title"]</span>
+	<p>@Html.DisplayFor(User => Model.user.Name)</p>
 	<span class="actions">
-		<a href="@Url.Action("Create")" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Create new question</a>
+		<a href="@Url.Action("Create", new { userId = Model.user.Id})" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Create new question</a>
 	</span>
+	
 </div>
 
 
@@ -17,10 +19,10 @@
 		<thead>
 			<tr>
 				<th>
-					@Html.DisplayNameFor(Question => Question.fk_User)
+					User
 				</th>
 				<th>
-					@Html.DisplayNameFor(Question => Question.Questions)
+					Question
 				</th>
 				@*<th>
 					@Html.DisplayNameFor(Question => Question.Content)
@@ -29,7 +31,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var item in Model) {
+			@foreach (var item in Model.question) {
 			<tr>
 				<td>
 					@Html.DisplayFor(Question => item.fk_User)
@@ -42,10 +44,10 @@
 				</td>*@
 				<td>
 
-					<a href="@Url.Action("Content", new { id = item.Id })" style="float: right;" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i>Show content</a>
+					<a href="@Url.Action("Content", new { id = item.Id, userId = Model.user.Id })" style="float: right;" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i>Show content</a>
 
 					@*<a href="@Url.Action("Deletee", new { id = item.Id })" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Remove</a>*@
-					<a href="@Url.Action("Edit", new { id = item.Id })" style="float: right;" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+					<a href="@Url.Action("Edit", new { id = item.Id, userId = Model.user.Id })" style="float: right;" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
 					@*<a href="@Url.Action("Delete", new { id = item.Id })" style="float: right;" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Remove</a>*@
 				</td>
 			</tr>

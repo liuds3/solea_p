@@ -57,6 +57,29 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 			return User;
 		}
 
+		public static User Find(User user)
+		{
+			var User = new User();
+
+			var query = $@"SELECT * FROM `{Config.TblPrefix}users` WHERE name=?name AND password=?password";
+			var dt = 
+				Sql.Query(query, args => {
+					args.Add("?password", MySqlDbType.VarChar).Value = user.Password;
+					args.Add("?name", MySqlDbType.VarChar).Value = user.Name;
+				});
+
+			foreach( DataRow item in dt )
+			{
+				User.Id = Convert.ToInt32(item["id"]);
+				User.Name = Convert.ToString(item["name"]);
+				User.Currency = Convert.ToInt32(item["currency"]);
+				User.Email = Convert.ToString(item["email"]);
+				User.Password = Convert.ToString(item["password"]);
+			}
+
+			return User;
+		}
+
 		public static void Update(User User)
 		{			
 			var query = 

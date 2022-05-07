@@ -5,6 +5,7 @@
 
 <div class="main-content-header container-fluid d-flex d-row justify-content-between align-items-center">
 	<span class="title">@ViewData["title"]</span>
+	<p>@Html.DisplayFor(User => Model.user.Name)</p>
 </div>
 
 <div class="container-fluid d-flex justify-content-center">
@@ -15,6 +16,8 @@
 	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 	@Html.HiddenFor(m => m.Answer.Id)
+
+	@Html.HiddenFor(m => m.user.Id)
 
 	<fieldset class="border rounded shadow p-2">
 		<div class="form-group">
