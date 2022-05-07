@@ -5,10 +5,31 @@
 
 
 <link rel="stylesheet" href="~/css/bootswatchTheme.css" />
+<<<<<<< Updated upstream
+=======
+<div class="main-content-header container-fluid d-flex d-row justify-content-between align-items-center p-2">
+	<span class="title">@ViewData["title"]</span>
+	<p>@Html.DisplayFor(User => Model.user.Name)</p>
+	<p>@Html.DisplayFor(User => Model.user.Currency)</p>
+</div>
+>>>>>>> Stashed changes
 <div class="container-fluid d-flex justify-content-center">
 	
 @using (Html.BeginForm()) 
 {
+
+	<div class="form-group container-fluid d-flex justify-content-between align-items-center p-0">
+		<div class="form-group container-fluid d-flex justify-content-left align-items-center m-0 p-0">
+			<label>Paieska:&nbsp;</label>
+			@Html.TextBoxFor(m => m.question.Questions, "-----------", new { @class = "text-picker" })
+			
+			<span style="width:3ch;"></span>
+		</div>
+		<button 
+			class="btn btn-success" 
+			style="white-space: nowrap;"
+		><i class="fa-solid fa-filter"></i> Atrinkti</button>
+	</div>
 	
 	@Html.AntiForgeryToken()
 	<p> @Html.DisplayFor(Question => Model.question.fk_User)'s question</p>
