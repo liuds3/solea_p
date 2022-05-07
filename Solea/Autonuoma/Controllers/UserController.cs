@@ -42,7 +42,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			var match = UserRepo.Find(user);
 			if( match.Name != user.Name || match.Password != user.Password )
 				ModelState.AddModelError("password", "Incorrect name or password");
-			if(match.Name == user.Name && match.Password == user.Password){
+			if(match.Name == user.Name && match.Password == user.Password && user.Name!=null && user.Password !=null){
 				
 				//Loggedin.Login();
 				return RedirectToAction("Index", "Question", new { id = match.Id});
@@ -68,26 +68,36 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		[HttpPost]
 		public ActionResult Create(User user)
 		{
-			var match = UserRepo.Find(user, 1);
-			
+			var matchName = UserRepo.Find(user.Name, 1);
+			var matchEmail = UserRepo.Find(user.Email);
+			if(matchName.Name == "testasAI"){
+					Debug.WriteLine("gerai");
+				}
+			else
+				Debug.WriteLine("blogai");
 
-			if( match.Name == user.Name)
-				ModelState.AddModelError("name", "this name is already taken");
-			if( match.Email == user.Email)
-				ModelState.AddModelError("email", "this email is already taken");
-			
+			if( matchName.Name == user.Name)
+				ModelState.AddModelError("name", "This name is already taken");
+			else if( user.Name==null || user.Name.Length < 5)
+				ModelState.AddModelError("name", "Name must be atleast 5 characters long");
+			if( matchEmail.Email == user.Email)
+				ModelState.AddModelError("email", "This email is already taken");
+			else if( user.Email == null || user.Email.Length < 5)
+				ModelState.AddModelError("email", "Email must be atleast 5 characters long");
+			if(user.Password == null || user.Password.Length < 5)
+				ModelState.AddModelError("password", "Password must be atleast 5 characters long");
 			//form field validation passed?
-			else if (ModelState.IsValid && match.Name != user.Name && match.Email != user.Email)
+			if (ModelState.IsValid && matchName.Name != user.Name && matchEmail.Email != user.Email)
 			{
 				UserRepo.Insert(user);
-				match = UserRepo.Find(user, 1);
+				matchName = UserRepo.Find(user.Name, 1);
 				/*if(match.Name == "lab"){
 					Debug.WriteLine("gerai");
 				}
 				else
 					Debug.WriteLine("blogai");*/
 				//save success, go back to the entity list
-				return RedirectToAction("Index","Question", new {id = match.Id});
+				return RedirectToAction("Index","Question", new {id = matchName.Id});
 			}
 
 			//form field validation failed, go back to the form

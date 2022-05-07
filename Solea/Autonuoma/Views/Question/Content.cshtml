@@ -3,7 +3,9 @@
 	ViewData["title"] = "Question";
 }
 
-
+@if(Model.user.Id==0){
+<body onload=' window.location="http://localhost:5000" ; '></body>
+}
 <link rel="stylesheet" href="~/css/bootswatchTheme.css" />
 <div class="main-content-header container-fluid d-flex d-row justify-content-between align-items-center p-2">
 	<span class="title">@ViewData["title"]</span>
@@ -50,7 +52,9 @@
 					@Html.DisplayNameFor(Question => Question.Content)
 				</th>*@
 				<th>
-					<a href="@Url.Action("Edit","Answer", new { id1 = item.Id, id = Model.question.Id, q = Model.question.Questions , userId = Model.user.Id } )" style="float: right;" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+					@if(Model.user.Name==item.fk_User){
+						<a href="@Url.Action("Edit","Answer", new { id1 = item.Id, id = Model.question.Id, q = Model.question.Questions , userId = Model.user.Id } )" style="float: right;" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+					}
 				</th>
 			</tr>
 		</thead>

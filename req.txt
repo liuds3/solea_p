@@ -1,4 +1,0 @@
-in creating answers and questions show only one user
-
-let only edit their own questios and answers
-

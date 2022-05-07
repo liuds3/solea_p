@@ -35,7 +35,9 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			PopulateSelections(answerEvm);
 			answerEvm.Answer.fk_Questions=q;
 			answerEvm.Lists.Questions_Id=id;
-			answerEvm.user=UserRepo.Find(userId);
+			var user=UserRepo.Find(userId);
+			answerEvm.Answer.fk_User=user.Name;
+			answerEvm.user=user;
 			return View(answerEvm);
 		}
 
@@ -48,17 +50,22 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		public ActionResult Create(AnswerEditVM answerEvm, int id)
 		{
 			//form field validation passed?
-			if( ModelState.IsValid )
+			/*if( ModelState.IsValid )
 			{
 				AnswerRepo.Insert(answerEvm);
 
 				//save success, go back to the entity list
 				return RedirectToAction("Content", "Question", new { id = id, userId = answerEvm.user.Id});
-			}
+			}*/
+			if(answerEvm.Answer.Answers == null || answerEvm.Answer.Answers.Length < 3)
+				ModelState.AddModelError("answer", "The answer must be atleast 3 characters long");
+			else{
 			AnswerRepo.Insert(answerEvm);
 			//form field validation failed, go back to the form
 			//PopulateSelections(answerEvm);
 			return RedirectToAction("Content", "Question", new { id = id, userId = answerEvm.user.Id});
+			}
+			return View(answerEvm);
 			//return View(answerEvm);
 			
 		}
@@ -91,6 +98,14 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			//form field validation passed?
 			//if( ModelState.IsValid )
 			//{
+				if( answerEvm.Answer.Answers== null){
+					ModelState.AddModelError("answer", "The answer cannont be empty");
+					return View(answerEvm);
+				}
+				else if( answerEvm.Answer.Answers.Length < 3){
+					ModelState.AddModelError("answer", "The answer must be atleast 3 symbols long");
+					return View(answerEvm);
+				}
 				AnswerRepo.Update(answerEvm);
 
 				//save success, go back to the entity list

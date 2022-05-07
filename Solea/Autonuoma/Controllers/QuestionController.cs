@@ -44,12 +44,14 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// This is invoked when creation form is first opened in browser.
 		/// </summary>
 		/// <returns>Creation form view.</returns>
-		public ActionResult Create(int userId, int id)
+		public ActionResult Create(int userId)
 		{
 			var questionEvm = new QuestionEditVM();
-			questionEvm.user=UserRepo.Find(userId);
-			questionEvm.Lists.id=id;
-			PopulateSelections(questionEvm);
+			var user=UserRepo.Find(userId);
+			questionEvm.user=user;
+			questionEvm.Lists.id=userId;
+			questionEvm.Question.fk_User=user.Name;
+			//PopulateSelections(questionEvm);
 			return View(questionEvm);
 		}
 
@@ -61,19 +63,38 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		[HttpPost]
 		public ActionResult Create(QuestionEditVM questionEvm)
 		{
+			bool temp=true;
 			//form field validation passed?
 			/*if( ModelState.IsValid )
+			
 			{
 				QuestionRepo.Insert(questionEvm);
 
 				//save success, go back to the entity list
 				return RedirectToAction("Index", new { id = questionEvm.user.Id});
 			}*/
-			QuestionRepo.Insert(questionEvm);
+			if(questionEvm.Question.Questions == null || questionEvm.Question.Questions.Length < 5){
+				ModelState.AddModelError("question", "Question must be atleast 5 characters");
+				temp=false;
+			}
+			var question = QuestionRepo.Find(questionEvm.Question.Id);
+			if(question.Question.Questions == questionEvm.Question.Questions){
+				ModelState.AddModelError("question", "Question with the same title already exist");
+				temp=false;
+			}
+			if(questionEvm.Question.Content == null || questionEvm.Question.Content.Length < 15){
+				ModelState.AddModelError("content", "Content must be atleast 15 characters");
+				temp=false;
+			}
+			if(temp){
+				QuestionRepo.Insert(questionEvm);
+				return RedirectToAction("Index", new { id = questionEvm.user.Id});
+			}
+			return View(questionEvm);
 			//form field validation failed, go back to the form
 			//PopulateSelections(questionEvm);
 			//return View(questionEvm);
-			return RedirectToAction("Index", new { id = questionEvm.user.Id});
+			
 		}
 
 		/// <summary>
@@ -85,12 +106,6 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		{
 			var questionEvm = QuestionRepo.Find(id);
 			questionEvm.user=UserRepo.Find(userId);
-			if(questionEvm.user.Name=="n")
-				Debug.WriteLine("gerai");
-			else
-				Debug.WriteLine("blogai");
-			PopulateSelections(questionEvm);
-
 			return View(questionEvm);
 		}
 
@@ -104,19 +119,27 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		public ActionResult Edit(int id, QuestionEditVM questionEvm)
 		{
 			//form field validation passed?
-			if( ModelState.IsValid )
+			/*if( ModelState.IsValid )
 			{
 				QuestionRepo.Update(questionEvm);
 
 				//save success, go back to the entity list
 				return RedirectToAction("Index", new { id = questionEvm.user.Id});
-			}
-
+			}*/
+			/*if(questionEvm.Question.Questions == null || questionEvm.Question.Questions.Length < 5)
+				ModelState.AddModelError("question", "Question must be atleast 5 characters");
+			var question = QuestionRepo.Find(questionEvm.Question.Id);
+			if(question.Question.Questions == questionEvm.Question.Questions)
+				ModelState.AddModelError("question", "Question with the same title already exist");*/
+			if(questionEvm.Question.Content == null || questionEvm.Question.Content.Length < 15)
+				ModelState.AddModelError("content", "Content must be atleast 15 characters");
+			else {
+				QuestionRepo.Update(questionEvm);
+				return RedirectToAction("Index", new { id = questionEvm.user.Id});
+				}
 			//form field validation failed, go back to the form
-			PopulateSelections(questionEvm);
-			//return View(questionEvm);
-			return RedirectToAction("Index", new { id = questionEvm.user.Id});
-
+			//PopulateSelections(questionEvm);
+			return View(questionEvm);
 		}
 
 		/// </summary>
@@ -160,7 +183,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// Populates select lists used to render drop down controls.
 		/// </summary>
 		/// <param name="questionEvm">'Automobilis' view model to append to.</param>
-		public void PopulateSelections(QuestionEditVM questionsEvm)
+		/*public void PopulateSelections(QuestionEditVM questionsEvm)
 		{
 			//load entities for the select lists
 			var users = UserRepo.List();
@@ -175,6 +198,6 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 						};
 				})
 				.ToList();
-		}
+		}*/
 	}
 }

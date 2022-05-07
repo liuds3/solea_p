@@ -2,6 +2,9 @@
 @{
 	ViewData["title"] = "Create question";
 }
+@if(Model.user.Id==0){
+<body onload=' window.location="http://localhost:5000" ; '></body>
+}
 <link rel="stylesheet" href="~/css/bootswatchTheme.css" />
 <div class="main-content-header container-fluid d-flex d-row justify-content-between align-items-center">
 	<span class="title">@ViewData["title"]</span>
@@ -16,7 +19,7 @@
 
 	@Html.HiddenFor(m => m.Question.Id)
 	@Html.HiddenFor(m => m.user.Id)
-	@*@Html.HiddenFor(m => m.Question.fk_User@*, new { htmlAttributes = new { @Value=Model.user.Name } }*@)
+	@Html.HiddenFor(m => m.Question.fk_User, new { htmlAttributes = new { @Value=Model.Question.fk_User } })
 	<fieldset class="border rounded shadow p-2">
 		@*<div class="form-group">
 			@Html.LabelFor(m => m.Question.fk_User, new { @class = "control-label" })
@@ -24,22 +27,22 @@
 			@Html.ValidationMessageFor(m => m.Question.fk_User, "", new { @class = "text-danger" })
 		</div>*@
 		
-		<div class="form-group">
+		@*<div class="form-group">
 			@Html.LabelFor(m => m.Question.fk_User, new { @class = "control-label" })
-			@Html.EditorFor(m => m.Question.fk_User, new { htmlAttributes = new { @Value=Model.List.id, @readonly = "readonly"  } })
+			@Html.EditorFor(m => m.Question.fk_User, new { htmlAttributes = new { @Value=Model.Question.fk_User, @readonly = "readonly"  } })
 			@Html.ValidationMessageFor(m => m.Question.fk_User, "", new { @class = "text-danger" })
-		</div>
+		</div>*@
 
 		<div class="form-group">
 			@Html.LabelFor(m => m.Question.Questions, new { @class = "control-label" })
 			@Html.EditorFor(m => m.Question.Questions, new { htmlAttributes = new { @class = "form-control" } })
-			@Html.ValidationMessageFor(m => m.Question.Questions, "", new { @class = "text-danger" })
+			@Html.ValidationMessage("question"@*m => m.Question.Questions, "", new { @class = "text-danger" }*@)
 		</div>
 
 		<div class="form-group">
 			@Html.LabelFor(m => m.Question.Content, new { @class = "control-label" })
 			@Html.EditorFor(m => m.Question.Content, new { htmlAttributes = new { @class = "form-control" } })
-			@Html.ValidationMessageFor(m => m.Question.Content, "", new { @class = "text-danger" })
+			@Html.ValidationMessage("content"@*m => m.Question.Content, "", new { @class = "text-danger" }*@)
 		</div>
 	@*
 		<div class="form-group">

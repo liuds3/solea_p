@@ -28,7 +28,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 					`{Config.TblPrefix}answers` md
 					LEFT JOIN `{Config.TblPrefix}users` usr ON md.user=usr.name
 					LEFT JOIN `{Config.TblPrefix}questions` que ON md.question=que.question
-				ORDER BY md.user ASC";
+				ORDER BY md.id DESC";
 
 			var dt = Sql.Query(query);
 

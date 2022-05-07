@@ -79,13 +79,30 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 			return User;
 		}
 		//This is used to check when registering whether an account with the same name or email already exist
-		public static User Find(User user, int n){
+		public static User Find(string user){
 			var User = new User();
-			var query = $@"SELECT * FROM `{Config.TblPrefix}users` WHERE name=?name AND email=?email";
+			var query = $@"SELECT * FROM `{Config.TblPrefix}users` WHERE email=?email";
 			var dt = 
 				Sql.Query(query, args => {
-					args.Add("?email", MySqlDbType.VarChar).Value = user.Email;
-					args.Add("?name", MySqlDbType.VarChar).Value = user.Name;
+					args.Add("?email", MySqlDbType.VarChar).Value = user;
+				});
+			foreach( DataRow item in dt )
+			{
+				User.Id = Convert.ToInt32(item["id"]);
+				User.Name = Convert.ToString(item["name"]);
+				User.Currency = Convert.ToInt32(item["currency"]);
+				User.Email = Convert.ToString(item["email"]);
+				User.Password = Convert.ToString(item["password"]);
+			}
+
+			return User;
+		}
+		public static User Find(string user, int n){
+			var User = new User();
+			var query = $@"SELECT * FROM `{Config.TblPrefix}users` WHERE name=?name";
+			var dt = 
+				Sql.Query(query, args => {
+					args.Add("?name", MySqlDbType.VarChar).Value = user;
 				});
 			foreach( DataRow item in dt )
 			{
