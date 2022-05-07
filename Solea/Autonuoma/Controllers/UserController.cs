@@ -27,11 +27,15 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			var match = UserRepo.Find(darb.ID);
 			return View(users);
 		}*/
+		//This page is invoked when login button is pressed
 		public ActionResult Login()
 		{
 			return View();
 		}
 
+		//This function is invoked when a login form is submited (pressed login) on login page
+		//It checks whether a user name and password is found in the data base
+		//If found sends user's id to main page, so from there it can be used
 		[HttpPost]
 		public ActionResult Login(User user)
 		{
@@ -64,13 +68,26 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		[HttpPost]
 		public ActionResult Create(User user)
 		{
+			var match = UserRepo.Find(user, 1);
+			
+
+			if( match.Name == user.Name)
+				ModelState.AddModelError("name", "this name is already taken");
+			if( match.Email == user.Email)
+				ModelState.AddModelError("email", "this email is already taken");
+			
 			//form field validation passed?
-			if (ModelState.IsValid)
+			else if (ModelState.IsValid && match.Name != user.Name && match.Email != user.Email)
 			{
 				UserRepo.Insert(user);
-
+				match = UserRepo.Find(user, 1);
+				/*if(match.Name == "lab"){
+					Debug.WriteLine("gerai");
+				}
+				else
+					Debug.WriteLine("blogai");*/
 				//save success, go back to the entity list
-				return RedirectToAction("Index");
+				return RedirectToAction("Index","Question", new {id = match.Id});
 			}
 
 			//form field validation failed, go back to the form

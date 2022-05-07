@@ -44,10 +44,11 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// This is invoked when creation form is first opened in browser.
 		/// </summary>
 		/// <returns>Creation form view.</returns>
-		public ActionResult Create(int userId)
+		public ActionResult Create(int userId, int id)
 		{
 			var questionEvm = new QuestionEditVM();
 			questionEvm.user=UserRepo.Find(userId);
+			questionEvm.Lists.id=id;
 			PopulateSelections(questionEvm);
 			return View(questionEvm);
 		}
