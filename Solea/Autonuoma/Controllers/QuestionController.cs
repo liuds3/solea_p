@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
+using System.Diagnostics;
 using Org.Ktu.Isk.P175B602.Autonuoma.Repositories;
 using Org.Ktu.Isk.P175B602.Autonuoma.Models;
 using Org.Ktu.Isk.P175B602.Autonuoma.ViewModels;
@@ -18,29 +18,40 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// This is invoked when either 'Index' action is requested or no action is provided.
 		/// </summary>
 		/// <returns>Entity list view.</returns>
-		public ActionResult Index()
+		public ActionResult Index(int id)
 		{
 			var questions = QuestionRepo.List();
-			return View(questions);
+			var user = UserRepo.Find(id);
+			var vModel = new QuestionsLog();
+			vModel.question=questions;
+			vModel.user=user;
+			//vModel.loggedin=questions;
+			return View(vModel);
 		}
 		
-		public ActionResult Content(int id)
+		public ActionResult Content(int id, int userId)
 		{
 			var answerss = AnswerRepo.QuestionAnswers(id);
 			var questions = QuestionRepo.FindForDeletion(id);
+			var user = UserRepo.Find(userId);
 			var vModel = new Answers();
 			vModel.answers=answerss;
 			vModel.question=questions;
+			vModel.user=user;
 			return View(vModel);
 		}
 		/// <summary>
 		/// This is invoked when creation form is first opened in browser.
 		/// </summary>
 		/// <returns>Creation form view.</returns>
-		public ActionResult Create()
+		public ActionResult Create(int userId)
 		{
 			var questionEvm = new QuestionEditVM();
-			PopulateSelections(questionEvm);
+			var user=UserRepo.Find(userId);
+			questionEvm.user=user;
+			questionEvm.Lists.id=userId;
+			questionEvm.Question.fk_User=user.Name;
+			//PopulateSelections(questionEvm);
 			return View(questionEvm);
 		}
 
@@ -52,18 +63,38 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		[HttpPost]
 		public ActionResult Create(QuestionEditVM questionEvm)
 		{
+			bool temp=true;
 			//form field validation passed?
-			if( ModelState.IsValid )
+			/*if( ModelState.IsValid )
+			
 			{
 				QuestionRepo.Insert(questionEvm);
 
 				//save success, go back to the entity list
-				return RedirectToAction("Index");
+				return RedirectToAction("Index", new { id = questionEvm.user.Id});
+			}*/
+			if(questionEvm.Question.Questions == null || questionEvm.Question.Questions.Length < 5){
+				ModelState.AddModelError("question", "Question must be atleast 5 characters");
+				temp=false;
 			}
-
-			//form field validation failed, go back to the form
-			PopulateSelections(questionEvm);
+			var question = QuestionRepo.Find(questionEvm.Question.Id);
+			if(question.Question.Questions == questionEvm.Question.Questions){
+				ModelState.AddModelError("question", "Question with the same title already exist");
+				temp=false;
+			}
+			if(questionEvm.Question.Content == null || questionEvm.Question.Content.Length < 15){
+				ModelState.AddModelError("content", "Content must be atleast 15 characters");
+				temp=false;
+			}
+			if(temp){
+				QuestionRepo.Insert(questionEvm);
+				return RedirectToAction("Index", new { id = questionEvm.user.Id});
+			}
 			return View(questionEvm);
+			//form field validation failed, go back to the form
+			//PopulateSelections(questionEvm);
+			//return View(questionEvm);
+			
 		}
 
 		/// <summary>
@@ -71,11 +102,10 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// </summary>
 		/// <param name="id">ID of the entity to edit.</param>
 		/// <returns>Editing form view.</returns>
-		public ActionResult Edit(int id)
+		public ActionResult Edit(int id, int userId)
 		{
 			var questionEvm = QuestionRepo.Find(id);
-			PopulateSelections(questionEvm);
-
+			questionEvm.user=UserRepo.Find(userId);
 			return View(questionEvm);
 		}
 
@@ -89,16 +119,26 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		public ActionResult Edit(int id, QuestionEditVM questionEvm)
 		{
 			//form field validation passed?
-			if( ModelState.IsValid )
+			/*if( ModelState.IsValid )
 			{
 				QuestionRepo.Update(questionEvm);
 
 				//save success, go back to the entity list
-				return RedirectToAction("Index");
-			}
-
+				return RedirectToAction("Index", new { id = questionEvm.user.Id});
+			}*/
+			/*if(questionEvm.Question.Questions == null || questionEvm.Question.Questions.Length < 5)
+				ModelState.AddModelError("question", "Question must be atleast 5 characters");
+			var question = QuestionRepo.Find(questionEvm.Question.Id);
+			if(question.Question.Questions == questionEvm.Question.Questions)
+				ModelState.AddModelError("question", "Question with the same title already exist");*/
+			if(questionEvm.Question.Content == null || questionEvm.Question.Content.Length < 15)
+				ModelState.AddModelError("content", "Content must be atleast 15 characters");
+			else {
+				QuestionRepo.Update(questionEvm);
+				return RedirectToAction("Index", new { id = questionEvm.user.Id});
+				}
 			//form field validation failed, go back to the form
-			PopulateSelections(questionEvm);
+			//PopulateSelections(questionEvm);
 			return View(questionEvm);
 		}
 
@@ -143,7 +183,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// Populates select lists used to render drop down controls.
 		/// </summary>
 		/// <param name="questionEvm">'Automobilis' view model to append to.</param>
-		public void PopulateSelections(QuestionEditVM questionsEvm)
+		/*public void PopulateSelections(QuestionEditVM questionsEvm)
 		{
 			//load entities for the select lists
 			var users = UserRepo.List();
@@ -158,6 +198,6 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 						};
 				})
 				.ToList();
-		}
+		}*/
 	}
 }

@@ -28,13 +28,16 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// This is invoked when creation form is first opened in browser.
 		/// </summary>
 		/// <returns>Creation form view.</returns>
-		public ActionResult Create(string q, int id)
+		public ActionResult Create(string q, int id, int userId)
 		{
 			//var answerEvm = new AnswerEditVM();
 			var answerEvm = new AnswerEditVM();
 			PopulateSelections(answerEvm);
 			answerEvm.Answer.fk_Questions=q;
 			answerEvm.Lists.Questions_Id=id;
+			var user=UserRepo.Find(userId);
+			answerEvm.Answer.fk_User=user.Name;
+			answerEvm.user=user;
 			return View(answerEvm);
 		}
 
@@ -47,17 +50,24 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		public ActionResult Create(AnswerEditVM answerEvm, int id)
 		{
 			//form field validation passed?
-			if( ModelState.IsValid )
+			/*if( ModelState.IsValid )
 			{
 				AnswerRepo.Insert(answerEvm);
 
 				//save success, go back to the entity list
-				return RedirectToAction("Content", "Question", new { id = id});
-			}
-
+				return RedirectToAction("Content", "Question", new { id = id, userId = answerEvm.user.Id});
+			}*/
+			if(answerEvm.Answer.Answers == null || answerEvm.Answer.Answers.Length < 3)
+				ModelState.AddModelError("answer", "The answer must be atleast 3 characters long");
+			else{
+			AnswerRepo.Insert(answerEvm);
 			//form field validation failed, go back to the form
-			PopulateSelections(answerEvm);
+			//PopulateSelections(answerEvm);
+			return RedirectToAction("Content", "Question", new { id = id, userId = answerEvm.user.Id});
+			}
 			return View(answerEvm);
+			//return View(answerEvm);
+			
 		}
 
 		/// <summary>
@@ -65,9 +75,12 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// </summary>
 		/// <param name="id">ID of the entity to edit.</param>
 		/// <returns>Editing form view.</returns>
-		public ActionResult Edit(int id,QuestionListVM q)
+		public ActionResult Edit(int id, string q, int userId, int id1)
 		{
-			var answerEvm = AnswerRepo.Find(id);
+			var answerEvm = AnswerRepo.Find(id1);
+			answerEvm.Answer.fk_Questions=q;
+			answerEvm.Lists.Questions_Id=id;
+			answerEvm.user=UserRepo.Find(userId);
 			PopulateSelections(answerEvm);
 
 			return View(answerEvm);
@@ -80,20 +93,28 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// <param name="autoEvm">Entity model filled with latest data.</param>
 		/// <returns>Returns editing from view or redirects back to Index if save is successfull.</returns>
 		[HttpPost]
-		public ActionResult Edit(int id, AnswerEditVM answerEvm, QuestionListVM q)
+		public ActionResult Edit(int id, AnswerEditVM answerEvm)
 		{
 			//form field validation passed?
-			if( ModelState.IsValid )
-			{
+			//if( ModelState.IsValid )
+			//{
+				if( answerEvm.Answer.Answers== null){
+					ModelState.AddModelError("answer", "The answer cannont be empty");
+					return View(answerEvm);
+				}
+				else if( answerEvm.Answer.Answers.Length < 3){
+					ModelState.AddModelError("answer", "The answer must be atleast 3 symbols long");
+					return View(answerEvm);
+				}
 				AnswerRepo.Update(answerEvm);
 
 				//save success, go back to the entity list
-				return RedirectToAction("Index");
-			}
+				return RedirectToAction("Content","Question", new { id = id, userId = answerEvm.user.Id});
+			//}
 
 			//form field validation failed, go back to the form
-			PopulateSelections(answerEvm);
-			return View(answerEvm);
+			//PopulateSelections(answerEvm);
+			//return View(answerEvm);
 		}
 
 		/// </summary>

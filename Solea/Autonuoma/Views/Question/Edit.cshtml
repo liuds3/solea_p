@@ -2,10 +2,13 @@
 @{
 	ViewData["title"] = "Edit question";
 }
-
+@if(Model.user.Id==0){
+<body onload=' window.location="http://localhost:5000" ; '></body>
+}
 <link rel="stylesheet" href="~/css/bootswatchTheme.css" />
 <div class="main-content-header container-fluid d-flex d-row justify-content-between align-items-center">
 	<span class="title">@ViewData["title"]</span>
+	<p>@Html.DisplayFor(User => Model.user.Name)</p>
 </div>
 
 <div class="container-fluid d-flex justify-content-center">
@@ -17,35 +20,38 @@
 
 	@Html.HiddenFor(m => m.Question.Id)
 
+	@Html.HiddenFor(m => m.user.Id)
+	@Html.HiddenFor(m => m.Question.fk_User, new { htmlAttributes = new { @Value=Model.Question.fk_User } })
+
 	@* add hidden form fields for non-visible properties, otherwise they will get lost in code that handles button presses *@
 
 
 	<fieldset class="border rounded shadow p-2">
 
-        <div class="form-group">
+        @*<div class="form-group">
 			@Html.LabelFor(m => m.Question.fk_User, new { @class = "control-label" })
 			@Html.EditorFor(m => m.Question.fk_User, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly"  } })
 			@Html.ValidationMessageFor(m => m.Question.fk_User, "", new { @class = "text-danger" })
-		</div>
+		</div>*@
 
 
 		<div class="form-group">
 			@Html.LabelFor(m => m.Question.Questions, new { @class = "control-label" })
-			@Html.EditorFor(m => m.Question.Questions, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.EditorFor(m => m.Question.Questions, new { htmlAttributes = new { @Value=Model.Question.Questions, @readonly = "readonly" } })
 			@Html.ValidationMessageFor(m => m.Question.Questions, "", new { @class = "text-danger" })
 		</div>
 
 		<div class="form-group">
 			@Html.LabelFor(m => m.Question.Content, new { @class = "control-label" })
 			@Html.EditorFor(m => m.Question.Content, new { htmlAttributes = new { @class = "form-control" } })
-			@Html.ValidationMessageFor(m => m.Question.Content, "", new { @class = "text-danger" })
+			@Html.ValidationMessage("content"@*m => m.Question.Content, "", new { @class = "text-danger" }*@)
 		</div>
 
-		<div class="form-group">
+		@*<div class="form-group">
 			<div class="col-md-offset-2 col-md-10">
 				<input type="submit" value="Išsaugoti" class="btn btn-success" />
 			</div>
-		</div>
+		</div>*@
 	</fieldset>
 
 	<div class="container-fluid d-flex d-row justify-content-end">
@@ -57,6 +63,6 @@
 <div class="main-content-footer container-fluid d-flex d-row justify-content-between align-items-center">
 	<span class="title"></span>
 	<span class="actions">
-		<a href="@Url.Action("Index")" class="link-primary"><i class="fa-solid fa-angles-left"></i> Back to list</a>
+		<a href="@Url.Action("Index", new {id = Model.user.Id})" class="link-primary"><i class="fa-solid fa-angles-left"></i> Back to list</a>
 	</span>
 </div>

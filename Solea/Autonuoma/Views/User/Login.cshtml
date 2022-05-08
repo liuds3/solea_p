@@ -1,7 +1,7 @@
 @model Org.Ktu.Isk.P175B602.Autonuoma.Models.User
 
 @{
-	ViewData["title"] = "User creator";
+	ViewData["title"] = "Login";
 }
 
 <div class="main-content-header container-fluid d-flex d-row justify-content-between align-items-center">
@@ -12,37 +12,34 @@
 @using (Html.BeginForm())
 {
 	@Html.AntiForgeryToken()
-	
+
 	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 	
+	@* add hidden form fields for non-visible properties, otherwise they will get lost in code that handles button presses *@
 	@Html.HiddenFor(m => m.Id)
-	@Html.HiddenFor(m => m.Currency)
-
-
+    @Html.HiddenFor(m => m.Currency)
+    @Html.HiddenFor(m => m.Email)
+	
 	<fieldset class="border rounded shadow p-2">
 		<div class="form-group">
-
 			<div>
 			@Html.LabelFor(m => m.Name, new { @class = "control-label" })
 			@Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
-			@Html.ValidationMessage("name"@*m => m.Name, "", new { @class = "text-danger" }*@)
-			</div>
-			<div>
-			@Html.LabelFor(m => m.Email, new { @class = "control-label" })
-			@Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control" } })
-			@Html.ValidationMessage("email"@*m => m.Email, "", new { @class = "text-danger" }*@)
+			@Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
 			</div>
 			<div>
 			@Html.LabelFor(m => m.Password, new { @class = "control-label" })
 			@Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "form-control" } })
-			@Html.ValidationMessage("password"@*m => m.Password, "", new { @class = "text-danger" }*@)
+			@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
 			</div>
 		</div>
 	</fieldset>
+    //<input type="submit" value="Išsaugoti" class="btn btn-success" />
+	<button name="login" value="1" > Login</button>
 
-	<div class="container-fluid d-flex d-row justify-content-end">
-		<button class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Save</button>
-	</div>
+    /*<span class="actions">
+		<a href="@Url.Action("Login1", new { name = "dfasdfa", password = "sadfadsfa"} )" class="link-primary"><i class="fa-solid fa-angles-left"></i> Loginsadfasd</a>
+	</span>*/
 }
 </div>
 
