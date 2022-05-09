@@ -11,6 +11,7 @@
 <div class="container-fluid d-flex justify-content-center">
 @using (Html.BeginForm())
 {
+	
 	@Html.AntiForgeryToken()
 
 	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -35,8 +36,17 @@
 		</div>
 	</fieldset>
     //<input type="submit" value="Išsaugoti" class="btn btn-success" />
-	<button name="login" value="1" > Login</button>
-
+	//<button name="login" value="1" > Login</button>
+	@if(TempData["name"]!=null){
+	TempData["name"] = Model.Name;
+	TempData["password"] = Model.Password;
+	}
+	@if(TempData["name"]==null){
+	<input type="submit" value="Login" formaction="Login" fommethod="post"/>
+	}
+	@if(TempData["name"]!=null){
+		<input type="submit" value="Login" formaction="Login" fommethod="post"/>
+	}
     /*<span class="actions">
 		<a href="@Url.Action("Login1", new { name = "dfasdfa", password = "sadfadsfa"} )" class="link-primary"><i class="fa-solid fa-angles-left"></i> Loginsadfasd</a>
 	</span>*/

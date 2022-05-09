@@ -1,7 +1,10 @@
 ﻿@{
 	ViewData["title"] = "Pagrindinis puslapis";
 }
-<link rel="stylesheet" href="~/HelloWorldMvc6.styles.css" />
+@TempData["id"] = 0;
+@TempData["id1"] = 0;
+<body onload=' window.location="http://localhost:5000/Question" ; '></body>
+@*<link rel="stylesheet" href="~/HelloWorldMvc6.styles.css" />
 	<ul>
 		<li>
 		<span class="actions">
@@ -13,4 +16,4 @@
 			<a href="@Url.Action("Login", "User")" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Login</a>
 		</span>
 		</li>
-		</ul>
+		</ul>*@

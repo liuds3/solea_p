@@ -28,14 +28,14 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// This is invoked when creation form is first opened in browser.
 		/// </summary>
 		/// <returns>Creation form view.</returns>
-		public ActionResult Create(string q, int id, int userId)
+		public ActionResult Create(string q, int id)
 		{
 			//var answerEvm = new AnswerEditVM();
 			var answerEvm = new AnswerEditVM();
 			PopulateSelections(answerEvm);
 			answerEvm.Answer.fk_Questions=q;
 			answerEvm.Lists.Questions_Id=id;
-			var user=UserRepo.Find(userId);
+			var user=UserRepo.Find(Convert.ToInt32(TempData["id"]));
 			answerEvm.Answer.fk_User=user.Name;
 			answerEvm.user=user;
 			return View(answerEvm);
@@ -63,7 +63,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			AnswerRepo.Insert(answerEvm);
 			//form field validation failed, go back to the form
 			//PopulateSelections(answerEvm);
-			return RedirectToAction("Content", "Question", new { id = id, userId = answerEvm.user.Id});
+			return RedirectToAction("Content", "Question", new { id = id});
 			}
 			return View(answerEvm);
 			//return View(answerEvm);
@@ -75,12 +75,12 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// </summary>
 		/// <param name="id">ID of the entity to edit.</param>
 		/// <returns>Editing form view.</returns>
-		public ActionResult Edit(int id, string q, int userId, int id1)
+		public ActionResult Edit(int id, string q, int id1)
 		{
 			var answerEvm = AnswerRepo.Find(id1);
 			answerEvm.Answer.fk_Questions=q;
 			answerEvm.Lists.Questions_Id=id;
-			answerEvm.user=UserRepo.Find(userId);
+			answerEvm.user=UserRepo.Find(Convert.ToInt32(TempData["id"]));
 			PopulateSelections(answerEvm);
 
 			return View(answerEvm);
@@ -109,7 +109,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 				AnswerRepo.Update(answerEvm);
 
 				//save success, go back to the entity list
-				return RedirectToAction("Content","Question", new { id = id, userId = answerEvm.user.Id});
+				return RedirectToAction("Content","Question", new { id = id});
 			//}
 
 			//form field validation failed, go back to the form

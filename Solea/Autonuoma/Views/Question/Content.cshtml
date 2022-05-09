@@ -1,11 +1,14 @@
 ﻿@model Org.Ktu.Isk.P175B602.Autonuoma.ViewModels.Answers
 @{
 	ViewData["title"] = "Question";
+	TempData["id"] = Model.user.Id;
+	TempData["id1"] = Model.user.Id;
+	TempData["id2"] = Model.user.Id;
 }
 
-@if(Model.user.Id==0){
+@*@if(Model.user.Id==0){
 <body onload=' window.location="http://localhost:5000" ; '></body>
-}
+}*@
 <link rel="stylesheet" href="~/css/bootswatchTheme.css" />
 <div class="main-content-header container-fluid d-flex d-row justify-content-between align-items-center p-2">
 	<span class="title">@ViewData["title"]</span>
@@ -34,8 +37,12 @@
 	</table>
 }
 </div>
-<a href="@Url.Action("Create", "Answer", new { q = Model.question.Questions, id = Model.question.Id, userId = Model.user.Id })">Create new answer</a>
-
+@if(TempData["id2"]==null || Convert.ToInt32(TempData["id2"])==0){
+	<p>Login to create an answer</p>
+}
+else{
+	<a href="@Url.Action("Create", "Answer", new { q = Model.question.Questions, id = Model.question.Id })">Create new answer</a>
+}
 @if(Model.answers.Count>0){
 <div>
 	<table class="entitylist table table-striped table-hover">
@@ -53,7 +60,7 @@
 				</th>*@
 				<th>
 					@if(Model.user.Name==item.fk_User){
-						<a href="@Url.Action("Edit","Answer", new { id1 = item.Id, id = Model.question.Id, q = Model.question.Questions , userId = Model.user.Id } )" style="float: right;" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+						<a href="@Url.Action("Edit","Answer", new { id1 = item.Id, id = Model.question.Id, q = Model.question.Questions} )" style="float: right;" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
 					}
 				</th>
 			</tr>
@@ -61,14 +68,15 @@
 		}
 	</table>
 </div>
-<div class="main-content-footer container-fluid d-flex d-row justify-content-between align-items-center">
-	<span class="title"></span>
-	<span class="actions">
-		<a href="@Url.Action("Index", new {id = Model.user.Id})" class="btn btn-success"><i class="fa-solid fa-angles-left"></i> Back to list</a>
-	</span>
-</div>
+
 }
 else
 {
 	<b>No answers yet</b>
 }
+<div class="main-content-footer container-fluid d-flex d-row justify-content-between align-items-center">
+	<span class="title"></span>
+	<span class="actions">
+		<a href="@Url.Action("Index")" class="btn btn-success"><i class="fa-solid fa-angles-left"></i> Back to list</a>
+	</span>
+</div>

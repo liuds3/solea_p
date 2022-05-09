@@ -37,18 +37,27 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		//It checks whether a user name and password is found in the data base
 		//If found sends user's id to main page, so from there it can be used
 		[HttpPost]
+		public ActionResult Login1(User user)
+		{
+			return View(user);
+		}
+		[HttpPost]
 		public ActionResult Login(User user)
 		{
 			var match = UserRepo.Find(user);
 			if( match.Name != user.Name || match.Password != user.Password )
 				ModelState.AddModelError("password", "Incorrect name or password");
 			if(match.Name == user.Name && match.Password == user.Password && user.Name!=null && user.Password !=null){
-				
+				TempData["id"]=match.Id;
+
 				//Loggedin.Login();
-				return RedirectToAction("Index", "Question", new { id = match.Id});
+				return RedirectToAction("Index", "Question");
+				//return View( "Index", nameof(Index));
 			}
 			return View(user);
 		}
+
+
 
 		/// <summary>
 		/// This is invoked when creation form is first opened in browser.
@@ -90,6 +99,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			if (ModelState.IsValid && matchName.Name != user.Name && matchEmail.Email != user.Email)
 			{
 				UserRepo.Insert(user);
+				TempData["id"]=UserRepo.Find(user.Name, 1).Id;
 				matchName = UserRepo.Find(user.Name, 1);
 				/*if(match.Name == "lab"){
 					Debug.WriteLine("gerai");
@@ -97,7 +107,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 				else
 					Debug.WriteLine("blogai");*/
 				//save success, go back to the entity list
-				return RedirectToAction("Index","Question", new {id = matchName.Id});
+				return RedirectToAction("Index","Question");
 			}
 
 			//form field validation failed, go back to the form
