@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 05, 2022 at 06:55 PM
+-- Generation Time: May 09, 2022 at 04:36 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -42,7 +42,11 @@ INSERT INTO `answers` (`user`, `question`, `answer`, `id`) VALUES
 ('karpol2', 'Ukraine vs Russia', 'I hope Ukraine wins this war. #SlavaUkraine', 1),
 ('Useris2', 'Pizza or tacos?', 'Pizzas ofc.', 24),
 ('mykolas', 'Luka Doncic in a game 1 loss to the Suns: 45/12/8 ', 'Luka deserves MVPs', 26),
-('kazka', 'Amber vs Depp, who wins?', 'Justice for Johnny Depp', 27);
+('kazka', 'Amber vs Depp, who wsins?', 'Justice for Johnny Depp', 27),
+('mykolas', 'testas', 'fasefsafsfsaf', 28),
+('kazom', 'Kazom test', 'kazom answer test123', 29),
+('kazom', 'About Lithuania', 'asdfaee', 30),
+('kazom', 'kazom test123456', 'super answerss', 31);
 
 -- --------------------------------------------------------
 
@@ -62,7 +66,7 @@ CREATE TABLE `questions` (
 --
 
 INSERT INTO `questions` (`user`, `question`, `id`, `content`) VALUES
-('karpol2', 'Amber vs Depp, who wins?', 1, 'In my opinion, I think Depp should win this, because he deserves justice. Amber should go to hell. Well what are your opinions?'),
+('karpol2', 'Amber vs Depp, who wsins?', 1, 'In my opinion, I think Depp should win this, because he deserves justice. Amber should go to hell. Well what are your opinions?'),
 ('test55', 'Who wins this time nba mvp?', 2, 'So far, I can tell, that Antetokounmpo, Embiid and Jokic are front runners, but, in my opinion, Jokic should win this season\'s mvp, because of its master of pass, scoring abilities.'),
 ('Useris4', 'Carp is best', 3, 'Guys, what are your favourite fish? Mine is carp, because basically, carps are almost everywhere, and indeed nice type of fish.'),
 ('testasAI', 'Robot will invade world in 100 years', 4, 'Listening to news, checking newspapers and living, we can see that our future technology will achieve that point where robots will start live as humans. I think thats not really good idea, it can cause serious problems... like apocalypse?'),
@@ -79,7 +83,10 @@ INSERT INTO `questions` (`user`, `question`, `id`, `content`) VALUES
 ('Useris2', 'What\'s the best piece of advice you ever received?', 15, 'Never give up. Thats the best advice for me, for you, for everyone.'),
 ('karpol2', 'Who inspires you to be better?', 16, 'Noone. I focus on my own, i don\'t have anyone to inspire, not really much looking forward to inspire from someone.'),
 ('Useris2', 'About Lithuania', 17, 'Hello guys, is it worth living in Lithuania? What are situation there?'),
-('karpol2', 'This is question title.', 18, 'This is a question title\'s description/content. (For test purposes.)');
+('karpol2', 'This is question title.', 18, 'This is a question title\'s description/content. (For test purposes.)'),
+('Useris2', 'testas', 19, 'fsaefsafasf'),
+('kazom', 'Kazom test', 20, 'kazom content test4'),
+('kazom', 'kazom test123456', 21, 'kazomtesat1241efsafass');
 
 -- --------------------------------------------------------
 
@@ -108,7 +115,8 @@ INSERT INTO `users` (`id`, `name`, `currency`, `email`, `password`) VALUES
 (153, 'kazka', 400, 'kazka@gmail.com', 'kentauras'),
 (154, 'testasAI', 254, 'testasAi@gmail.', 'alio'),
 (156, 'test55', 60, 'test55@gmail.co', 'Neatpazyst'),
-(163, 'Testaskarpol2', 300, 'karpolisc@gmail.com', 'ilgasis');
+(163, 'Testaskarpol2', 300, 'karpolisc@gmail.com', 'ilgasis'),
+(164, 'kazom', 0, 'kazom@gmail.com', 'kazom123');
 
 --
 -- Indexes for dumped tables
@@ -150,19 +158,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=164;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
 
 --
 -- Constraints for dumped tables
@@ -172,14 +180,14 @@ ALTER TABLE `users`
 -- Constraints for table `answers`
 --
 ALTER TABLE `answers`
-  ADD CONSTRAINT `questionai` FOREIGN KEY (`question`) REFERENCES `questions` (`question`),
+  ADD CONSTRAINT `questionai` FOREIGN KEY (`question`) REFERENCES `questions` (`question`) ON UPDATE CASCADE,
   ADD CONSTRAINT `userio nickas` FOREIGN KEY (`user`) REFERENCES `users` (`name`);
 
 --
 -- Constraints for table `questions`
 --
 ALTER TABLE `questions`
-  ADD CONSTRAINT `userio` FOREIGN KEY (`user`) REFERENCES `users` (`name`);
+  ADD CONSTRAINT `userio` FOREIGN KEY (`user`) REFERENCES `users` (`name`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
