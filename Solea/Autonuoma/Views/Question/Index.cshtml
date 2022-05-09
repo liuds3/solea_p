@@ -1,19 +1,26 @@
 @model Org.Ktu.Isk.P175B602.Autonuoma.ViewModels.QuestionsLog
 @{
 	ViewData["title"] = "Questions";
+	TempData["id"] = Model.user.Id;
+	TempData["id1"] = Model.user.Id;
+	TempData["id2"] = Model.user.Id;
 }
-@if(Model.user.Id==0){
+@*@if(Model.user.Id==0){
 <body onload=' window.location="http://localhost:5000" ; '></body>
-}
+}*@
 <link rel="stylesheet" href="~/css/bootswatchTheme.css" />
 
 <div class="main-content-header container-fluid d-flex d-row justify-content-between align-items-center p-2">
 	<span class="title">@ViewData["title"]</span>
-	<p>@Html.DisplayFor(User => Model.user.Name)</p>
-	<span class="actions">
-		<a href="@Url.Action("Create", new { userId = Model.user.Id})" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Create new question</a>
-	</span>
-	
+	<p>@Html.DisplayFor(Question => Model.user.Name)</p>
+	@if(TempData["id2"]==null || Convert.ToInt32(TempData["id2"])==0){
+		<p>Login to create a question</p>
+	}
+	else{
+		<span class="actions">
+			<a href="@Url.Action("Create")" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Create new question</a>
+		</span>
+	}
 </div>
 
 
@@ -47,11 +54,11 @@
 				</td>*@
 				<td>
 
-					<a href="@Url.Action("Content", new { id = item.Id, userId = Model.user.Id })" style="float: right;" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i>Show content</a>
+					<a href="@Url.Action("Content", new { id = item.Id })" style="float: right;" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i>Show content</a>
 
 					@*<a href="@Url.Action("Deletee", new { id = item.Id })" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Remove</a>*@
 					@if(Model.user.Name==item.fk_User){
-					<a href="@Url.Action("Edit", new { id = item.Id, userId = Model.user.Id })" style="float: right;" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+					<a href="@Url.Action("Edit", new { id = item.Id})" style="float: right;" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
 					}
 					@*<a href="@Url.Action("Delete", new { id = item.Id })" style="float: right;" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Remove</a>*@
 				</td>

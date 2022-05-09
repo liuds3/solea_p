@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
 using Org.Ktu.Isk.P175B602.Autonuoma.Repositories;
@@ -18,10 +19,18 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// This is invoked when either 'Index' action is requested or no action is provided.
 		/// </summary>
 		/// <returns>Entity list view.</returns>
-		public ActionResult Index(int id)
+		public ActionResult Index()
 		{
+			
+			int idUser = Convert.ToInt32(TempData["id"]);
+			//HttpContext.Session.SetInt32("id", Convert.ToInt32(TempData["id"]));
+			//string password = Convert.ToString(TempData["password"]);
+			//User userTemp = new User();
+			//userTemp.Name=name;
+			//userTemp.Password=password;
 			var questions = QuestionRepo.List();
-			var user = UserRepo.Find(id);
+			var user = UserRepo.Find(idUser);
+			//user.Name=Convert.ToString(something);
 			var vModel = new QuestionsLog();
 			vModel.question=questions;
 			vModel.user=user;
@@ -29,11 +38,11 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			return View(vModel);
 		}
 		
-		public ActionResult Content(int id, int userId)
+		public ActionResult Content(int id)
 		{
 			var answerss = AnswerRepo.QuestionAnswers(id);
 			var questions = QuestionRepo.FindForDeletion(id);
-			var user = UserRepo.Find(userId);
+			var user = UserRepo.Find(Convert.ToInt32(TempData["id"]));
 			var vModel = new Answers();
 			vModel.answers=answerss;
 			vModel.question=questions;
@@ -44,12 +53,12 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// This is invoked when creation form is first opened in browser.
 		/// </summary>
 		/// <returns>Creation form view.</returns>
-		public ActionResult Create(int userId)
+		public ActionResult Create()
 		{
 			var questionEvm = new QuestionEditVM();
-			var user=UserRepo.Find(userId);
+			var user=UserRepo.Find(Convert.ToInt32(TempData["id"]));
 			questionEvm.user=user;
-			questionEvm.Lists.id=userId;
+			questionEvm.Lists.id=Convert.ToInt32(TempData["id"]);
 			questionEvm.Question.fk_User=user.Name;
 			//PopulateSelections(questionEvm);
 			return View(questionEvm);
@@ -88,7 +97,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			}
 			if(temp){
 				QuestionRepo.Insert(questionEvm);
-				return RedirectToAction("Index", new { id = questionEvm.user.Id});
+				return RedirectToAction("Index");
 			}
 			return View(questionEvm);
 			//form field validation failed, go back to the form
@@ -102,10 +111,10 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// </summary>
 		/// <param name="id">ID of the entity to edit.</param>
 		/// <returns>Editing form view.</returns>
-		public ActionResult Edit(int id, int userId)
+		public ActionResult Edit(int id)
 		{
 			var questionEvm = QuestionRepo.Find(id);
-			questionEvm.user=UserRepo.Find(userId);
+			questionEvm.user=UserRepo.Find(Convert.ToInt32(TempData["id"]));
 			return View(questionEvm);
 		}
 
@@ -135,7 +144,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 				ModelState.AddModelError("content", "Content must be atleast 15 characters");
 			else {
 				QuestionRepo.Update(questionEvm);
-				return RedirectToAction("Index", new { id = questionEvm.user.Id});
+				return RedirectToAction("Index");
 				}
 			//form field validation failed, go back to the form
 			//PopulateSelections(questionEvm);

@@ -1,6 +1,8 @@
 @model Org.Ktu.Isk.P175B602.Autonuoma.ViewModels.QuestionEditVM
 @{
 	ViewData["title"] = "Create question";
+	TempData["id"] = Model.user.Id;
+	TempData["id1"] = Model.user.Id;
 }
 @if(Model.user.Id==0){
 <body onload=' window.location="http://localhost:5000" ; '></body>
@@ -16,7 +18,7 @@
 	@Html.AntiForgeryToken()
 
 	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
+	<p>@Model.user.Name</p>
 	@Html.HiddenFor(m => m.Question.Id)
 	@Html.HiddenFor(m => m.user.Id)
 	@Html.HiddenFor(m => m.Question.fk_User, new { htmlAttributes = new { @Value=Model.Question.fk_User } })
@@ -61,6 +63,6 @@
 <div class="main-content-footer container-fluid d-flex d-row justify-content-between align-items-center">
 	<span class="title"></span>
 	<span class="actions">
-		<a href="@Url.Action("Index", new {id = Model.user.Id})" class="btn btn-success"><i class="fa-solid fa-angles-left"></i> Back to list</a>
+		<a href="@Url.Action("Index")" class="btn btn-success"><i class="fa-solid fa-angles-left"></i> Back to list</a>
 	</span>
 </div>

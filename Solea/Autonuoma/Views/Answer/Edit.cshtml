@@ -1,6 +1,8 @@
 @model Org.Ktu.Isk.P175B602.Autonuoma.ViewModels.AnswerEditVM
 @{
 	ViewData["title"] = "Edit answer";
+	TempData["id"] = Model.user.Id;
+	TempData["id1"] = Model.user.Id;
 }
 @if(Model.user.Id==0){
 <body onload=' window.location="http://localhost:5000" ; '></body>
