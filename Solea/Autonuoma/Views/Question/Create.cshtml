@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="~/css/bootswatchTheme.css" />
 <div class="main-content-header container-fluid d-flex d-row justify-content-between align-items-center">
 	<span class="title">@ViewData["title"]</span>
+	<p>@Html.DisplayFor(User => Model.user.Name)</p>
+	<p>@Html.DisplayFor(User => Model.user.Currency)</p>
 </div>
 
 <div class="container-fluid d-flex justify-content-center">
