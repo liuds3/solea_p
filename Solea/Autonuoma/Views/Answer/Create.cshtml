@@ -3,13 +3,14 @@
 	ViewData["title"] = "Create answer";
 	TempData["id"] = Model.user.Id;
 	TempData["id1"] = Model.user.Id;
+	TempData["name"] = Model.user.Name;
+	TempData["currency"] = Model.user.Currency;
 }
 @if(Model.user.Id==0){
 <body onload=' window.location="http://localhost:5000" ; '></body>
 }
 <div class="main-content-header container-fluid d-flex d-row justify-content-between align-items-center">
 	<span class="title">@ViewData["title"]</span>
-	<p>@Html.DisplayFor(User => Model.user.Name)</p>
 </div>
 
 <div class="container-fluid d-flex justify-content-center">
