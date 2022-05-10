@@ -17,29 +17,25 @@
 </div>
 <div class="container-fluid d-flex justify-content-center">
 	
+	
 @using (Html.BeginForm()) 
 {
 	
 	@Html.AntiForgeryToken()
 	<p> @Html.DisplayFor(Question => Model.question.fk_User)'s question</p>
-	<table class="entitylist table table-striped table-hover">
+	<table class="entitylist table table-striped table-info">
 			<tr>
 			</tr>
-			<th>
-					<p style="color:#2a9fd6";>Question</p>
-
-				</th>
 			<tr>
 				
 				<td>
+						<p style="font-size:2vw;">
+							@Html.DisplayFor(Question => Model.question.Questions)
+							
+					</p>
 					
-					<b>@Html.DisplayFor(Question => Model.question.Questions)
 				</td>
 			</tr>
-			<th>
-					<p style="color:#2a9fd6";>Content</p>
-
-				</th>
 			<tr>
 				
 				<td>
@@ -62,7 +58,7 @@ else{
 		<thead>
 			<tr>
 				<th>
-					<p style="color:#2a9fd6";>User</p>
+					<p style="color:#2a9fd6"; >User</p>
 
 				</th>
 				<th>
@@ -80,10 +76,18 @@ else{
 			<thead>
 			<tr>
 				<th>
-					@Html.DisplayFor(Answer => item.fk_User) 
+					<p style="font-size:1.3vw;">
+							@Html.DisplayFor(Answer => item.fk_User) 
+							
+					</p>
+					
 				</th>
 				<th>
-					@Html.DisplayFor(Answer => item.Answers)
+					<p style="font-size:1.3vw;">
+							@Html.DisplayFor(Answer => item.Answers) 
+							
+					</p>
+					
 				</th>
 				@*<th>
 					@Html.DisplayNameFor(Question => Question.Content)
