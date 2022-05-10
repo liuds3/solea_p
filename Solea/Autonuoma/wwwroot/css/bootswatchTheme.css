@@ -63,7 +63,7 @@
    --bs-body-font-weight: 700;
    --bs-body-line-height: 1.5;
    --bs-body-color: #212529;
-   --bs-body-bg: #fff;
+   --bs-body-bg: rgb(127, 158, 138);
  }
  
  *,
@@ -88,7 +88,7 @@
    text-align: var(--bs-body-text-align);
    background-color: var(--bs-body-bg);
    -webkit-text-size-adjust: 100%;
-   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+   -webkit-tap-highlight-color: rgba(250, 12, 12, 0.966);
  }
  
  hr {
