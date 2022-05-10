@@ -40,7 +40,7 @@
 
 		<div class="form-group">
 			@Html.LabelFor(m => m.Question.Questions, new { @class = "control-label" })
-			@Html.EditorFor(m => m.Question.Questions, new { htmlAttributes = new { @Value=Model.Question.Questions} })
+			@Html.EditorFor(m => m.Question.Questions, new { htmlAttributes = new { @class = "form-control"} })
 			@Html.ValidationMessageFor(m => m.Question.Questions, "", new { @class = "text-danger" })
 		</div>
 
