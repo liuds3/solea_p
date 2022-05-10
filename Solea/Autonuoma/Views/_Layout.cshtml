@@ -66,9 +66,9 @@
         <ul class="navbar-nav ms-auto">
             <li class="nav-item">
                 <p style="color:green">@TempData["name"] </p>
-				<img src="/images/gold.png" alt="golden" width="30" height="auto">@(Convert.ToInt32(TempData["currency"])/100)
-				<img src="/images/silver.png" alt="silver" width="30" height="auto">@(Convert.ToInt32(TempData["currency"])%100/10)
-				<img src="/images/bronze.png" alt="bronze" width="30" height="auto">@(Convert.ToInt32(TempData["currency"])%10)
+				<img src="/images/gold.png" alt="golden" width="30" height="auto">x@(Convert.ToInt32(TempData["currency"])/100)
+				<img src="/images/silver.png" alt="silver" width="30" height="auto">x@(Convert.ToInt32(TempData["currency"])%100/10)
+				<img src="/images/bronze.png" alt="bronze" width="30" height="auto">x@(Convert.ToInt32(TempData["currency"])%10)
             </li>
             
         </ul>
