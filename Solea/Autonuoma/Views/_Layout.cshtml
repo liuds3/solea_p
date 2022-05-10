@@ -61,19 +61,13 @@
 		<span class="actions">
 			<a href="@Url.Action("Index", "Home")" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Logout</a>
 		</span>
-			
-		
+		<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+			<p style="color:green">@TempData["name"] </p>
+				<p style="color:green">&nbsp;@TempData["currency"]</p>
+		</div>
 	}
-<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-        <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-                <p style="color:blue">Username: @TempData["name"] </p>
-				<p style="color:blue">Currency: @TempData["currency"]</p>
-            </li>
-           
-        </ul>
-		
-    </div>
+
+       
 
 
     <div class="collapse navbar-collapse" id="navbarColor01">
