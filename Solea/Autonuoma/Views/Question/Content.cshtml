@@ -39,10 +39,10 @@
 }
 </div>
 @if(TempData["id2"]==null || Convert.ToInt32(TempData["id2"])==0){
-	<p>Login to create an answer</p>
+	<a href="@Url.Action("Login", "User")" class="btn btn-primary">Login to create new answer</a>
 }
 else{
-	<a href="@Url.Action("Create", "Answer", new { q = Model.question.Questions, id = Model.question.Id })">Create new answer</a>
+	<a href="@Url.Action("Create", "Answer", new { q = Model.question.Questions, id = Model.question.Id } )" class="btn btn-primary">Create new answer</a>
 }
 @if(Model.answers.Count>0){
 <div>
