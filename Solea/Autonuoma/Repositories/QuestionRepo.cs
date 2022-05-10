@@ -69,6 +69,31 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 			return mevm;
 		}
 
+		public static List<QuestionListVM> FindList(string search)
+		{
+			bool temp=true;
+			var mevm = List();
+			string[] words = search.Split(' ');
+			List<QuestionListVM> questions = new List<QuestionListVM>();
+			foreach(var item in mevm){
+				/*temp=true;
+				for(int j=0;j<words.Length;j++){
+					if(!item.Questions.Contains(words[j]))
+						temp=false;
+				}*/
+				if(words.All(item.Questions.Contains)){
+					questions.Add(new QuestionListVM{
+						fk_User = item.fk_User,
+						Questions = item.Questions,
+						Content = item.Content,
+						Id = item.Id
+					});
+				}	
+			}
+
+			return questions;
+		}
+
 		
 
 		public static QuestionListVM FindForDeletion(int id)

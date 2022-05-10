@@ -34,6 +34,24 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			var vModel = new QuestionsLog();
 			vModel.question=questions;
 			vModel.user=user;
+			Debug.WriteLine("gerai");
+			//vModel.loggedin=questions;
+			return View(vModel);
+		}
+
+		[HttpPost]
+		public ActionResult Index(string search)
+		{
+			
+			int idUser = Convert.ToInt32(TempData["id"]);
+			var questions = QuestionRepo.FindList(search);
+			var user = UserRepo.Find(idUser);
+			//user.Name=Convert.ToString(something);
+			var vModel = new QuestionsLog();
+			vModel.question=questions;
+			vModel.user=user;
+		
+					
 			//vModel.loggedin=questions;
 			return View(vModel);
 		}
