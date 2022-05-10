@@ -45,10 +45,17 @@
 			@foreach (var item in Model.question) {
 			<tr>
 				<td>
-					@Html.DisplayFor(Question => item.fk_User)
+					<p style="font-size:1.5vw;">
+							@Html.DisplayFor(Question => item.fk_User)
+							
+					</p>
 				</td>
 				<td>
-					@Html.DisplayFor(Question => item.Questions)
+					<p style="font-size:1.5vw;">
+							@Html.DisplayFor(Question => item.Questions)
+							
+					</p>
+					
 				</td>
 				@*<td>
 					@Html.DisplayFor(Question => item.Content)
