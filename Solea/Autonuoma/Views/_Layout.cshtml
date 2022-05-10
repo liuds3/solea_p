@@ -40,7 +40,7 @@
 }*@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container-fluid">
+  	<div class="container-fluid">
     <a class="navbar-brand" href="http://localhost:5000/Question">Solea</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -60,45 +60,19 @@
 	else{
 		<span class="actions">
 			<a href="@Url.Action("Index", "Home")" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Logout</a>
-		</span>
-			
-
+		</span>	
+		
 		@*<span class="navbar-nav mr-auto">
 			<p style="color:blue">Username: @TempData["name"] </p>
 			<p style="color:blue">Currency: @TempData["currency"]</p>
 		</span>*@
-		<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-
+		
+        
+                	<p style="color:green" style="text-align:right">@TempData["name"] </p>
+					<p style="color:green" style="text-align:right">&nbsp; @TempData["currency"]</p>
 		
 	}
-@*<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-
-        <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-                <p style="color:blue">Username: @TempData["name"] </p>
-				<p style="color:blue">Currency: @TempData["currency"]</p>
-            </li>
-            
-        </ul>
-		
-    </div>*@
-		<span class="actions">
-		<p>  </p>
-		</span>
-	}
-@*<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-        <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-                <p style="color:blue">Username: @TempData["name"] </p>
-            </li>
-            <li class="nav-item">
-               <p style="color:blue">Currency: @TempData["currency"]</p>
-            </li>
-        </ul>
-		
-    </div>*@
-
-
+	
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto">
         @*<li class="nav-item">
@@ -119,6 +93,7 @@
 		
       </ul>
     </div>
+  </div>
   </div>
 </nav>
 		
