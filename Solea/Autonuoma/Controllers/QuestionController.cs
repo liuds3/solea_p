@@ -19,40 +19,21 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// This is invoked when either 'Index' action is requested or no action is provided.
 		/// </summary>
 		/// <returns>Entity list view.</returns>
-		public ActionResult Index()
-		{
-			
-			int idUser = Convert.ToInt32(TempData["id"]);
-			//HttpContext.Session.SetInt32("id", Convert.ToInt32(TempData["id"]));
-			//string password = Convert.ToString(TempData["password"]);
-			//User userTemp = new User();
-			//userTemp.Name=name;
-			//userTemp.Password=password;
-			var questions = QuestionRepo.List();
-			var user = UserRepo.Find(idUser);
-			//user.Name=Convert.ToString(something);
-			var vModel = new QuestionsLog();
-			vModel.question=questions;
-			vModel.user=user;
-			Debug.WriteLine("gerai");
-			//vModel.loggedin=questions;
-			return View(vModel);
-		}
-
-		[HttpPost]
 		public ActionResult Index(string search)
 		{
 			
 			int idUser = Convert.ToInt32(TempData["id"]);
-			var questions = QuestionRepo.FindList(search);
-			var user = UserRepo.Find(idUser);
-			//user.Name=Convert.ToString(something);
 			var vModel = new QuestionsLog();
-			vModel.question=questions;
+			if(search==null){
+				var questions = QuestionRepo.List();
+				vModel.question=questions;
+			}	
+			else{
+				var questionsSearch = QuestionRepo.FindList(search);
+				vModel.question=questionsSearch;
+			}
+			var user = UserRepo.Find(idUser);
 			vModel.user=user;
-		
-					
-			//vModel.loggedin=questions;
 			return View(vModel);
 		}
 		
