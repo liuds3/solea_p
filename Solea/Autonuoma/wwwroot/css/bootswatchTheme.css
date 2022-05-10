@@ -163,7 +163,12 @@
    margin-top: 0;
    margin-bottom: 1rem;
  }
- 
+ bbbb
+ {  
+   font-size: 1.7vw;
+   color: #2a9fd6;
+
+ }
  abbr[title],
  abbr[data-bs-original-title] {
    -webkit-text-decoration: underline dotted;
