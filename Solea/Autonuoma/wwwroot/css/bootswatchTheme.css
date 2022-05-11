@@ -165,10 +165,18 @@
  }
  bbbb
  {  
-   font-size: 1.7vw;
+   margin-top: 0;
+   margin-bottom: 1rem;
+   font-size: 1.4vw;
    color: #2a9fd6;
-
  }
+ username
+ {  
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.4vw;
+  color: #5e7ce8;
+}
  abbr[title],
  abbr[data-bs-original-title] {
    -webkit-text-decoration: underline dotted;
