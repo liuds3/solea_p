@@ -26,6 +26,12 @@
 				<th>
 					@Html.DisplayNameFor(Answer => Answer.Answers)
 				</th>
+				<th>
+					@Html.DisplayNameFor(Answer => Answer.Likes)
+				</th>
+				<th>
+					@Html.DisplayNameFor(Answer => Answer.Dislikes)
+				</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -40,6 +46,12 @@
 				</td>
 				<td>
 					@Html.DisplayFor(Question => item.Answers)
+				</td>
+				<td>
+					@Html.DisplayFor(Question => item.Likes)
+				</td>
+				<td>
+					@Html.DisplayFor(Question => item.Dislikes)
 				</td>
 				<td>
 
