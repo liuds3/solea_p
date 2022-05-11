@@ -23,7 +23,9 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 					md.user,
 					md.question,
 					md.answer,
-					md.id
+					md.id,
+					md.likes,
+					md.dislikes
 					FROM
 					`{Config.TblPrefix}answers` md
 					LEFT JOIN `{Config.TblPrefix}users` usr ON md.user=usr.name
@@ -39,7 +41,10 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 					fk_User = Convert.ToString(item["user"]),
                     fk_Questions = Convert.ToString(item["question"]),
 					Answers = Convert.ToString(item["answer"]),
-				    Id = Convert.ToInt32(item["id"])
+				    Id = Convert.ToInt32(item["id"]),
+					Likes = Convert.ToInt32(item["likes"]),
+					Dislikes = Convert.ToInt32(item["dislikes"])
+
 
 				});
 			}
@@ -55,7 +60,9 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 					md.user,
 					md.question,
 					md.answer,
-					md.id
+					md.id,
+					md.likes,
+					md.dislikes
 					FROM
 					`{Config.TblPrefix}answers` md
 					LEFT JOIN `{Config.TblPrefix}users` usr ON md.user=usr.name
@@ -76,7 +83,9 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 					fk_User = Convert.ToString(item["user"]),
                     fk_Questions = Convert.ToString(item["question"]),
 					Answers = Convert.ToString(item["answer"]),
-				    Id = Convert.ToInt32(item["id"])
+				    Id = Convert.ToInt32(item["id"]),
+					Likes = Convert.ToInt32(item["likes"]),
+					Dislikes = Convert.ToInt32(item["dislikes"])
 
 				});
 			}
@@ -119,6 +128,8 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 				mevm.Answer.fk_Questions = Convert.ToString(item["question"]);
 				mevm.Answer.Answers = Convert.ToString(item["answer"]);
 				mevm.Answer.Id = Convert.ToInt32(item["id"]);
+				mevm.Answer.Likes = Convert.ToInt32(item["likes"]);
+				mevm.Answer.Dislikes = Convert.ToInt32(item["dislikes"]);
 			}
 
 			return mevm;
@@ -133,7 +144,9 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 					md.user,
 					md.question,
 					md.answer,
-					md.id
+					md.id,
+					md.likes,
+					md.dislikes
 				FROM
 					`{Config.TblPrefix}answers` md
 					LEFT JOIN `{Config.TblPrefix}users` usr ON md.user=usr.name
@@ -151,6 +164,8 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 				mlvm.fk_Questions = Convert.ToString(item["question"]);
 				mlvm.Answers = Convert.ToString(item["answer"]);
 				mlvm.Id = Convert.ToInt32(item["id"]);
+				mlvm.Likes = Convert.ToInt32(item["likes"]);
+				mlvm.Dislikes = Convert.ToInt32(item["dislikes"]);
 			}
 
 			return mlvm;
@@ -163,7 +178,9 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 				SET
 					user=?user,
 					question=?question,
-					answer=?answer
+					answer=?answer,
+					likes=?likes,
+					dislikes=?dislikes
 				WHERE
 					id=?id";
 
@@ -172,6 +189,8 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 				args.Add("?question", MySqlDbType.VarChar).Value = AnswerEvm.Answer.fk_Questions;
 				args.Add("?answer", MySqlDbType.VarChar).Value = AnswerEvm.Answer.Answers;
 				args.Add("?id", MySqlDbType.Int32).Value = AnswerEvm.Answer.Id;
+				args.Add("?likes", MySqlDbType.Int32).Value = AnswerEvm.Answer.Likes;
+				args.Add("?dislikes", MySqlDbType.Int32).Value = AnswerEvm.Answer.Dislikes;
 			});
 		}
 
@@ -183,13 +202,17 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 					user,
 					question,
 					answer,
-					id
+					id,
+					likes,
+					dislikes
 				)
 				VALUES(
 					?user,
 					?question,
 					?answer,
-					?id
+					?id,
+					?likes,
+					?dislikes
 				)";
 
 			Sql.Insert(query, args => {
@@ -197,6 +220,8 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 				args.Add("?question", MySqlDbType.VarChar).Value = AnswerEvm.Answer.fk_Questions;
 				args.Add("?answer", MySqlDbType.VarChar).Value = AnswerEvm.Answer.Answers;
 				args.Add("?id", MySqlDbType.Int32).Value = AnswerEvm.Answer.Id;
+				args.Add("?likes", MySqlDbType.Int32).Value = AnswerEvm.Answer.Likes;
+				args.Add("?dislikes", MySqlDbType.Int32).Value = AnswerEvm.Answer.Dislikes;
 			});
 		}
 

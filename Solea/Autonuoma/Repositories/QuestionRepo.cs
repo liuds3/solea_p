@@ -23,7 +23,9 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 					md.user,
 					md.question,
 					md.content,
-					md.id
+					md.id,
+					md.likes,
+					md.dislikes
 					FROM
 					`{Config.TblPrefix}questions` md
 					LEFT JOIN `{Config.TblPrefix}users` usr ON md.user=usr.name
@@ -38,7 +40,9 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 					fk_User = Convert.ToString(item["user"]),
                     Questions = Convert.ToString(item["question"]),
 					Content = Convert.ToString(item["content"]),
-				    Id = Convert.ToInt32(item["id"])
+				    Id = Convert.ToInt32(item["id"]),
+					Likes = Convert.ToInt32(item["likes"]),
+					Dislikes = Convert.ToInt32(item["dislikes"])
 
 				});
 			}
@@ -64,6 +68,8 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 				mevm.Question.Questions = Convert.ToString(item["question"]);
 				mevm.Question.Content = Convert.ToString(item["content"]);
 				mevm.Question.Id = Convert.ToInt32(item["id"]);
+				mevm.Question.Likes = Convert.ToInt32(item["likes"]);
+				mevm.Question.Dislikes = Convert.ToInt32(item["dislikes"]);
 			}
 
 			return mevm;
@@ -81,7 +87,9 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 						fk_User = item.fk_User,
 						Questions = item.Questions,
 						Content = item.Content,
-						Id = item.Id
+						Id = item.Id,
+						Likes = item.Likes,
+						Dislikes = item.Dislikes
 					});
 				}	
 			}
@@ -102,7 +110,9 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 					md.user,
 					md.question,
 					md.content,
-					md.id
+					md.id,
+					md.likes,
+					md.dislikes
 				FROM
 					`{Config.TblPrefix}questions` md
 					LEFT JOIN `{Config.TblPrefix}users` usr ON md.user=usr.name
@@ -119,6 +129,8 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 				mlvm.Questions = Convert.ToString(item["question"]);
 				mlvm.Content = Convert.ToString(item["content"]);
 				mlvm.Id = Convert.ToInt32(item["id"]);
+				mlvm.Likes = Convert.ToInt32(item["likes"]);
+				mlvm.Dislikes = Convert.ToInt32(item["dislikes"]);
 			}
 
 			return mlvm;
@@ -131,7 +143,9 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 				SET
 					user=?user,
 					question=?question,
-					content=?content
+					content=?content,
+					likes=?likes,
+					dislikes=?dislikes
 				WHERE
 					id=?id";
 
@@ -140,6 +154,8 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 				args.Add("?question", MySqlDbType.VarChar).Value = QuestionEvm.Question.Questions;
 				args.Add("?id", MySqlDbType.Int32).Value = QuestionEvm.Question.Id;
 				args.Add("?content", MySqlDbType.VarChar).Value = QuestionEvm.Question.Content;
+				args.Add("?likes", MySqlDbType.Int32).Value = QuestionEvm.Question.Likes;
+				args.Add("?dislikes", MySqlDbType.Int32).Value = QuestionEvm.Question.Dislikes;
 			});
 		}
 
@@ -151,13 +167,17 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 					user,
 					question,
 					content,
-					id
+					id,
+					likes,
+					dislikes
 				)
 				VALUES(
 					?user,
 					?question,
 					?content,
-					?id
+					?id,
+					?likes,
+					?dislikes
 				)";
 
 			Sql.Insert(query, args => {
@@ -165,6 +185,8 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 				args.Add("?question", MySqlDbType.VarChar).Value = QuestionEvm.Question.Questions;
 				args.Add("?content", MySqlDbType.VarChar).Value = QuestionEvm.Question.Content;
 				args.Add("?id", MySqlDbType.Int32).Value = QuestionEvm.Question.Id;
+				args.Add("?likes", MySqlDbType.Int32).Value = QuestionEvm.Question.Likes;
+				args.Add("?dislikes", MySqlDbType.Int32).Value = QuestionEvm.Question.Dislikes;
 			});
 		}
 
