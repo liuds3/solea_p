@@ -7,230 +7,137 @@ using System.Web;
 using MySql.Data.MySqlClient;
 
 using Org.Ktu.Isk.P175B602.Autonuoma.Models;
-using Org.Ktu.Isk.P175B602.Autonuoma.ViewModels;
 
 
 namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 {
-	public class AnswerRepo
+	public class LikedRepo
 	{
-		public static List<AnswerListVM> List()
+		public static List<Liked> List()
 		{
-			var result = new List<AnswerListVM>();
+			var Likeds = new List<Liked>();
 
-			var query =
-				$@"SELECT
-					md.user,
-					md.question,
-					md.answer,
-					md.id,
-					md.likes,
-					md.dislikes
-					FROM
-					`{Config.TblPrefix}answers` md
-					LEFT JOIN `{Config.TblPrefix}users` usr ON md.user=usr.name
-					LEFT JOIN `{Config.TblPrefix}questions` que ON md.question=que.question
-				ORDER BY md.id DESC";
-
+			string query = $@"SELECT * FROM `{Config.TblPrefix}liked` ORDER BY id ASC";
 			var dt = Sql.Query(query);
 
 			foreach( DataRow item in dt )
 			{
-				result.Add(new AnswerListVM
+				Likeds.Add(new Liked
 				{
-					fk_User = Convert.ToString(item["user"]),
-                    fk_Questions = Convert.ToString(item["question"]),
-					Answers = Convert.ToString(item["answer"]),
-				    Id = Convert.ToInt32(item["id"]),
-					Likes = Convert.ToInt32(item["likes"]),
-					Dislikes = Convert.ToInt32(item["dislikes"])
-
-
+					QuestionId = Convert.ToInt32(item["QuestionId"]),
+					AnswerId = Convert.ToInt32(item["AnswerId"]),
+					UserId = Convert.ToInt32(item["UserId"]),
+					Id = Convert.ToInt32(item["id"]),
+					likedOrDisliked = Convert.ToInt32(item["likedOrDisliked"])
 				});
 			}
 
-			return result;
+			return Likeds;
 		}
-		public static List<AnswerListVM> QuestionAnswers(int id)
+		//This is used to find a Liked based on the id
+		public static Liked Find(int id, int idUser)
 		{
-			var result = new List<AnswerListVM>();
+			var Liked = new Liked();
 
-			var query =
-				$@"SELECT
-					md.user,
-					md.question,
-					md.answer,
-					md.id,
-					md.likes,
-					md.dislikes
-					FROM
-					`{Config.TblPrefix}answers` md
-					LEFT JOIN `{Config.TblPrefix}users` usr ON md.user=usr.name
-					LEFT JOIN `{Config.TblPrefix}questions` que ON md.question=que.question
-				WHERE
-					que.id = ?id";
-
-			var dt =
+			var query = $@"SELECT * FROM `{Config.TblPrefix}liked` WHERE QuestionId=?QuestionId AND UserId=?UserId";
+			var dt = 
 				Sql.Query(query, args => {
-					args.Add("?id", MySqlDbType.Int32).Value = id;
-				});
-
-
-			foreach( DataRow item in dt )
-			{
-				result.Add(new AnswerListVM
-				{
-					fk_User = Convert.ToString(item["user"]),
-                    fk_Questions = Convert.ToString(item["question"]),
-					Answers = Convert.ToString(item["answer"]),
-				    Id = Convert.ToInt32(item["id"]),
-					Likes = Convert.ToInt32(item["likes"]),
-					Dislikes = Convert.ToInt32(item["dislikes"])
-
-				});
-			}
-
-			return result;
-		}
-		/*public static QuestionEditVM FindQuestion(int id)
-		{
-			var mevm = new QuestionEditVM();
-
-			var query = $@"SELECT * FROM `{Config.TblPrefix}questions` WHERE id=?id";
-
-			var dt =
-				Sql.Query(query, args => {
-					args.Add("?id", MySqlDbType.String).Value = id;
+					args.Add("?QuestionId", MySqlDbType.Int32).Value = id;
+					args.Add("?UserId", MySqlDbType.Int32).Value = idUser;
 				});
 
 			foreach( DataRow item in dt )
 			{
-				mevm.Question.Questions = Convert.ToString(item["question"]);
+				Liked.QuestionId = Convert.ToInt32(item["QuestionId"]);
+				Liked.AnswerId = Convert.ToInt32(item["AnswerId"]);
+				Liked.UserId = Convert.ToInt32(item["UserId"]);
+				Liked.Id = Convert.ToInt32(item["id"]);
+				Liked.likedOrDisliked = Convert.ToInt32(item["likedOrDisliked"]);
 			}
 
-			return mevm;
-		}*/
+			return Liked;
+		}
 
-		public static AnswerEditVM Find(int id)
+		public static Liked Find(int id, int idUser, int n)
 		{
-			var mevm = new AnswerEditVM();
+			var Liked = new Liked();
 
-			var query = $@"SELECT * FROM `{Config.TblPrefix}answers` WHERE id=?id";
-
-			var dt =
+			var query = $@"SELECT * FROM `{Config.TblPrefix}liked` WHERE AnswerId=?AnswerId AND UserId=?UserId";
+			var dt = 
 				Sql.Query(query, args => {
-					args.Add("?id", MySqlDbType.String).Value = id;
+					args.Add("?AnswerId", MySqlDbType.Int32).Value = id;
+					args.Add("?UserId", MySqlDbType.Int32).Value = idUser;
 				});
 
 			foreach( DataRow item in dt )
 			{
-				mevm.Answer.fk_User = Convert.ToString(item["user"]);
-				mevm.Answer.fk_Questions = Convert.ToString(item["question"]);
-				mevm.Answer.Answers = Convert.ToString(item["answer"]);
-				mevm.Answer.Id = Convert.ToInt32(item["id"]);
-				mevm.Answer.Likes = Convert.ToInt32(item["likes"]);
-				mevm.Answer.Dislikes = Convert.ToInt32(item["dislikes"]);
+				Liked.QuestionId = Convert.ToInt32(item["QuestionId"]);
+				Liked.AnswerId = Convert.ToInt32(item["AnswerId"]);
+				Liked.UserId = Convert.ToInt32(item["UserId"]);
+				Liked.Id = Convert.ToInt32(item["id"]);
+				Liked.likedOrDisliked = Convert.ToInt32(item["likedOrDisliked"]);
 			}
 
-			return mevm;
+			return Liked;
 		}
+		//This is used to check when loggin in whether a Liked inputed a correct name and password
+		
 
-		public static AnswerListVM FindForDeletion(int id)
-		{
-			var mlvm = new AnswerListVM();
-
-			var query =
-				$@"SELECT
-					md.user,
-					md.question,
-					md.answer,
-					md.id,
-					md.likes,
-					md.dislikes
-				FROM
-					`{Config.TblPrefix}answers` md
-					LEFT JOIN `{Config.TblPrefix}users` usr ON md.user=usr.name
-					LEFT JOIN `{Config.TblPrefix}questions` que ON md.question=que.question
-				WHERE
-					md.id = ?id";
-			var dt =
-				Sql.Query(query, args => {
-					args.Add("?id", MySqlDbType.Int32).Value = id;
-				});
-
-			foreach( DataRow item in dt )
-			{
-				mlvm.fk_User = Convert.ToString(item["user"]);
-				mlvm.fk_Questions = Convert.ToString(item["question"]);
-				mlvm.Answers = Convert.ToString(item["answer"]);
-				mlvm.Id = Convert.ToInt32(item["id"]);
-				mlvm.Likes = Convert.ToInt32(item["likes"]);
-				mlvm.Dislikes = Convert.ToInt32(item["dislikes"]);
-			}
-
-			return mlvm;
-		}
-
-		public static void Update(AnswerEditVM AnswerEvm)
-		{
-			var query =
-				$@"UPDATE `{Config.TblPrefix}answers`
-				SET
-					user=?user,
-					question=?question,
-					answer=?answer,
-					likes=?likes,
-					dislikes=?dislikes
-				WHERE
+		public static void Update(int QuestionId, int AnswerId, int UserId, int Id, int likedOrDisliked)
+		{			
+			var query = 
+				$@"UPDATE `{Config.TblPrefix}liked` 
+				SET 
+					QuestionId=?QuestionId,
+					AnswerId=?AnswerId,
+					UserId=?UserId,
+					likedOrDisliked=?likedOrDisliked
+				WHERE 
 					id=?id";
 
 			Sql.Update(query, args => {
-				args.Add("?user", MySqlDbType.VarChar).Value = AnswerEvm.Answer.fk_User;
-				args.Add("?question", MySqlDbType.VarChar).Value = AnswerEvm.Answer.fk_Questions;
-				args.Add("?answer", MySqlDbType.VarChar).Value = AnswerEvm.Answer.Answers;
-				args.Add("?id", MySqlDbType.Int32).Value = AnswerEvm.Answer.Id;
-				args.Add("?likes", MySqlDbType.Int32).Value = AnswerEvm.Answer.Likes;
-				args.Add("?dislikes", MySqlDbType.Int32).Value = AnswerEvm.Answer.Dislikes;
-			});
+				args.Add("?QuestionId", MySqlDbType.Int32).Value = QuestionId;
+				args.Add("?AnswerId", MySqlDbType.Int32).Value = AnswerId;
+				args.Add("?UserId", MySqlDbType.Int32).Value = UserId;
+				args.Add("?id", MySqlDbType.Int32).Value = Id;
+				args.Add("?likedOrDisliked", MySqlDbType.Int32).Value = likedOrDisliked;
+			});							
 		}
 
-		public static void Insert(AnswerEditVM AnswerEvm)
-		{
-			var query =
-				$@"INSERT INTO `{Config.TblPrefix}answers`
+		public static void Insert(int QuestionId, int AnswerId, int UserId, int Id, int likedOrDisliked)
+		{			
+				var query =
+				$@"INSERT INTO `{Config.TblPrefix}liked`
 				(
-					user,
-					question,
-					answer,
+					QuestionId,
+					AnswerId,
+                    UserId,
 					id,
-					likes,
-					dislikes
+					likedOrDisliked
 				)
 				VALUES(
-					?user,
-					?question,
-					?answer,
+					?QuestionId,
+					?AnswerId,
+					?UserId,
 					?id,
-					?likes,
-					?dislikes
+					?likedOrDisliked
 				)";
 
 			Sql.Insert(query, args => {
-				args.Add("?user", MySqlDbType.VarChar).Value = AnswerEvm.Answer.fk_User;
-				args.Add("?question", MySqlDbType.VarChar).Value = AnswerEvm.Answer.fk_Questions;
-				args.Add("?answer", MySqlDbType.VarChar).Value = AnswerEvm.Answer.Answers;
-				args.Add("?id", MySqlDbType.Int32).Value = AnswerEvm.Answer.Id;
-				args.Add("?likes", MySqlDbType.Int32).Value = AnswerEvm.Answer.Likes;
-				args.Add("?dislikes", MySqlDbType.Int32).Value = AnswerEvm.Answer.Dislikes;
+				args.Add("?QuestionId", MySqlDbType.Int32).Value = QuestionId;
+				args.Add("?AnswerId", MySqlDbType.Int32).Value = AnswerId;
+				args.Add("?UserId", MySqlDbType.Int32).Value = UserId;
+				args.Add("?id", MySqlDbType.Int32).Value = Id;
+				args.Add("?likedOrDisliked", MySqlDbType.Int32).Value = likedOrDisliked;
 			});
 		}
 
 		public static void Delete(int id)
-		{
-			var query = $@"DELETE FROM `{Config.TblPrefix}answers` WHERE id=?id";
+		{			
+			var query = $@"DELETE FROM `{Config.TblPrefix}liked` where id=?id";
 			Sql.Delete(query, args => {
 				args.Add("?id", MySqlDbType.Int32).Value = id;
-			});
+			});			
 		}
 	}
 }

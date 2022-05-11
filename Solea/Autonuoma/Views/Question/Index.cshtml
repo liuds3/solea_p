@@ -46,7 +46,7 @@
 				<th>
 					Question
 				</th>
-				<th>
+				@*<th>
 					Likes
 				</th>
 				<th>
@@ -77,16 +77,24 @@
 				<td>
 					<p style="font-size:1.5vw;">
 							@Html.DisplayFor(Question => item.Likes)
-							<a href="@Url.Action("Like", new { id = item.Id})" > <img src="/images/like.png" alt="like" width="20" height="auto"></a>
-			
-							
+							@if(Model.user.Id==0){
+								<a href="http://localhost:5000/User/Login"  role="button"><img src="/images/like.png" alt="like" width="20" height="auto"></a>
+							}
+							else{
+								<a href="@Url.Action("Like", new { id = item.Id, QuestiondUserId=item.fk_User})" > <img src="/images/like.png" alt="like" width="20" height="auto"></a>
+							}
 					</p>
 					
 				</td>
 				<td>
 					<p style="font-size:1.5vw;">
 							@Html.DisplayFor(Question => item.Dislikes)
-							<a href="@Url.Action("Dislike", new { id = item.Id})" > <img src="/images/dislike.png" alt="dislike" width="20" height="auto"></a>
+							@if(Model.user.Id==0){
+								<a href="http://localhost:5000/User/Login"  role="button"><img src="/images/dislike.png" alt="dislike" width="20" height="auto"></a>
+							}
+							else{
+								<a href="@Url.Action("Dislike", new { id = item.Id, QuestiondUserId=item.fk_User})" > <img src="/images/dislike.png" alt="dislike" width="20" height="auto"></a>
+							}
 					</p>
 					
 				</td>

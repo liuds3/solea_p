@@ -68,7 +68,7 @@ else{
 					<p style="color:#2a9fd6";>Answer</p>
 
 				</th>
-				<th>
+				@*<th>
 					<p style="color:#2a9fd6";>Likes</p>
 
 				</th>
@@ -98,7 +98,7 @@ else{
 						<a href="http://localhost:5000/User/Login"  role="button"><img src="/images/like.png" alt="like" width="20" height="auto"></a>
 					}
 					else{
-						<a href="@Url.Action("Like", "Answer", new { id = item.Id, idq = Model.question.Id})" > <img src="/images/like.png" alt="like" width="20" height="auto"></a>
+						<a href="@Url.Action("Like", "Answer", new { id = item.Id, idq = Model.question.Id, AnswerUserId = item.fk_User})" > <img src="/images/like.png" alt="like" width="20" height="auto"></a>
 					}
 				</th>
 				<th>
@@ -107,7 +107,7 @@ else{
 						<a href="http://localhost:5000/User/Login"  role="button"><img src="/images/dislike.png" alt="dislike" width="20" height="auto"></a>
 					}
 					else{
-						<a href="@Url.Action("Dislike", "Answer", new { id = item.Id, idq = Model.question.Id})" > <img src="/images/dislike.png" alt="dislike" width="20" height="auto"></a>
+						<a href="@Url.Action("Dislike", "Answer", new { id = item.Id, idq = Model.question.Id, AnswerUserId = item.fk_User})" > <img src="/images/dislike.png" alt="dislike" width="20" height="auto"></a>
 					}
 				</th>
 				@*<th>

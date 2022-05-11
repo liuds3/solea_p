@@ -8,24 +8,21 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Models
 	/// <summary>
 	/// Model of 'Modelis' entity.
 	/// </summary>
-	public class Answer
+	public class Liked
 	{
-		[DisplayName("User")]
-		public string fk_User { get; set; }
+		[DisplayName("QuestionId")]
+		public int QuestionId { get; set; }
 
-		[DisplayName("Question")]
-		public string fk_Questions { get; set; } // error when write Question, because of same name as class
+		[DisplayName("AnswerId")]
+		public int AnswerId { get; set; }
 
-        [DisplayName("Answer")]
-		public string Answers { get; set; } 
+		[DisplayName("UserId")]
+		public int UserId { get; set; }
 
 		[DisplayName("Id")]
 		public int Id { get; set; }
 
-		[DisplayName("Likes")]
-		public int Likes { get; set; }
-
-		[DisplayName("Dislikes")]
-		public int Dislikes { get; set; }
+		[DisplayName("LikedOrDisliked")]
+		public int likedOrDisliked { get; set; }
 	}
 }

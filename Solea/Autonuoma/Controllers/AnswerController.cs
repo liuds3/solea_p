@@ -70,18 +70,64 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			
 		}
 
-		public ActionResult Like(int id, int idQ)
+		public ActionResult Like(int id, int idQ, string AnswerUserId)
 		{
+			var match = LikedRepo.Find(id, Convert.ToInt32(TempData["id"]), 0);
+			var user = UserRepo.Find(AnswerUserId, 1);
+			var Liked = LikedRepo.List();
+			int LikedId = 0;
+			if(Liked.Count==0)
+				LikedId=1;
+			else
+				LikedId = LikedRepo.List().Last().Id+1;
 			var answer=AnswerRepo.Find(id);
-			answer.Answer.Likes+=1;
+			if(match.AnswerId != id){
+				answer.Answer.Likes+=1;
+				user.Currency+=1;
+				LikedRepo.Insert(0, id, Convert.ToInt32(TempData["id"]), LikedId, 1);
+			}
+			else if(match.likedOrDisliked == 2 ){
+				answer.Answer.Likes+=1;
+				answer.Answer.Dislikes-=1;
+				user.Currency+=1;
+				LikedRepo.Update(0, id, Convert.ToInt32(TempData["id"]), match.Id, 1);
+			}
+			else{
+				user.Currency-=1;
+				answer.Answer.Likes-=1;
+				LikedRepo.Delete(match.Id);
+			}
+			UserRepo.Update(user);
 			AnswerRepo.Update(answer);
 			return RedirectToAction("Content","Question", new {id = idQ});
 		}
 
-		public ActionResult Dislike(int id, int idQ)
+		public ActionResult Dislike(int id, int idQ, string AnswerUserId)
 		{
+			var match = LikedRepo.Find(id, Convert.ToInt32(TempData["id"]), 0);
+			var user = UserRepo.Find(AnswerUserId, 1);
+			var Liked = LikedRepo.List();
+			int LikedId = 0;
+			if(Liked.Count==0)
+				LikedId=1;
+			else
+				LikedId = LikedRepo.List().Last().Id+1;
 			var answer=AnswerRepo.Find(id);
-			answer.Answer.Dislikes+=1;
+			if(match.AnswerId != id){
+				answer.Answer.Dislikes+=1;
+				LikedRepo.Insert(0, id, Convert.ToInt32(TempData["id"]), LikedId, 2);
+			}
+			else if(match.likedOrDisliked == 1 ){
+				answer.Answer.Likes-=1;
+				answer.Answer.Dislikes+=1;
+				user.Currency-=1;
+				LikedRepo.Update(0, id, Convert.ToInt32(TempData["id"]), match.Id, 2);
+			}
+			else{
+				answer.Answer.Dislikes-=1;
+				LikedRepo.Delete(match.Id);
+			}
+			UserRepo.Update(user);
 			AnswerRepo.Update(answer);
 			return RedirectToAction("Content","Question", new {id = idQ});
 		}

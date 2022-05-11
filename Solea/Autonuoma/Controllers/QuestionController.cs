@@ -36,7 +36,8 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			vModel.user=user;
 			return View(vModel);
 		}
-		
+		//Shows the question and it's answers. From Views gets question id. With that id
+		//using QuestionRepo.FindForDeletion() method finds the question and it's answers
 		public ActionResult Content(int id)
 		{
 			var answerss = AnswerRepo.QuestionAnswers(id);
@@ -49,18 +50,65 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			return View(vModel);
 		}
 
-		public ActionResult Like(int id)
+		//When like button pressed on main page, it reloads a page and adds or substracts likes count
+		public ActionResult Like(int id, string QuestiondUserId)
 		{
+			var match = LikedRepo.Find(id, Convert.ToInt32(TempData["id"]));
+			var user = UserRepo.Find(QuestiondUserId, 1);
+			var Liked = LikedRepo.List();
+			int LikedId = 0;
+			if(Liked.Count==0)
+				LikedId=1;
+			else
+				LikedId = LikedRepo.List().Last().Id+1;
 			var question=QuestionRepo.Find(id);
-			question.Question.Likes+=1;
+			if(match.QuestionId != id){
+				question.Question.Likes+=1;
+				user.Currency+=1;
+				LikedRepo.Insert(id, 0, Convert.ToInt32(TempData["id"]), LikedId, 1);
+			}
+			else if(match.likedOrDisliked == 2 ){
+				question.Question.Likes+=1;
+				question.Question.Dislikes-=1;
+				user.Currency+=1;
+				LikedRepo.Update(id, 0, Convert.ToInt32(TempData["id"]), match.Id, 1);
+			}
+			else{
+				user.Currency-=1;
+				question.Question.Likes-=1;
+				LikedRepo.Delete(match.Id);
+			}
+			UserRepo.Update(user);
 			QuestionRepo.Update(question);
 			return RedirectToAction("Index");
 		}
-
-		public ActionResult Dislike(int id)
+		//When dislike button pressed on main page, it reloads a page and adds or substracts dislikes count
+		public ActionResult Dislike(int id, string QuestiondUserId)
 		{
+			var match = LikedRepo.Find(id, Convert.ToInt32(TempData["id"]));
+			var user = UserRepo.Find(QuestiondUserId, 1);
+			var Liked = LikedRepo.List();
+			int LikedId = 0;
+			if(Liked.Count==0)
+				LikedId=1;
+			else
+				LikedId = LikedRepo.List().Last().Id+1;
 			var question=QuestionRepo.Find(id);
-			question.Question.Dislikes+=1;
+			if(match.QuestionId != id){
+				question.Question.Dislikes+=1;
+				LikedRepo.Insert(id, 0, Convert.ToInt32(TempData["id"]), LikedId, 2);
+			}
+			else if(match.likedOrDisliked == 1){
+				question.Question.Likes-=1;
+				question.Question.Dislikes+=1;
+				user.Currency-=1;
+				LikedRepo.Update(id, 0, Convert.ToInt32(TempData["id"]), match.Id, 2);
+			}
+			else{
+				question.Question.Dislikes-=1;
+				LikedRepo.Delete(match.Id);
+			}
+			UserRepo.Update(user);
 			QuestionRepo.Update(question);
 			return RedirectToAction("Index");
 		}
