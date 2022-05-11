@@ -62,16 +62,27 @@
 			<a href="@Url.Action("Index", "Home")" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Logout</a>
 		</span>
 
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle show" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">@TempData["name"]</a>
+    <div class="dropdown-menu show" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 46px, 0px);" data-popper-placement="bottom-start">
+      <a class="dropdown-item" href="#">Action</a>
+      <a class="dropdown-item" href="#">Another action</a>
+      <a class="dropdown-item" href="#">Something else here</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="#">Separated link</a>
+    </div>
+  </li>
+  
 		   <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-                <p style="color:green">@TempData["name"] </p>
+                <username >@TempData["name"] </username>
 				<img src="/images/gold.png" alt="golden" width="30" height="auto">x@(Convert.ToInt32(TempData["currency"])/100)
 				<img src="/images/silver.png" alt="silver" width="30" height="auto">x@(Convert.ToInt32(TempData["currency"])%100/10)
 				<img src="/images/bronze.png" alt="bronze" width="30" height="auto">x@(Convert.ToInt32(TempData["currency"])%10)
-            </li>
-            
+            </li>          
         </ul>
+		
 		
     </div>
 		
