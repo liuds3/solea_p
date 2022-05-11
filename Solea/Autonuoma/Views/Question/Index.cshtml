@@ -47,6 +47,12 @@
 				<th>
 					Question
 				</th>
+				<th>
+					Likes
+				</th>
+				<th>
+					Dislikes
+				</th>
 				@*<th>
 					@Html.DisplayNameFor(Question => Question.Content)
 				</th>*@
@@ -65,6 +71,20 @@
 				<td>
 					<p style="font-size:1.5vw;">
 							@Html.DisplayFor(Question => item.Questions)
+							
+					</p>
+					
+				</td>
+				<td>
+					<p style="font-size:1.5vw;">
+							@Html.DisplayFor(Question => item.Likes)
+							
+					</p>
+					
+				</td>
+				<td>
+					<p style="font-size:1.5vw;">
+							@Html.DisplayFor(Question => item.Dislikes)
 							
 					</p>
 					

@@ -185,8 +185,8 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 				args.Add("?question", MySqlDbType.VarChar).Value = QuestionEvm.Question.Questions;
 				args.Add("?content", MySqlDbType.VarChar).Value = QuestionEvm.Question.Content;
 				args.Add("?id", MySqlDbType.Int32).Value = QuestionEvm.Question.Id;
-				args.Add("?id", MySqlDbType.Int32).Value = QuestionEvm.Question.Likes;
-				args.Add("?id", MySqlDbType.Int32).Value = QuestionEvm.Question.Dislikes;
+				args.Add("?likes", MySqlDbType.Int32).Value = QuestionEvm.Question.Likes;
+				args.Add("?dislikes", MySqlDbType.Int32).Value = QuestionEvm.Question.Dislikes;
 			});
 		}
 

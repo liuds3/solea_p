@@ -69,6 +69,14 @@ else{
 					<p style="color:#2a9fd6";>Answer</p>
 
 				</th>
+				<th>
+					<p style="color:#2a9fd6";>Likes</p>
+
+				</th>
+				<th>
+					<p style="color:#2a9fd6";>Dislikes</p>
+
+				</th>
 				@*<th>
 					@Html.DisplayNameFor(Question => Question.Content)
 				</th>*@
@@ -84,6 +92,12 @@ else{
 				</th>
 				<th>
 					@Html.DisplayFor(Answer => item.Answers)
+				</th>
+				<th>
+					@Html.DisplayFor(Answer => item.Likes)
+				</th>
+				<th>
+					@Html.DisplayFor(Answer => item.Dislikes)
 				</th>
 				@*<th>
 					@Html.DisplayNameFor(Question => Question.Content)
