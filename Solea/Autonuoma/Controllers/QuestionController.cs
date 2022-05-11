@@ -48,6 +48,22 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			vModel.user=user;
 			return View(vModel);
 		}
+
+		public ActionResult Like(int id)
+		{
+			var question=QuestionRepo.Find(id);
+			question.Question.Likes+=1;
+			QuestionRepo.Update(question);
+			return RedirectToAction("Index");
+		}
+
+		public ActionResult Dislike(int id)
+		{
+			var question=QuestionRepo.Find(id);
+			question.Question.Dislikes+=1;
+			QuestionRepo.Update(question);
+			return RedirectToAction("Index");
+		}
 		/// <summary>
 		/// This is invoked when creation form is first opened in browser.
 		/// </summary>

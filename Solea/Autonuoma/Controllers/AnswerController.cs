@@ -70,6 +70,21 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			
 		}
 
+		public ActionResult Like(int id, int idQ)
+		{
+			var answer=AnswerRepo.Find(id);
+			answer.Answer.Likes+=1;
+			AnswerRepo.Update(answer);
+			return RedirectToAction("Content","Question", new {id = idQ});
+		}
+
+		public ActionResult Dislike(int id, int idQ)
+		{
+			var answer=AnswerRepo.Find(id);
+			answer.Answer.Dislikes+=1;
+			AnswerRepo.Update(answer);
+			return RedirectToAction("Content","Question", new {id = idQ});
+		}
 		/// <summary>
 		/// This is invoked when editing form is first opened in browser.
 		/// </summary>

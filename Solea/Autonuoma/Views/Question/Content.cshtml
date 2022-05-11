@@ -3,7 +3,6 @@
 	ViewData["title"] = "Question";
 	TempData["id"] = Model.user.Id;
 	TempData["id1"] = Model.user.Id;
-	TempData["id2"] = Model.user.Id;
 	TempData["name"] = Model.user.Name;
 	TempData["currency"] = Model.user.Currency;
 }
@@ -49,8 +48,8 @@
 	</table>
 }
 </div>
-@if(TempData["id2"]==null || Convert.ToInt32(TempData["id2"])==0){
-	<a href="http://localhost:5000/User/Login" class="btn btn-outline-danger" role="button">Login to create a question</a>
+@if(Model.user.Id==0){
+	<a href="http://localhost:5000/User/Login" class="btn btn-outline-danger" role="button">Login to create an answer</a>
 	
 }
 else{
@@ -95,9 +94,21 @@ else{
 				</th>
 				<th>
 					@Html.DisplayFor(Answer => item.Likes)
+					@if(Model.user.Id==0){
+						<a href="http://localhost:5000/User/Login"  role="button"><img src="/images/like.png" alt="like" width="20" height="auto"></a>
+					}
+					else{
+						<a href="@Url.Action("Like", "Answer", new { id = item.Id, idq = Model.question.Id})" > <img src="/images/like.png" alt="like" width="20" height="auto"></a>
+					}
 				</th>
 				<th>
 					@Html.DisplayFor(Answer => item.Dislikes)
+					@if(Model.user.Id==0){
+						<a href="http://localhost:5000/User/Login"  role="button"><img src="/images/dislike.png" alt="dislike" width="20" height="auto"></a>
+					}
+					else{
+						<a href="@Url.Action("Dislike", "Answer", new { id = item.Id, idq = Model.question.Id})" > <img src="/images/dislike.png" alt="dislike" width="20" height="auto"></a>
+					}
 				</th>
 				@*<th>
 					@Html.DisplayNameFor(Question => Question.Content)

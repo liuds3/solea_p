@@ -3,7 +3,6 @@
 	ViewData["title"] = "Questions";
 	TempData["id"] = Model.user.Id;
 	TempData["id1"] = Model.user.Id;
-	TempData["id2"] = Model.user.Id;
 	TempData["name"] = Model.user.Name;
 	TempData["currency"] = Model.user.Currency;
 }
@@ -26,7 +25,7 @@
 	@*<div class="container-fluid d-flex d-row justify-content-end">
 		<button name="Search" value="1" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Save</button>
 	</div>*@
-	@if(TempData["id2"]==null || Convert.ToInt32(TempData["id2"])==0){
+	@if(Model.user.Id==0){
 		<a href="http://localhost:5000/User/Login" class="btn btn-outline-danger" role="button">Login to create a question</a>
 	}
 	else{
@@ -78,6 +77,8 @@
 				<td>
 					<p style="font-size:1.5vw;">
 							@Html.DisplayFor(Question => item.Likes)
+							<a href="@Url.Action("Like", new { id = item.Id})" > <img src="/images/like.png" alt="like" width="20" height="auto"></a>
+			
 							
 					</p>
 					
@@ -85,7 +86,7 @@
 				<td>
 					<p style="font-size:1.5vw;">
 							@Html.DisplayFor(Question => item.Dislikes)
-							
+							<a href="@Url.Action("Dislike", new { id = item.Id})" > <img src="/images/dislike.png" alt="dislike" width="20" height="auto"></a>
 					</p>
 					
 				</td>
