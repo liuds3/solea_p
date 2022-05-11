@@ -23,5 +23,13 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.ViewModels
 			[DisplayName("Content")]
 		    public string Content { get; set; }	
 
+			[DisplayName("Likes")]
+			public int Likes { get; set; }
+
+			[DisplayName("Dislikes")]
+			public int Dislikes { get; set; }
+
+
+
 	}
 }
