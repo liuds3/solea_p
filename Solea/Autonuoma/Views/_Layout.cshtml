@@ -63,16 +63,26 @@
 		</span>
 
 		   <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+			   
         <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-                <p style="color:green">@TempData["name"] </p>
+				@*<antrast >@TempData["name"] </antrast>*@
+					<ul class="nav nav-tabs">
+  <li class="nav-item dropdown">
+    <antrast class="btn btn-secondary btn-lg dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@TempData["name"] </antrast>
+    <div class="dropdown-menu" style="">
+      <a class="dropdown-item" href="#">Edit profile</a>
+      <a class="dropdown-item" style="color: red;" href="@Url.Action("Index", "Home")">Logout</a>
+  </li>
+</ul>
+		
 				<img src="/images/gold.png" alt="golden" width="30" height="auto">x@(Convert.ToInt32(TempData["currency"])/100)
 				<img src="/images/silver.png" alt="silver" width="30" height="auto">x@(Convert.ToInt32(TempData["currency"])%100/10)
 				<img src="/images/bronze.png" alt="bronze" width="30" height="auto">x@(Convert.ToInt32(TempData["currency"])%10)
             </li>
             
         </ul>
-		
+	
     </div>
 		
 	}

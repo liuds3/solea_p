@@ -13,41 +13,34 @@
 }*@
 <link rel="stylesheet" href="~/css/bootswatchTheme.css" />
 <div class="main-content-header container-fluid d-flex d-row justify-content-between align-items-center p-2">
-	<span class="title">@ViewData["title"]</span>
-</div>
-<div class="container-fluid d-flex justify-content-center">
+	<pantrast class="title">@ViewData["title"]</pantrast>
+@*
+	@using (Html.BeginForm()) 
 	
-@using (Html.BeginForm()) 
+	
 {
 	
 	@Html.AntiForgeryToken()
-	<p> @Html.DisplayFor(Question => Model.question.fk_User)'s question</p>
-	<table class="entitylist table table-striped table-hover">
-			<tr>
-			</tr>
-			<th>
-					<p style="color:#2a9fd6";>Question</p>
+	<namequestion> @Html.DisplayFor(Question => Model.question.fk_User)'s question</namequestion>
+	
+	}*@
+	</div>
+	<namequestion> @Html.DisplayFor(Question => Model.question.fk_User)'s question</namequestion>
+<div class="container-fluid d-flex justify-content-center">
+	<div class="divTable blueTable">
+<div class="divTableHeading">
+<div class="divTableRow">
+<div class="divTableHead">@Html.DisplayFor(Question => Model.question.Questions)</div>
+</div>
+</div>
+<div class="divTableBody">
+<div class="divTableRow">
+<div class="divTableCell">@Html.DisplayFor(Question => Model.question.Content)</div>
+</div>
+</div>
+</div>
 
-				</th>
-			<tr>
-				
-				<td>
-					
-					<b>@Html.DisplayFor(Question => Model.question.Questions)
-				</td>
-			</tr>
-			<th>
-					<p style="color:#2a9fd6";>Content</p>
 
-				</th>
-			<tr>
-				
-				<td>
-					@Html.DisplayFor(Question => Model.question.Content)
-				</td>
-			</tr>
-	</table>
-}
 </div>
 @if(TempData["id2"]==null || Convert.ToInt32(TempData["id2"])==0){
 	<a href="http://localhost:5000/User/Login" class="btn btn-outline-danger" role="button">Login to create a question</a>
@@ -62,19 +55,19 @@ else{
 		<thead>
 			<tr>
 				<th>
-					<p style="color:#2a9fd6";>User</p>
+					<antrast>User</antrast>
 
 				</th>
 				<th>
-					<p style="color:#2a9fd6";>Answer</p>
+					<antrast>Answer</antrast>
 
 				</th>
 				<th>
-					<p style="color:#2a9fd6";>Likes</p>
+					<antrast>Likes</antrast>
 
 				</th>
 				<th>
-					<p style="color:#2a9fd6";>Dislikes</p>
+					<antrast>Dislikes</antrast>
 
 				</th>
 				@*<th>
@@ -87,18 +80,34 @@ else{
 		@foreach (var item in Model.answers) {
 			<thead>
 			<tr>
-				<th>
-					@Html.DisplayFor(Answer => item.fk_User) 
-				</th>
-				<th>
-					@Html.DisplayFor(Answer => item.Answers)
-				</th>
-				<th>
-					@Html.DisplayFor(Answer => item.Likes)
-				</th>
-				<th>
-					@Html.DisplayFor(Answer => item.Dislikes)
-				</th>
+				<td>
+					<atskls>
+							@Html.DisplayFor(Answer => item.fk_User)
+							
+					</atskls>
+				</td>
+				<td>
+					<atskls>
+							@Html.DisplayFor(Answer => item.Answers)
+							
+					</atskls>
+					
+				</td>
+				<td>
+					<atskls>
+							@Html.DisplayFor(Answer => item.Likes)
+							
+					</atskls>
+					
+				</td>
+				<td>
+					<atskls>
+							@Html.DisplayFor(Answer => item.Dislikes)
+							
+					</atskls>
+					
+				</td>
+				
 				@*<th>
 					@Html.DisplayNameFor(Question => Question.Content)
 				</th>*@
@@ -116,7 +125,7 @@ else{
 }
 else
 {
-	<b>No answers yet</b>
+	<noanswer>No answers yet</noanswer>
 }
 <div class="main-content-footer container-fluid d-flex d-row justify-content-between align-items-center">
 	<span class="title"></span>

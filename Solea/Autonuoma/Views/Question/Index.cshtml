@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="~/css/bootswatchTheme.css" />
 
 <div class="main-content-header container-fluid d-flex d-row justify-content-between align-items-center p-2">
-	<span class="title">@ViewData["title"]</span>
+	<pantrast class="title">@ViewData["title"]</pantrast>
 	@*<input type="text" placeholder="Search.." id="search">
 	<input type="submit" value="Search" formaction="Search" fommethod="post"/>
 	@*<button type="submit" formaction="@Url.Action("Create")">Submit</button>
@@ -63,30 +63,30 @@
 			@foreach (var item in Model.question) {
 			<tr>
 				<td>
-					<p style="font-size:1.5vw;">
+					<atskls>
 							@Html.DisplayFor(Question => item.fk_User)
 							
-					</p>
+					</atskls>
 				</td>
 				<td>
-					<p style="font-size:1.5vw;">
+					<atskls>
 							@Html.DisplayFor(Question => item.Questions)
 							
-					</p>
+					</atskls>
 					
 				</td>
 				<td>
-					<p style="font-size:1.5vw;">
+					<atskls>
 							@Html.DisplayFor(Question => item.Likes)
 							
-					</p>
+					</atskls>
 					
 				</td>
 				<td>
-					<p style="font-size:1.5vw;">
+					<atskls>
 							@Html.DisplayFor(Question => item.Dislikes)
 							
-					</p>
+					</atskls>
 					
 				</td>
 				@*<td>
