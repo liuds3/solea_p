@@ -14,17 +14,29 @@
 
 <div class="main-content-header container-fluid d-flex d-row justify-content-between align-items-center p-2">
 	<span class="title">@ViewData["title"]</span>
+	@*<input type="text" placeholder="Search.." id="search">
+	<input type="submit" value="Search" formaction="Search" fommethod="post"/>
+	@*<button type="submit" formaction="@Url.Action("Create")">Submit</button>
+	<input type="submit" value="Search" formaction="Content" fommethod="post" >*@
+	<form href="@Url.Action("Search", "Question")">
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit"  ><img src="/images/magnifier.png" alt="search" width="20" height="auto"></button>
+	  @*<input type="image" src="/images/magnifier.png" width="30" height="auto"  alt="search">*@
+    </form>
+	@*<div class="container-fluid d-flex d-row justify-content-end">
+		<button name="Search" value="1" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+	</div>*@
 	@if(TempData["id2"]==null || Convert.ToInt32(TempData["id2"])==0){
-		<p>Login to create a question</p>
+		<a href="http://localhost:5000/User/Login" class="btn btn-outline-danger" role="button">Login to create a question</a>
 	}
 	else{
 		<span class="actions">
-			<a href="@Url.Action("Create")" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Create new question</a>
+			<a href="@Url.Action("Create")" class="btn btn-warning"><i class="fa-solid fa-plus"></i> Create new question</a>
 		</span>
 	}
 </div>
 
-
+@if(Model.question.Count>0){
 <div class="d-flex justify-content-center">
 	<table class="entitylist table table-striped table-hover">
 		<thead>
@@ -45,10 +57,17 @@
 			@foreach (var item in Model.question) {
 			<tr>
 				<td>
-					@Html.DisplayFor(Question => item.fk_User)
+					<p style="font-size:1.5vw;">
+							@Html.DisplayFor(Question => item.fk_User)
+							
+					</p>
 				</td>
 				<td>
-					@Html.DisplayFor(Question => item.Questions)
+					<p style="font-size:1.5vw;">
+							@Html.DisplayFor(Question => item.Questions)
+							
+					</p>
+					
 				</td>
 				@*<td>
 					@Html.DisplayFor(Question => item.Content)
@@ -68,3 +87,7 @@
 		</tbody>
 	</table>
 </div>
+}
+else{
+	<p>There are no questions</p>
+}

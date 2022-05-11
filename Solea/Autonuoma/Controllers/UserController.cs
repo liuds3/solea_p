@@ -37,11 +37,6 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		//It checks whether a user name and password is found in the data base
 		//If found sends user's id to main page, so from there it can be used
 		[HttpPost]
-		public ActionResult Login1(User user)
-		{
-			return View(user);
-		}
-		[HttpPost]
 		public ActionResult Login(User user)
 		{
 			var match = UserRepo.Find(user);

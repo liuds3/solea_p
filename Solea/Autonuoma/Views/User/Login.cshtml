@@ -37,16 +37,10 @@
 	</fieldset>
     //<input type="submit" value="Išsaugoti" class="btn btn-success" />
 	//<button name="login" value="1" > Login</button>
-	@if(TempData["name"]!=null){
-	TempData["name"] = Model.Name;
-	TempData["password"] = Model.Password;
-	}
-	@if(TempData["name"]==null){
+
+
 	<input type="submit" value="Login" formaction="Login" fommethod="post"/>
-	}
-	@if(TempData["name"]!=null){
-		<input type="submit" value="Login" formaction="Login" fommethod="post"/>
-	}
+
     /*<span class="actions">
 		<a href="@Url.Action("Login1", new { name = "dfasdfa", password = "sadfadsfa"} )" class="link-primary"><i class="fa-solid fa-angles-left"></i> Loginsadfasd</a>
 	</span>*/
@@ -56,6 +50,6 @@
 <div class="main-content-footer container-fluid d-flex d-row justify-content-between align-items-center">
 	<span class="title"></span>
 	<span class="actions">
-		<a href="@Url.Action("Index", "Home")" class="link-primary"><i class="fa-solid fa-angles-left"></i> Back</a>
+		<a href="http://localhost:5000/Question" class="btn btn-success"><i class="fa-solid fa-angles-left"></i> Back to list</a>
 	</span>
 </div>

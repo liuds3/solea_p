@@ -25,12 +25,23 @@
 	<table class="entitylist table table-striped table-hover">
 			<tr>
 			</tr>
+			<th>
+					<p style="color:#2a9fd6";>Question</p>
+
+				</th>
 			<tr>
+				
 				<td>
+					
 					<b>@Html.DisplayFor(Question => Model.question.Questions)
 				</td>
 			</tr>
+			<th>
+					<p style="color:#2a9fd6";>Content</p>
+
+				</th>
 			<tr>
+				
 				<td>
 					@Html.DisplayFor(Question => Model.question.Content)
 				</td>
@@ -39,19 +50,37 @@
 }
 </div>
 @if(TempData["id2"]==null || Convert.ToInt32(TempData["id2"])==0){
-	<p>Login to create an answer</p>
+	<a href="http://localhost:5000/User/Login" class="btn btn-outline-danger" role="button">Login to create a question</a>
+	
 }
 else{
-	<a href="@Url.Action("Create", "Answer", new { q = Model.question.Questions, id = Model.question.Id })">Create new answer</a>
+	<a href="@Url.Action("Create", "Answer", new { q = Model.question.Questions, id = Model.question.Id })" class="btn btn-warning"><i class="fa-solid fa-pen-to-square">Create new answer</a>
 }
 @if(Model.answers.Count>0){
 <div>
 	<table class="entitylist table table-striped table-hover">
+		<thead>
+			<tr>
+				<th>
+					<p style="color:#2a9fd6";>User</p>
+
+				</th>
+				<th>
+					<p style="color:#2a9fd6";>Answer</p>
+
+				</th>
+				@*<th>
+					@Html.DisplayNameFor(Question => Question.Content)
+				</th>*@
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
 		@foreach (var item in Model.answers) {
 			<thead>
 			<tr>
 				<th>
-					@Html.DisplayFor(Answer => item.fk_User)
+					@Html.DisplayFor(Answer => item.fk_User) 
 				</th>
 				<th>
 					@Html.DisplayFor(Answer => item.Answers)
