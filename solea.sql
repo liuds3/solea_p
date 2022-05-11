@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 11, 2022 at 09:39 AM
+-- Generation Time: May 11, 2022 at 10:52 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -48,7 +48,12 @@ INSERT INTO `answers` (`user`, `question`, `answer`, `id`, `likes`, `dislikes`) 
 ('mykolas', 'testas', 'fasefsafsfsaf', 28, 1, 2),
 ('kazom', 'Kazom test', 'kazom answer test123', 29, 4, 1),
 ('kazom', 'About Lithuania', 'asdfaee', 30, 2, 3),
-('kazom', 'kazom test1234', 'super answerss', 31, 0, 4);
+('kazom', 'kazom test1234', 'super answerss', 31, 0, 4),
+('kazom', 'kazom test1234', 'testo answer sql_56', 32, 2, 1),
+('kazom', 'kazom test1234', 'new answer for sql_56 test', 33, 10, 3),
+('kazom', 'kazom test1234', 'kitas testas', 34, 55, 22),
+('kazom', 'Again test with creats', 'Answer test with likes and dislikes', 35, 5, 2),
+('kazom', 'Again test with creats', 'another ones', 36, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -89,8 +94,10 @@ INSERT INTO `questions` (`user`, `question`, `id`, `content`, `likes`, `dislikes
 ('Useris2', 'About Lithuania', 17, 'Hello guys, is it worth living in Lithuania? What are situation there?', 2, 5),
 ('karpol2', 'This is question title.', 18, 'This is a question title\'s description/content. (For test purposes.)', 4, 1),
 ('Useris2', 'testas', 19, 'fsaefsafasf', 2, 1),
-('kazom', 'Kazom test', 20, 'kazom content test4', 0, 0),
-('kazom', 'kazom test1234', 21, 'kazomtesat1241efsafass', 0, 0);
+('kazom', 'Kazom test', 20, 'kazom content test4', 1, 2),
+('kazom', 'kazom test1234', 21, 'kazomtesat1241efsafass', 3, 2),
+('kazom', 'SQL_Test56/KarolisQuestion', 22, 'Ar imanoma padaryti sia task\'a?', 5, 5),
+('kazom', 'Again test with creats', 23, 'Creating questionss', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -120,7 +127,7 @@ INSERT INTO `users` (`id`, `name`, `currency`, `email`, `password`) VALUES
 (154, 'testasAI', 254, 'testasAi@gmail.', 'alio'),
 (156, 'test55', 60, 'test55@gmail.co', 'Neatpazyst'),
 (163, 'Testaskarpol2', 300, 'karpolisc@gmail.com', 'ilgasis'),
-(164, 'kazom', 0, 'kazom@gmail.com', 'kazom123');
+(164, 'kazom', 267, 'kazom@gmail.com', 'kazom123');
 
 --
 -- Indexes for dumped tables
@@ -162,13 +169,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `users`
