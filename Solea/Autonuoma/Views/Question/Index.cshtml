@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="~/css/bootswatchTheme.css" />
 
 <div class="main-content-header container-fluid d-flex d-row justify-content-between align-items-center p-2">
-	<span class="title">@ViewData["title"]</span>
+	<pantrast class="title">@ViewData["title"]</pantrast>
 	@*<input type="text" placeholder="Search.." id="search">
 	<input type="submit" value="Search" formaction="Search" fommethod="post"/>
 	@*<button type="submit" formaction="@Url.Action("Create")">Submit</button>
@@ -62,40 +62,45 @@
 			@foreach (var item in Model.question) {
 			<tr>
 				<td>
-					<p style="font-size:1.5vw;">
+					<atskls>
 							@Html.DisplayFor(Question => item.fk_User)
 							
-					</p>
+					</atskls>
 				</td>
 				<td>
-					<p style="font-size:1.5vw;">
+					<atskls>
 							@Html.DisplayFor(Question => item.Questions)
 							
-					</p>
+					</atskls>
 					
 				</td>
 				<td>
-					<p style="font-size:1.5vw;">
+					<atskls>
 							@Html.DisplayFor(Question => item.Likes)
+
 							@if(Model.user.Id==0){
 								<a href="http://localhost:5000/User/Login"  role="button"><img src="/images/like.png" alt="like" width="20" height="auto"></a>
 							}
 							else{
 								<a href="@Url.Action("Like", new { id = item.Id, QuestiondUserId=item.fk_User})" > <img src="/images/like.png" alt="like" width="20" height="auto"></a>
 							}
-					</p>
+					
+      </atskls>
+
 					
 				</td>
 				<td>
-					<p style="font-size:1.5vw;">
+					<atskls>
 							@Html.DisplayFor(Question => item.Dislikes)
+
 							@if(Model.user.Id==0){
 								<a href="http://localhost:5000/User/Login"  role="button"><img src="/images/dislike.png" alt="dislike" width="20" height="auto"></a>
 							}
 							else{
 								<a href="@Url.Action("Dislike", new { id = item.Id, QuestiondUserId=item.fk_User})" > <img src="/images/dislike.png" alt="dislike" width="20" height="auto"></a>
 							}
-					</p>
+					</atskls>
+
 					
 				</td>
 				@*<td>

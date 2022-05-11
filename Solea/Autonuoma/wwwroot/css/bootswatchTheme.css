@@ -62,8 +62,9 @@
    --bs-body-font-size: 1rem;
    --bs-body-font-weight: 700;
    --bs-body-line-height: 1.5;
-   --bs-body-color: #ffffff50;
-   --bs-body-bg: rgb(155, 155, 155);
+   --bs-body-color: #eeebebe7;
+   --bs-body-bg: rgb(219, 218, 218);
+   
  }
  
  *,
@@ -163,7 +164,112 @@
    margin-top: 0;
    margin-bottom: 1rem;
  }
+ pantrast {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color:#2a9fd6;
+  font-size: 3vh;
+}
+antrast {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color:#2a9fd6;
+  font-size: 2.8vh;
+}
+noanswer {
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
+  color:#2a9fd6;
+  font-size: 2.5vh;
+}
+namequestion{
+  text-align: center;
+  text-align-last: center;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color:#195a78;
+  font-size: 2.2vh;
+}
+
+atskls {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color:#000000;
+  font-size: 2.8vh;
+}
+  
  
+div.blueTable {
+  font-family: Georgia, serif;
+  border: 0px solid #DBDADA;
+  background-color: #DBDADA;
+  width: 500px;
+  height: 74px;
+  text-align: center;
+  border-collapse: collapse;
+}
+.divTable.blueTable .divTableCell, .divTable.blueTable .divTableHead {
+  border: 0px solid #AAAAAA;
+  padding: 3px 2px;
+}
+.divTable.blueTable .divTableBody .divTableCell {
+  font-size: 20px;
+  color: #465a63;
+}
+.divTable.blueTable .divTableRow:nth-child(even) {
+  background: #D0E4F5;
+}
+.divTable.blueTable .divTableHeading {
+  background: #DBDADA;
+  background: -moz-linear-gradient(top, #e4e3e3 0%, #dedddd 66%, #DBDADA 100%);
+  background: -webkit-linear-gradient(top, #e4e3e3 0%, #dedddd 66%, #DBDADA 100%);
+  background: linear-gradient(to bottom, #e4e3e3 0%, #dedddd 66%, #DBDADA 100%);
+  border-bottom: 2px solid #444444;
+}
+.divTable.blueTable .divTableHeading .divTableHead {
+  font-size: 28px;
+  font-weight: bold;
+  color: #465a63;
+  text-align: center;
+  border-left: 2px solid #DBDADA;
+}
+.divTable.blueTable .divTableHeading .divTableHead:first-child {
+  border-left: none;
+}
+
+.blueTable .tableFootStyle {
+  font-size: 14px;
+}
+.blueTable .tableFootStyle .links {
+	 text-align: right;
+}
+.blueTable .tableFootStyle .links a{
+  display: inline-block;
+  background: #1C6EA4;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+.blueTable.outerTableFooter {
+  border-top: none;
+}
+.blueTable.outerTableFooter .tableFootStyle {
+  padding: 3px 5px; 
+}
+/* DivTable.com */
+.divTable{ display: table; }
+.divTableRow { display: table-row; }
+.divTableHeading { display: table-header-group;}
+.divTableCell, .divTableHead { display: table-cell;}
+.divTableHeading { display: table-header-group;}
+.divTableFoot { display: table-footer-group;}
+.divTableBody { display: table-row-group;}
+
+
+    
  abbr[title],
  abbr[data-bs-original-title] {
    -webkit-text-decoration: underline dotted;
