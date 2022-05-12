@@ -50,13 +50,13 @@
 				</th>
 				<th>
 					<antrast>Question </antrast>
-					
-				</th>
-				@*<th>
-					Likes
+					<a href="@Url.Action("Index","Question", new { n = 3})"  role="button">sort by name</a>
 				</th>
 				<th>
-					Dislikes
+					<a href="@Url.Action("Index","Question", new { n = 1})"  role="button">sort by likes</a>
+				</th>
+				<th>
+					<a href="@Url.Action("Index","Question", new { n = 2})"  role="button">sort by dislikes</a>
 				</th>
 				@*<th>
 					@Html.DisplayNameFor(Question => Question.Content)

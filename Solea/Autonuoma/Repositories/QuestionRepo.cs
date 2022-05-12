@@ -14,24 +14,55 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 {
 	public class QuestionRepo
 	{
-		public static List<QuestionListVM> List()
+		public static List<QuestionListVM> List(int n)
 		{
 			var result = new List<QuestionListVM>();
-
-			var query =
+			string query;
+			if(n == 2){
+				query =
 				$@"SELECT
-					md.user,
-					md.question,
-					md.content,
-					md.id,
-					md.likes,
-					md.dislikes,
-					md.topAnswer
-					FROM
-					`{Config.TblPrefix}questions` md
-					LEFT JOIN `{Config.TblPrefix}users` usr ON md.user=usr.name
-				ORDER BY md.id DESC";
-
+						md.user,
+						md.question,
+						md.content,
+						md.id,
+						md.likes,
+						md.dislikes,
+						md.topAnswer
+						FROM
+						`{Config.TblPrefix}questions` md
+						LEFT JOIN `{Config.TblPrefix}users` usr ON md.user=usr.name
+					ORDER BY md.dislikes DESC";
+			}
+			else if(n == 3){
+				query =
+				$@"SELECT
+						md.user,
+						md.question,
+						md.content,
+						md.id,
+						md.likes,
+						md.dislikes,
+						md.topAnswer
+						FROM
+						`{Config.TblPrefix}questions` md
+						LEFT JOIN `{Config.TblPrefix}users` usr ON md.user=usr.name
+					ORDER BY md.question ASC";
+			}
+			else{
+				query =
+				$@"SELECT
+						md.user,
+						md.question,
+						md.content,
+						md.id,
+						md.likes,
+						md.dislikes,
+						md.topAnswer
+						FROM
+						`{Config.TblPrefix}questions` md
+						LEFT JOIN `{Config.TblPrefix}users` usr ON md.user=usr.name
+					ORDER BY md.likes DESC";
+			}
 			var dt = Sql.Query(query);
 
 			foreach( DataRow item in dt )
@@ -80,7 +111,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 
 		public static List<QuestionListVM> FindList(string search)
 		{
-			var mevm = List();
+			var mevm = List(3);
 			if(search!=null){
 			string[] words = search.Split(' ');
 			List<QuestionListVM> questions = new List<QuestionListVM>();

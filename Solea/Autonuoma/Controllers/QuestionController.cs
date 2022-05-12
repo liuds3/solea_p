@@ -19,13 +19,13 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// This is invoked when either 'Index' action is requested or no action is provided.
 		/// </summary>
 		/// <returns>Entity list view.</returns>
-		public ActionResult Index(string search)
+		public ActionResult Index(string search, int n)
 		{
 			
 			int idUser = Convert.ToInt32(TempData["id"]);
 			var vModel = new QuestionsLog();
 			if(search==null){
-				var questions = QuestionRepo.List();
+				var questions = QuestionRepo.List(n);
 				vModel.question=questions;
 			}	
 			else{
@@ -38,9 +38,9 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		}
 		//Shows the question and it's answers. From Views gets question id. With that id
 		//using QuestionRepo.FindForDeletion() method finds the question and it's answers
-		public ActionResult Content(int id)
+		public ActionResult Content(int id,int n)
 		{
-			var answerss = AnswerRepo.QuestionAnswers(id);
+			var answerss = AnswerRepo.QuestionAnswers(id,n);
 			var questions = QuestionRepo.FindForDeletion(id);
 			var user = UserRepo.Find(Convert.ToInt32(TempData["id"]));
 			var vModel = new Answers();

@@ -60,14 +60,14 @@ else{
 				</th>
 				<th>
 					<antrast>Answer</antrast>
-
-				</th>
-				@*<th>
-					<p style="color:#2a9fd6";>Likes</p>
-
+					<a href="@Url.Action("Content","Question", new {id=Model.question.Id, n = 3})"  role="button">sort by name</a>
 				</th>
 				<th>
-					<antrast>Dislikes</antrast>
+					
+					<a href="@Url.Action("Content","Question", new {id=Model.question.Id, n = 1})"  role="button">sort by likes</a>
+				</th>
+				<th>
+					<a href="@Url.Action("Content","Question", new {id=Model.question.Id, n = 2})"  role="button">sort by dislikes</a>
 
 				</th>
 				@*<th>

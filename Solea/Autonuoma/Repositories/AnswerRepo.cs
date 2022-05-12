@@ -17,8 +17,8 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 		public static List<AnswerListVM> List()
 		{
 			var result = new List<AnswerListVM>();
-
-			var query =
+			string query;
+			query =
 				$@"SELECT
 					md.user,
 					md.question,
@@ -31,8 +31,8 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 					`{Config.TblPrefix}answers` md
 					LEFT JOIN `{Config.TblPrefix}users` usr ON md.user=usr.name
 					LEFT JOIN `{Config.TblPrefix}questions` que ON md.question=que.question
-				ORDER BY md.id DESC";
-
+				ORDER BY md.answer ASC";
+			
 			var dt = Sql.Query(query);
 
 			foreach( DataRow item in dt )
@@ -51,11 +51,12 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 
 			return result;
 		}
-		public static List<AnswerListVM> QuestionAnswers(int id)
+		public static List<AnswerListVM> QuestionAnswers(int id,int n)
 		{
 			var result = new List<AnswerListVM>();
-
-			var query =
+			string query;
+			if(n == 3){
+				query =
 				$@"SELECT
 					md.user,
 					md.question,
@@ -69,8 +70,45 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 					LEFT JOIN `{Config.TblPrefix}users` usr ON md.user=usr.name
 					LEFT JOIN `{Config.TblPrefix}questions` que ON md.question=que.question
 				WHERE
-					que.id = ?id";
-
+					que.id = ?id
+				ORDER BY md.answer ASC";
+			}
+			else if(n == 2){
+				query =
+				$@"SELECT
+					md.user,
+					md.question,
+					md.answer,
+					md.id,
+					md.likes,
+					md.dislikes,
+					md.best
+					FROM
+					`{Config.TblPrefix}answers` md
+					LEFT JOIN `{Config.TblPrefix}users` usr ON md.user=usr.name
+					LEFT JOIN `{Config.TblPrefix}questions` que ON md.question=que.question
+				WHERE
+					que.id = ?id
+				ORDER BY md.dislikes DESC";
+			}
+			else{
+				query =
+				$@"SELECT
+					md.user,
+					md.question,
+					md.answer,
+					md.id,
+					md.likes,
+					md.dislikes,
+					md.best
+					FROM
+					`{Config.TblPrefix}answers` md
+					LEFT JOIN `{Config.TblPrefix}users` usr ON md.user=usr.name
+					LEFT JOIN `{Config.TblPrefix}questions` que ON md.question=que.question
+				WHERE
+					que.id = ?id
+				ORDER BY md.likes DESC";
+			}
 			var dt =
 				Sql.Query(query, args => {
 					args.Add("?id", MySqlDbType.Int32).Value = id;
