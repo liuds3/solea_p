@@ -173,7 +173,7 @@
 antrast {
   margin-top: 0;
   margin-bottom: 1rem;
-  color:#2a9fd6;
+  color:#015378;
   font-size: 2.8vh;
 }
 noanswer {
@@ -306,11 +306,13 @@ div.blueTable {
  
  dt {
    font-weight: 700;
+   color: black;
  }
  
  dd {
    margin-bottom: .5rem;
    margin-left: 0;
+   color: #8aa7c4;
  }
  
  blockquote {
