@@ -220,7 +220,10 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		public ActionResult Delete(int id)
 		{
 			var questionLvm = QuestionRepo.FindForDeletion(id);
-			return View(questionLvm);
+			Answers question = new Answers();
+			question.question=questionLvm;
+			question.user=UserRepo.Find(Convert.ToInt32(TempData["id"]));
+			return View(question);
 		}
 
 		/// <summary>
@@ -244,8 +247,9 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			{
 				//enable explanatory message and show delete form
 				ViewData["deletionNotPermitted"] = true;
-
-				var questionLvm = QuestionRepo.FindForDeletion(id);
+				Answers questionLvm = new Answers();
+				questionLvm.question = QuestionRepo.FindForDeletion(id);
+				questionLvm.user=UserRepo.Find(Convert.ToInt32(TempData["id"]));
 
 				return View("Delete", questionLvm);
 			}
