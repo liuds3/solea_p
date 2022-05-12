@@ -17,16 +17,16 @@
 	@Html.HiddenFor(m => m.Id)
 
 	<fieldset class="border rounded shadow p-2">
-		<legend class="text-center">You sure you want to delete this question?</legend>
+		<legend style="color: red;" class="text-center">You sure you want to delete this question?</legend>
 
 		<dl>
-			<dt>@Html.DisplayNameFor(m => m.fk_User)</dt>
+			<dt>@Html.DisplayNameFor(m => m.fk_User):</dt>
 			<dd>@Html.DisplayFor(m => m.fk_User)</dd>
 
-			<dt>@Html.DisplayNameFor(m => m.Questions)</dt>
+			<dt>@Html.DisplayNameFor(m => m.Questions):</dt>
 			<dd>@Html.DisplayFor(m => m.Questions)</dd>
 
-			<dt>@Html.DisplayNameFor(m => m.Content)</dt>
+			<dt>@Html.DisplayNameFor(m => m.Content):</dt>
 			<dd>@Html.DisplayFor(m => m.Content)</dd>
 
 		</dl>
