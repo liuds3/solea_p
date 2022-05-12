@@ -59,7 +59,7 @@
 	}
 	else{
 		<span class="actions">
-			<a  ><i class="fa-solid fa-plus"></i></a>
+			<a ><i class="fa-solid fa-plus"></i></a>
 		</span>
 
 		   <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
@@ -71,7 +71,7 @@
  						<li class="nav-item dropdown">
     					<antrast class="btn btn-secondary btn-lg dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@TempData["name"] </antrast>
     						<div class="dropdown-menu" style="">
-      							<a class="dropdown-item" href="#">Edit profile</a>
+      							<a class="dropdown-item" href="@Url.Action("Edit", "User")">Edit profile</a>
       							<a class="dropdown-item" style="color: red;" href="@Url.Action("Index", "Home")">Logout</a>
   						</li>
 					</ul>

@@ -140,15 +140,6 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		public ActionResult Create(QuestionEditVM questionEvm)
 		{
 			bool temp=true;
-			//form field validation passed?
-			/*if( ModelState.IsValid )
-			
-			{
-				QuestionRepo.Insert(questionEvm);
-
-				//save success, go back to the entity list
-				return RedirectToAction("Index", new { id = questionEvm.user.Id});
-			}*/
 			if(questionEvm.Question.Questions == null || questionEvm.Question.Questions.Length < 5){
 				ModelState.AddModelError("question", "Question must be atleast 5 characters");
 				temp=false;
@@ -162,10 +153,10 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 				ModelState.AddModelError("content", "Content must be atleast 15 characters");
 				temp=false;
 			}
-			var user = UserRepo.Find(Convert.ToInt32(TempData["id"]));
-			user.Currency-=100;
-			UserRepo.Update(user);
 			if(temp){
+				var user = UserRepo.Find(Convert.ToInt32(TempData["id"]));
+				user.Currency-=100;
+				UserRepo.Update(user);
 				QuestionRepo.Insert(questionEvm);
 				return RedirectToAction("Index");
 			}
@@ -211,7 +202,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			if(question.Question.Questions == questionEvm.Question.Questions)
 				ModelState.AddModelError("question", "Question with the same title already exist");*/
 			if(questionEvm.Question.Content == null || questionEvm.Question.Content.Length < 15)
-				ModelState.AddModelError("content", "Content must be atleast 15 characters");
+				ModelState.AddModelError("content", "Content must be at least 15 characters");
 			else {
 				QuestionRepo.Update(questionEvm);
 				return RedirectToAction("Index");

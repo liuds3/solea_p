@@ -168,7 +168,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 					return View(answerEvm);
 				}
 				else if( answerEvm.Answer.Answers.Length < 3){
-					ModelState.AddModelError("answer", "The answer must be atleast 3 symbols long");
+					ModelState.AddModelError("answer", "The answer must be at least 3 characters long");
 					return View(answerEvm);
 				}
 				AnswerRepo.Update(answerEvm);
