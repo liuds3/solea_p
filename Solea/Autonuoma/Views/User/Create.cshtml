@@ -23,25 +23,27 @@
 		<div class="form-group">
 
 			<div>
-			@Html.LabelFor(m => m.Name, new { @class = "control-label" })
-			@Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
+			<atskls>@Html.LabelFor(m => m.Name, new { @class = "control-label" }) </atskls>
+			@Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter username" } })
 			@Html.ValidationMessage("name"@*m => m.Name, "", new { @class = "text-danger" }*@)
 			</div>
 			<div>
-			@Html.LabelFor(m => m.Email, new { @class = "control-label" })
-			@Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control" } })
+			<atskls>@Html.LabelFor(m => m.Email, new { @class = "control-label" }) </atskls>
+			@Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control", @type = "email", @placeholder = "Enter email" } })
+			<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 			@Html.ValidationMessage("email"@*m => m.Email, "", new { @class = "text-danger" }*@)
 			</div>
 			<div>
-			@Html.LabelFor(m => m.Password, new { @class = "control-label" })
-			@Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "form-control" } })
+			<atskls>@Html.LabelFor(m => m.Password, new { @class = "control-label" }) </atskls>
+			@Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "form-control", @type = "password", @placeholder = "Password" } })
 			@Html.ValidationMessage("password"@*m => m.Password, "", new { @class = "text-danger" }*@)
 			</div>
+			 
 		</div>
 	</fieldset>
 
 	<div class="container-fluid d-flex d-row justify-content-end">
-		<button class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+		<button class="btn btn-warning"><i class="fa-solid fa-floppy-disk"></i> Save</button>
 	</div>
 }
 </div>
