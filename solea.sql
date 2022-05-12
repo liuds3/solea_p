@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2022 at 05:17 PM
+-- Generation Time: May 12, 2022 at 05:42 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -51,7 +51,8 @@ INSERT INTO `answers` (`user`, `question`, `answer`, `id`, `likes`, `dislikes`, 
 ('test55', 'If you could live in a book, TV show, or movie, wh', 'dsafdasvasdkjchasd', 52, 0, 0, 0),
 ('test55', 'If you could live in a book, TV show, or movie, wh', 'dafsvsdcasdcASDSCASFBADSDAF', 53, 0, 0, 0),
 ('test55', 'Luka Doncic in a game 1 loss to the Suns: 45/12/8 ', 'asdasdvsdvfvsdfvdgbdf', 54, 0, 0, 0),
-('test55', 'If you could live in a book, TV show, or movie, wh', 'sdagandgbfdgdbtgese', 55, 0, 0, 0);
+('test55', 'If you could live in a book, TV show, or movie, wh', 'sdagandgbfdgdbtgese', 55, 0, 0, 0),
+('kazom', 'What languages do you speak?', 'spanola', 63, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -97,7 +98,6 @@ CREATE TABLE `questions` (
 INSERT INTO `questions` (`user`, `question`, `id`, `content`, `likes`, `dislikes`, `topAnswer`) VALUES
 ('karpol2', 'Amber vs Depp, who wsins?', 1, 'In my opinion, I think Depp should win this, because he deserves justice. Amber should go to hell. Well what are your opinions?', 0, 0, 0),
 ('test55', 'Who wins this time nba mvp?', 2, 'So far, I can tell, that Antetokounmpo, Embiid and Jokic are front runners, but, in my opinion, Jokic should win this season\'s mvp, because of its master of pass, scoring abilities.', 0, 0, 0),
-('Useris4', 'Carp is best', 3, 'Guys, what are your favourite fish? Mine is carp, because basically, carps are almost everywhere, and indeed nice type of fish.', 0, 0, 0),
 ('test55', 'Is Elden Ring tiring game', 5, 'So far, I\'ve played for 120hours, and yet, I am struggling to defeat third boss, the gameplay is insane, but difficulty of this game is insane-hard game.\r\n\r\nAny reccomendation to beat this game?', 0, 0, 0),
 ('mykolas', 'In your opinion, is it worth studying at KTU?', 6, 'So far, I have received informations about Kaunas Technology University, is that this place is quite expensive with costs of study. I am not sure if is worth travelling to Lithuania and studying there. What are your opinions? If you\'re KTU student, I would appreciate your opinion 100%.', 0, 0, 0),
 ('useris1', 'KTU dormitory', 7, 'Guys, what issues you are having living in dormitories? I saw one cockroach so far, but, what about you?', 0, 0, 0),
@@ -189,7 +189,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `questions`
@@ -211,14 +211,14 @@ ALTER TABLE `users`
 -- Constraints for table `answers`
 --
 ALTER TABLE `answers`
-  ADD CONSTRAINT `questionai` FOREIGN KEY (`question`) REFERENCES `questions` (`question`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `questionai` FOREIGN KEY (`question`) REFERENCES `questions` (`question`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `userio nickas` FOREIGN KEY (`user`) REFERENCES `users` (`name`);
 
 --
 -- Constraints for table `questions`
 --
 ALTER TABLE `questions`
-  ADD CONSTRAINT `userio` FOREIGN KEY (`user`) REFERENCES `users` (`name`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `userio` FOREIGN KEY (`user`) REFERENCES `users` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
