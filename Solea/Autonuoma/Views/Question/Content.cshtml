@@ -117,7 +117,10 @@ else{
 				</th>*@
 				<th>
 					@if(Model.user.Name==item.fk_User){
-						<a href="@Url.Action("Edit","Answer", new { id1 = item.Id, id = Model.question.Id, q = Model.question.Questions} )" style="float: right;" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+						@*<a href="@Url.Action("Delete","Answer", new { id1 = item.Id, id = Model.question.Id, q = Model.question.Questions} )" style="float: right;" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Delete</a>
+						<a href="@Url.Action("Edit","Answer", new { id1 = item.Id, id = Model.question.Id, q = Model.question.Questions} )" style="float: right;" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>*@
+					<a href="@Url.Action("Delete","Answer", new { id1 = item.Id, id = Model.question.Id, q = Model.question.Questions} )" style="float: right;" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Delete</a>
+					<a href="@Url.Action("Edit","Answer", new { id1 = item.Id, id = Model.question.Id, q = Model.question.Questions} )" style="float: right;" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
 					}
 				</th>
 			</tr>
