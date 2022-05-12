@@ -83,17 +83,20 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			var answer=AnswerRepo.Find(id);
 			if(match.AnswerId != id){
 				answer.Answer.Likes+=1;
-				user.Currency+=1;
+				if(user.Id!=Convert.ToInt32(TempData["id"]))
+					user.Currency+=1;
 				LikedRepo.Insert(0, id, Convert.ToInt32(TempData["id"]), LikedId, 1);
 			}
 			else if(match.likedOrDisliked == 2 ){
 				answer.Answer.Likes+=1;
 				answer.Answer.Dislikes-=1;
-				user.Currency+=1;
+				if(user.Id!=Convert.ToInt32(TempData["id"]))
+					user.Currency+=1;
 				LikedRepo.Update(0, id, Convert.ToInt32(TempData["id"]), match.Id, 1);
 			}
 			else{
-				user.Currency-=1;
+				if(user.Id!=Convert.ToInt32(TempData["id"]))
+					user.Currency-=1;
 				answer.Answer.Likes-=1;
 				LikedRepo.Delete(match.Id);
 			}
@@ -120,7 +123,8 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			else if(match.likedOrDisliked == 1 ){
 				answer.Answer.Likes-=1;
 				answer.Answer.Dislikes+=1;
-				user.Currency-=1;
+				if(user.Id!=Convert.ToInt32(TempData["id"]))
+					user.Currency-=1;
 				LikedRepo.Update(0, id, Convert.ToInt32(TempData["id"]), match.Id, 2);
 			}
 			else{
