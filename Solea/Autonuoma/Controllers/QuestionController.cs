@@ -116,6 +116,23 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			QuestionRepo.Update(question);
 			return RedirectToAction("Index");
 		}
+		//This is invoked when "mark as the best answer" button is pressed
+		public ActionResult Mark(int AnswerId)
+		{
+			var question = QuestionRepo.Find(Convert.ToInt32(TempData["Qid"]));
+			if(question.Question.topAnswer==0){
+				question.Question.topAnswer=1;
+				QuestionRepo.Update(question);
+				var answer = AnswerRepo.Find(AnswerId);
+				answer.Answer.best=1;
+				AnswerRepo.Update(answer);
+				var user = UserRepo.Find(answer.Answer.fk_User, 1);
+				user.Currency+=50;
+				UserRepo.Update(user);
+				Debug.WriteLine(user.Name);
+			}
+			return RedirectToAction("Content", new {id=Convert.ToInt32(TempData["Qid"])});
+		}
 		/// <summary>
 		/// This is invoked when creation form is first opened in browser.
 		/// </summary>
