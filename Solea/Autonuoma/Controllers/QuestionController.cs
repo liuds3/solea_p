@@ -162,6 +162,9 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 				ModelState.AddModelError("content", "Content must be atleast 15 characters");
 				temp=false;
 			}
+			var user = UserRepo.Find(Convert.ToInt32(TempData["id"]));
+			user.Currency-=100;
+			UserRepo.Update(user);
 			if(temp){
 				QuestionRepo.Insert(questionEvm);
 				return RedirectToAction("Index");
