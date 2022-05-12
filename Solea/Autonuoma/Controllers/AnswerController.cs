@@ -32,7 +32,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		{
 			//var answerEvm = new AnswerEditVM();
 			var answerEvm = new AnswerEditVM();
-			PopulateSelections(answerEvm);
+			//PopulateSelections(answerEvm);
 			answerEvm.Answer.fk_Questions=q;
 			answerEvm.Lists.Questions_Id=id;
 			var user=UserRepo.Find(Convert.ToInt32(TempData["id"]));
@@ -142,7 +142,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			answerEvm.Answer.fk_Questions=q;
 			answerEvm.Lists.Questions_Id=id;
 			answerEvm.user=UserRepo.Find(Convert.ToInt32(TempData["id"]));
-			PopulateSelections(answerEvm);
+			//PopulateSelections(answerEvm);
 
 			return View(answerEvm);
 		}
@@ -181,10 +181,13 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// </summary>
 		/// <param name="id">ID of the entity to delete.</param>
 		/// <returns>Deletion form view.</returns>
-		public ActionResult Delete(int id)
+		public ActionResult Delete(int id, int idQ)
 		{
-			var questionLvm = AnswerRepo.FindForDeletion(id);
-			return View(questionLvm);
+			Answers answerLvm = new Answers();
+			answerLvm.answer = AnswerRepo.FindForDeletion(id);
+			answerLvm.user=UserRepo.Find(Convert.ToInt32(TempData["id"]));
+			//answerLvm.question.Id=23;
+			return View(answerLvm);
 		}
 
 		/// <summary>
@@ -193,7 +196,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// <param name="id">ID of the entity to delete.</param>
 		/// <returns>Deletion form view on error, redirects to Index on success.</returns>
 		[HttpPost]
-		public ActionResult DeleteConfirm(int id)
+		public ActionResult DeleteConfirm(int id, int idQ)
 		{
 			//try deleting, this will fail if foreign key constraint fails
 			try
@@ -201,17 +204,19 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 				AnswerRepo.Delete(id);
 
 				//deletion success, redired to list form
-				return RedirectToAction("Index");
+				return RedirectToAction("Content","Question", new{id=idQ});
 			}
 			//entity in use, deletion not permitted
 			catch( MySql.Data.MySqlClient.MySqlException )
 			{
 				//enable explanatory message and show delete form
 				ViewData["deletionNotPermitted"] = true;
+				Answers answerLvm = new Answers();
+				answerLvm.answer = AnswerRepo.FindForDeletion(id);
+				answerLvm.user=UserRepo.Find(Convert.ToInt32(TempData["id"]));
+				answerLvm.question.Id=idQ;
 
-				var questionLvm = AnswerRepo.FindForDeletion(id);
-
-				return View("Delete", questionLvm);
+				return View("Delete", answerLvm);
 			}
 		}
 
@@ -219,7 +224,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// Populates select lists used to render drop down controls.
 		/// </summary>
 		/// <param name="answerEvm">'Automobilis' view model to append to.</param>
-		public void PopulateSelections(AnswerEditVM answersEvm)
+		/*public void PopulateSelections(AnswerEditVM answersEvm)
 		{
 			//load entities for the select lists
 			var users = UserRepo.List();
@@ -245,8 +250,8 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 							Text = Convert.ToString(it.Questions)
 						};
 				})
-				.ToList();*/
+				.ToList();
 			
-		}
+		}*/
 	}
 }

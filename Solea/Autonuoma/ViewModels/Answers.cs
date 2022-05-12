@@ -13,5 +13,6 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.ViewModels
         public QuestionListVM question { get; set; }
         public List<AnswerListVM> answers { get; set; }
         public User user {get; set;}
+        public AnswerListVM answer { get; set; }
     }
 }
