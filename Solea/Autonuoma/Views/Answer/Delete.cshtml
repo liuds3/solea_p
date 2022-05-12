@@ -19,16 +19,14 @@
 	@Html.HiddenFor(m => m.answer.Likes)
 	@Html.HiddenFor(m => m.answer.Dislikes)
 	@Html.HiddenFor(m => m.answer.Id)
+	@Html.HiddenFor(m => m.answer.fk_User)
+	@Html.HiddenFor(m => m.answer.fk_Questions)
+
 
 	<fieldset class="border rounded shadow p-2">
-		<legend class="text-center">You sure you want to delete this answer?</legend>
+		<legend style="color: red;" class="text-center">You sure you want to delete your reply/answer?</legend>
 
 		<dl>
-			<dt>@Html.DisplayNameFor(m => m.answer.fk_User)</dt>
-			<dd>@Html.DisplayFor(m => m.answer.fk_User)</dd>
-
-			<dt>@Html.DisplayNameFor(m => m.answer.fk_Questions)</dt>
-			<dd>@Html.DisplayFor(m => m.answer.fk_Questions)</dd>
 
             <dt>@Html.DisplayNameFor(m => m.answer.Answers)</dt>
 			<dd>@Html.DisplayFor(m => m.answer.Answers)</dd>
