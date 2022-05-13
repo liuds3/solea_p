@@ -71,7 +71,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Repositories
 					LEFT JOIN `{Config.TblPrefix}questions` que ON md.question=que.question
 				WHERE
 					que.id = ?id
-				ORDER BY md.answer ASC";
+				ORDER BY md.id DESC";
 			}
 			else if(n == 2){
 				query =
