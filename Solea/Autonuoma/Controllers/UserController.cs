@@ -114,9 +114,9 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// </summary>
 		/// <param name="id">ID of the entity to edit.</param>
 		/// <returns>Editing form view.</returns>
-		/*public ActionResult Edit(int id)
+		public ActionResult Edit()
 		{
-			var user = UserRepo.Find(id);
+			var user = UserRepo.Find(Convert.ToInt32(TempData["id"]));
 			return View(user);
 		}
 
@@ -127,21 +127,20 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// <param name="marke">Entity model filled with latest data.</param>
 		/// <returns>Returns editing from view or redirects back to Index if save is successfull.</returns>
 		[HttpPost]
-		public ActionResult Edit(int id, User user)
+		public ActionResult Edit(User user)
 		{
 			//form field validation passed?
-			if (ModelState.IsValid)
-			{
+			if(user.Password == null || user.Password.Length < 5)
+				ModelState.AddModelError("password", "Password must be at least 5 characters");
+			else {
 				UserRepo.Update(user);
-
-				//save success, go back to the entity list
-				return RedirectToAction("Index");
+				return RedirectToAction("Index","Question");
 			}
 
 			//form field validation failed, go back to the form
 			return View(user);
 		}
-
+	/*
 		/// </summary>
 		/// <param name="id">ID of the entity to delete.</param>
 		/// <returns>Deletion form view.</returns>

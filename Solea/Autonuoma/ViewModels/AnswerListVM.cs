@@ -28,5 +28,8 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.ViewModels
 			[DisplayName("Dislikes")]
 			public int Dislikes { get; set; }
 
+			[DisplayName("best")]
+			public int best { get; set; }
+
 	}
 }

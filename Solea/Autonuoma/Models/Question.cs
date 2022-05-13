@@ -27,5 +27,8 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Models
 
 		[DisplayName("Dislikes")]
 		public int Dislikes { get; set; }
+
+		[DisplayName("topAnswer")]
+		public int topAnswer { get; set; }
 	}
 }

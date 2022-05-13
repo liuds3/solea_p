@@ -19,13 +19,13 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		/// This is invoked when either 'Index' action is requested or no action is provided.
 		/// </summary>
 		/// <returns>Entity list view.</returns>
-		public ActionResult Index(string search)
+		public ActionResult Index(string search, int n)
 		{
 			
 			int idUser = Convert.ToInt32(TempData["id"]);
 			var vModel = new QuestionsLog();
 			if(search==null){
-				var questions = QuestionRepo.List();
+				var questions = QuestionRepo.List(n);
 				vModel.question=questions;
 			}	
 			else{
@@ -38,9 +38,9 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		}
 		//Shows the question and it's answers. From Views gets question id. With that id
 		//using QuestionRepo.FindForDeletion() method finds the question and it's answers
-		public ActionResult Content(int id)
+		public ActionResult Content(int id,int n)
 		{
-			var answerss = AnswerRepo.QuestionAnswers(id);
+			var answerss = AnswerRepo.QuestionAnswers(id,n);
 			var questions = QuestionRepo.FindForDeletion(id);
 			var user = UserRepo.Find(Convert.ToInt32(TempData["id"]));
 			var vModel = new Answers();
@@ -64,17 +64,20 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			var question=QuestionRepo.Find(id);
 			if(match.QuestionId != id){
 				question.Question.Likes+=1;
-				user.Currency+=1;
+				if(user.Id!=Convert.ToInt32(TempData["id"]))
+					user.Currency+=1;
 				LikedRepo.Insert(id, 0, Convert.ToInt32(TempData["id"]), LikedId, 1);
 			}
 			else if(match.likedOrDisliked == 2 ){
 				question.Question.Likes+=1;
 				question.Question.Dislikes-=1;
-				user.Currency+=1;
+				if(user.Id!=Convert.ToInt32(TempData["id"]))
+					user.Currency+=1;
 				LikedRepo.Update(id, 0, Convert.ToInt32(TempData["id"]), match.Id, 1);
 			}
 			else{
-				user.Currency-=1;
+				if(user.Id!=Convert.ToInt32(TempData["id"]))
+					user.Currency-=1;
 				question.Question.Likes-=1;
 				LikedRepo.Delete(match.Id);
 			}
@@ -101,7 +104,8 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			else if(match.likedOrDisliked == 1){
 				question.Question.Likes-=1;
 				question.Question.Dislikes+=1;
-				user.Currency-=1;
+				if(user.Id!=Convert.ToInt32(TempData["id"]))
+					user.Currency-=1;
 				LikedRepo.Update(id, 0, Convert.ToInt32(TempData["id"]), match.Id, 2);
 			}
 			else{
@@ -111,6 +115,23 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			UserRepo.Update(user);
 			QuestionRepo.Update(question);
 			return RedirectToAction("Index");
+		}
+		//This is invoked when "mark as the best answer" button is pressed
+		public ActionResult Mark(int AnswerId)
+		{
+			var question = QuestionRepo.Find(Convert.ToInt32(TempData["Qid"]));
+			if(question.Question.topAnswer==0){
+				question.Question.topAnswer=1;
+				QuestionRepo.Update(question);
+				var answer = AnswerRepo.Find(AnswerId);
+				answer.Answer.best=1;
+				AnswerRepo.Update(answer);
+				var user = UserRepo.Find(answer.Answer.fk_User, 1);
+				user.Currency+=50;
+				UserRepo.Update(user);
+				Debug.WriteLine(user.Name);
+			}
+			return RedirectToAction("Content", new {id=Convert.ToInt32(TempData["Qid"])});
 		}
 		/// <summary>
 		/// This is invoked when creation form is first opened in browser.
@@ -136,15 +157,6 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		public ActionResult Create(QuestionEditVM questionEvm)
 		{
 			bool temp=true;
-			//form field validation passed?
-			/*if( ModelState.IsValid )
-			
-			{
-				QuestionRepo.Insert(questionEvm);
-
-				//save success, go back to the entity list
-				return RedirectToAction("Index", new { id = questionEvm.user.Id});
-			}*/
 			if(questionEvm.Question.Questions == null || questionEvm.Question.Questions.Length < 5){
 				ModelState.AddModelError("question", "Question must be atleast 5 characters");
 				temp=false;
@@ -159,6 +171,9 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 				temp=false;
 			}
 			if(temp){
+				var user = UserRepo.Find(Convert.ToInt32(TempData["id"]));
+				user.Currency-=100;
+				UserRepo.Update(user);
 				QuestionRepo.Insert(questionEvm);
 				return RedirectToAction("Index");
 			}
@@ -204,7 +219,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			if(question.Question.Questions == questionEvm.Question.Questions)
 				ModelState.AddModelError("question", "Question with the same title already exist");*/
 			if(questionEvm.Question.Content == null || questionEvm.Question.Content.Length < 15)
-				ModelState.AddModelError("content", "Content must be atleast 15 characters");
+				ModelState.AddModelError("content", "Content must be at least 15 characters");
 			else {
 				QuestionRepo.Update(questionEvm);
 				return RedirectToAction("Index");
