@@ -65,19 +65,19 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			if(match.QuestionId != id){
 				question.Question.Likes+=1;
 				if(user.Id!=Convert.ToInt32(TempData["id"]))
-					user.Currency+=1;
+					user.Currency+=5;
 				LikedRepo.Insert(id, 0, Convert.ToInt32(TempData["id"]), LikedId, 1);
 			}
 			else if(match.likedOrDisliked == 2 ){
 				question.Question.Likes+=1;
 				question.Question.Dislikes-=1;
 				if(user.Id!=Convert.ToInt32(TempData["id"]))
-					user.Currency+=1;
+					user.Currency+=5;
 				LikedRepo.Update(id, 0, Convert.ToInt32(TempData["id"]), match.Id, 1);
 			}
 			else{
 				if(user.Id!=Convert.ToInt32(TempData["id"]))
-					user.Currency-=1;
+					user.Currency-=5;
 				question.Question.Likes-=1;
 				LikedRepo.Delete(match.Id);
 			}
@@ -105,7 +105,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 				question.Question.Likes-=1;
 				question.Question.Dislikes+=1;
 				if(user.Id!=Convert.ToInt32(TempData["id"]))
-					user.Currency-=1;
+					user.Currency-=5;
 				LikedRepo.Update(id, 0, Convert.ToInt32(TempData["id"]), match.Id, 2);
 			}
 			else{
@@ -127,7 +127,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 				answer.Answer.best=1;
 				AnswerRepo.Update(answer);
 				var user = UserRepo.Find(answer.Answer.fk_User, 1);
-				user.Currency+=50;
+				user.Currency+=80;
 				UserRepo.Update(user);
 				Debug.WriteLine(user.Name);
 			}
