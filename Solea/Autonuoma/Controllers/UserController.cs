@@ -93,6 +93,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			//form field validation passed?
 			if (ModelState.IsValid && matchName.Name != user.Name && matchEmail.Email != user.Email)
 			{
+				user.Currency=100;
 				UserRepo.Insert(user);
 				TempData["id"]=UserRepo.Find(user.Name, 1).Id;
 				matchName = UserRepo.Find(user.Name, 1);
