@@ -7,6 +7,7 @@ using Org.Ktu.Isk.P175B602.Autonuoma.Models;
 using Org.Ktu.Isk.P175B602.Autonuoma.ViewModels;
 
 
+
 namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 {
 	/// <summary>

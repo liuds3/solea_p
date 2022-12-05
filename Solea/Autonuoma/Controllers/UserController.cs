@@ -3,6 +3,10 @@ using Org.Ktu.Isk.P175B602.Autonuoma.Repositories;
 using Org.Ktu.Isk.P175B602.Autonuoma.Models;
 using Org.Ktu.Isk.P175B602.Autonuoma.ViewModels;
 using System.Diagnostics;
+using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Web;
 
 
 namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
@@ -74,11 +78,11 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		{
 			var matchName = UserRepo.Find(user.Name, 1);
 			var matchEmail = UserRepo.Find(user.Email);
-			if(matchName.Name == "testasAI"){
-					Debug.WriteLine("gerai");
-				}
-			else
-				Debug.WriteLine("blogai");
+			// if(matchName.Name == "testasAI"){
+			// 		Debug.WriteLine("gerai");
+			// 	}
+			// else
+			// 	Debug.WriteLine("blogai");
 
 			if( matchName.Name == user.Name)
 				ModelState.AddModelError("name", "This name is already taken");
@@ -93,17 +97,24 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			//form field validation passed?
 			if (ModelState.IsValid && matchName.Name != user.Name && matchEmail.Email != user.Email)
 			{
-				user.Currency=100;
-				UserRepo.Insert(user);
-				TempData["id"]=UserRepo.Find(user.Name, 1).Id;
-				matchName = UserRepo.Find(user.Name, 1);
+				// user.Currency=100;
+				// UserRepo.Insert(user);
+				// TempData["id"]=UserRepo.Find(user.Name, 1).Id;
+				//matchName = UserRepo.Find(user.Name, 1);
 				/*if(match.Name == "lab"){
 					Debug.WriteLine("gerai");
 				}
 				else
 					Debug.WriteLine("blogai");*/
 				//save success, go back to the entity list
-				return RedirectToAction("Index","Question");
+
+				int id = SendConfirm(user.Email);
+				TempData["codeId"] = id;
+				TempData["userN"] = user.Name;
+				TempData["userE"] = user.Email;
+				TempData["userP"] = user.Password;
+				return RedirectToAction("Confirm");
+				//return RedirectToAction("Index","Question");
 			}
 
 			//form field validation failed, go back to the form
@@ -176,6 +187,51 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 				var user = UserRepo.Find(id);
 				return View("Delete", user);
 			}
+		}
+		public int SendConfirm(string mail){
+			using (MailMessage mm = new MailMessage("blokasthe@gmail.com", mail))
+        {
+			int id=0;
+			Random random = new Random();
+			id = random.Next();
+            mm.Subject = "Account Activation";
+            string body = "Hello " /*+ user.Name*/ + ",";
+            body += "<br /><br />Please write the following code to activate your account: ";
+			body += id;
+            mm.Body = body;
+            mm.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.EnableSsl = true;
+            NetworkCredential NetworkCred = new NetworkCredential("blokasthe@gmail.com", "qrfeziedrxiiezll");
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = NetworkCred;
+            smtp.Port = 587;
+            smtp.Send(mm);
+			return id;
+        }
+		}
+		public ActionResult Confirm(){
+			return View();
+		}
+		[HttpPost]
+		public ActionResult Confirm(string code){
+			string id = Convert.ToString(TempData["codeId"]);
+			if(code == id){
+				return RedirectToAction("Add");
+			}
+			TempData["codeId"] = id;
+			return View();
+		}
+		public ActionResult Add(){
+			User user = new User();
+			user.Name = Convert.ToString(TempData["userN"]);
+			user.Email = Convert.ToString(TempData["userE"]);
+			user.Password = Convert.ToString(TempData["userP"]);
+			user.Currency = 100;
+			UserRepo.Insert(user);
+			TempData["id"]=UserRepo.Find(user.Name, 1).Id;
+			return RedirectToAction("Index", "Question");
 		}
 	}
 }

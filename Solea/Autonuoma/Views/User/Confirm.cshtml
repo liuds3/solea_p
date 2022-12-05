@@ -1,0 +1,27 @@
+@model Org.Ktu.Isk.P175B602.Autonuoma.Models.User
+
+@{
+	ViewData["title"] = "User confirmation";
+}
+
+<div class="main-content-header container-fluid d-flex d-row justify-content-between align-items-center">
+	<pantrast class="title">@ViewData["title"]</pantrast>
+</div>
+
+<div class="container-fluid d-flex justify-content-center">
+@using (Html.BeginForm("Confirm", "User", new { id = "0" }, FormMethod.Post)){
+  <input type="text" id="code" name="code" />
+  <br/>
+  <button type="submit"><span>Add</span></button>
+  @* <input type="submit" name="submit" value="Confirm" /> *@
+}
+	@* <fieldset class="border rounded shadow p-2">
+		<div class="form-group">
+			
+		</div>
+	</fieldset>
+
+	<div class="container-fluid d-flex d-row justify-content-end">
+		<button class="btn btn-warning"><i class="fa-solid fa-floppy-disk"></i> Confirm</button>
+	</div> *@
+</div>
