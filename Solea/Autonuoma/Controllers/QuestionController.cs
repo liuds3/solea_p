@@ -290,5 +290,8 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 				})
 				.ToList();
 		}*/
+		public ActionResult Share(){
+			return Redirect("http://www.facebook.com");
+		}
 	}
 }

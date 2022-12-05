@@ -42,6 +42,7 @@
 @if(Model.user.Name=="admin"){
 	<a href="@Url.Action("Index", "User")" style="float: right;" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i>Show users</a>
 }
+<a href="@Url.Action("Share")" style="float: right;" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i>Share on facebook</a>
 @if(Model.question.Count>0){
 <div class="d-flex justify-content-center">
 	<table class="entitylist table table-striped table-hover">
@@ -109,8 +110,9 @@
 				@*<td>
 					@Html.DisplayFor(Question => item.Content)
 				</td>*@
+				
 				<td>
-
+					
 					<a href="@Url.Action("Content", new { id = item.Id })" style="float: right;" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i>Show content</a>
 
 					@*<a href="@Url.Action("Deletee", new { id = item.Id })" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Remove</a>*@
