@@ -39,7 +39,9 @@
 		</span>
 	}
 </div>
-
+@if(Model.user.Name=="admin"){
+	<a href="@Url.Action("Index", "User")" style="float: right;" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i>Show users</a>
+}
 @if(Model.question.Count>0){
 <div class="d-flex justify-content-center">
 	<table class="entitylist table table-striped table-hover">

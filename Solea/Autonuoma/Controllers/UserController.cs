@@ -141,7 +141,7 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 			//form field validation failed, go back to the form
 			return View(user);
 		}
-	/*
+	
 		/// </summary>
 		/// <param name="id">ID of the entity to delete.</param>
 		/// <returns>Deletion form view.</returns>
@@ -176,6 +176,6 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 				var user = UserRepo.Find(id);
 				return View("Delete", user);
 			}
-		}*/
+		}
 	}
 }
