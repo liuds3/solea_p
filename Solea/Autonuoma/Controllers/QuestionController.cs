@@ -294,5 +294,17 @@ namespace Org.Ktu.Isk.P175B602.Autonuoma.Controllers
 		public ActionResult Share(){
 			return Redirect("http://www.facebook.com");
 		}
+		public ActionResult Lock(int id){
+			var question = QuestionRepo.Find(id);
+			question.Question.topAnswer=1;
+			QuestionRepo.Update(question);
+			return RedirectToAction("Index");
+		}
+		public ActionResult Unlock(int id){
+			var question = QuestionRepo.Find(id);
+			question.Question.topAnswer=0;
+			QuestionRepo.Update(question);
+			return RedirectToAction("Index");
+		}
 	}
 }

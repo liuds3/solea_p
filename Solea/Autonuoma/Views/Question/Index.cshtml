@@ -43,7 +43,6 @@
 	<a href="@Url.Action("Index", "User")" style="float: right;" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i>Show users</a>
 }
 <a href="@Url.Action("Share")" style="float: right;" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i>Share on facebook</a>
-<a href="@Url.Action("SendConfirm", "User")" style="float: right;" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i>Confirm</a>
 @if(Model.question.Count>0){
 <div class="d-flex justify-content-center">
 	<table class="entitylist table table-striped table-hover">
@@ -115,7 +114,12 @@
 				<td>
 					
 					<a href="@Url.Action("Content", new { id = item.Id })" style="float: right;" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i>Show content</a>
-
+					@if(Model.user.Name == "admin" && item.topAnswer == 0){
+						<a href="@Url.Action("Lock", new { id = item.Id })" style="float: right;" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i>Lock question</a>
+					}
+					else if(Model.user.Name == "admin" && item.topAnswer == 1){
+						<a href="@Url.Action("Unlock", new { id = item.Id })" style="float: right;" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i>Unlock question</a>
+					}
 					@*<a href="@Url.Action("Deletee", new { id = item.Id })" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Remove</a>*@
 					@if(Model.user.Name==item.fk_User){
 						<a href="@Url.Action("Delete", new { id = item.Id })" style="float: right;" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Remove</a>
