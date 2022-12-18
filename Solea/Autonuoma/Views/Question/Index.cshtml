@@ -121,7 +121,7 @@
 						<a href="@Url.Action("Unlock", new { id = item.Id })" style="float: right;" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i>Unlock question</a>
 					}
 					@*<a href="@Url.Action("Deletee", new { id = item.Id })" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Remove</a>*@
-					@if(Model.user.Name==item.fk_User){
+					@if(Model.user.Name==item.fk_User || Model.user.Name == "admin"){
 						<a href="@Url.Action("Delete", new { id = item.Id })" style="float: right;" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Remove</a>
 						<a href="@Url.Action("Edit", new { id = item.Id})" style="float: right;" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
 					}
